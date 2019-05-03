@@ -1,23 +1,23 @@
 ---
-title: "Introduction to visualising spatial data in R"
+title: "Chapter One"
+subtitle: "Introduction to visualising spatial data(sp) in R"
 # author: Robin Lovelace (R.Lovelace@leeds.ac.uk), James Cheshire, Rachel Oldroyd and
 #   others
 # date: "`r Sys.Date()`. See [github.com/Robinlovelace/Creating-maps-in-R](https://github.com/Robinlovelace/Creating-maps-in-R)
 #   for latest version"
-# output: github_document
-output:
-  pdf_document:
-    fig_cap: yes
-    fig_height: 3.5
-    fig_width: 4.5
-    highlight: pygments
-    keep_tex: yes
-    toc: yes
+output: github_document
+# output:
+#   pdf_document:
+#     fig_cap: yes
+#     fig_height: 3.5
+#     fig_width: 4.5
+#     highlight: pygments
+#     keep_tex: yes
+#     toc: yes
 #   html_document:
 #     toc: yes
 #   word_document: default
 ---
-
 
 ```{r, include=FALSE, eval=FALSE}
 # output: word_document
@@ -41,61 +41,7 @@ knit_hooks$set(par=function(before, options, envir){
 }}, crop=hook_pdfcrop)
 ```
 
-## Preface
-
-This tutorial is an introduction to visualising and analysing spatial data in R using a package called "sp". This is based on the **sp** class system however there is a newer package avaliable for analysis of spatical data. For a guide to the more recent **sf** package check out [Chapter 2](http://robinlovelace.net/geocompr/spatial-class.html) of the in-development book [Geocomputation with R](https://github.com/Robinlovelace/geocompr), the source code of which can be found at [github.com/Robinlovelace/geocompr](https://github.com/Robinlovelace/geocompr).
-
-Although **sf** supersedes **sp** in many ways, there is still merit in learning the content in this tutorial, which teaches principles that will be useful regardless of software.
-Specifically this tutorial focusses on map-making with
-R's 'base' graphics and various dedicated map-making packages for R including **tmap** and **leaflet**. It aims to teach the basics of using R as a fast, user-friendly and extremely powerful command-line
-Geographic Information System (GIS). 
-
-<!-- I have extended this a bit to include my uses of the tidyverse approach. [Anthony Davidson] -->
-
-By the end of the tutorial you should have the confidence and skills needed to convert a diverse range of geographical and non-geographical datasets into meaningful analyses and visualisations. Using data and code provided in this repository all of the results are reproducible, culminating in publication-quality maps such as the faceted map of London's population below:
-
-![image-lnd](https://raw.githubusercontent.com/Robinlovelace/Creating-maps-in-R/master/figure/facet_london.png)
-
-The course will even show you how to make your maps animated:
-
-![](https://raw.githubusercontent.com/Robinlovelace/Creating-maps-in-R/master/figure/lnd-animated.gif)
-
-An up-to-date pdf version of this tutorial is maintained for teaching purposes in the file
-[intro-spatial-rl.pdf](https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/intro-spatial-rl.pdf).
-
-If you have any feedback on this tutorial please let us know via email or via this repository. Contibutions to the `.Rmd` file ([README.Rmd](https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/README.Rmd)) are welcome. Happy mapping!
-
-The tutorial is practical in nature: you will load-in,
-visualise and manipulate spatial data. We assume no prior knowledge of spatial data analysis but some experience with R will help. This tutorial is organised as follows:
-
-1. Introduction: provides a guide to R's syntax and preparing for the tutorial
-
-2. Spatial data in R: describes basic spatial functions in R
-
-3. Creating and manipulating spatial data: includes changing projection, clipping and spatial joins
-
-4. Map making with **tmap**, **ggplot2** and **leaflet**: this section demonstrates map making with more advanced visualisation tools
-
-5. Taking spatial analysis in R further: a compilation of resources for furthering your skills
-
-To distinguish between prose and code, please be aware of the following typographic conventions used in this document: 
-
-R code (e.g. `plot(x, y)`) is written in a `monospace` font and package names (e.g. **rgdal**) are written in **bold**. 
-
-A double hash (`##`) at the start of a line of code indicates that this is output from R. 
-
-Lengthy outputs have been omitted from the document to save space, so do not be alarmed if R produces additional messages: you can always look up them up on-line.
-
-As with any programming language, there are often many ways to produce the same output in R. The code presented in this document is not the only way to do things. We encourage you to
-play with the code to gain a deeper understanding of R.
-Do not worry, you cannot 'break' anything using R and all the input data
-can be re-loaded if things do go wrong. As with learning to skateboard, you learn
-by falling and getting an `Error:` message in R is much less
-painful than falling onto concrete! We encourage `Error:`s --- it
-means you are trying new things.
-
-
-Part I: Introduction
+# Part I: Introduction (DRAFT)
 ========================================================
 
 ## Prerequisites
