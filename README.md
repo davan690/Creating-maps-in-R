@@ -23,14 +23,22 @@ Introductory tutorials on GIS forked from 'creating maps in R'. This repository 
 - Examples
   - LandCare 2019 publication here ""
 
-- Output
-  - So far it looks like this ""
+## Output
+
+This is added to the `/docs` folder and contains the project webpage. So far it looks like [this]("https://github.com/davan690/Creating-maps-in-R/").
+
+1. Produce static maps for the following data-set (Davidson2019a)
+
+- NZ beech forest dynamics.
+- 8 grids full data
+- only 6 used
+- South Island of NZ
 
 2. Produce static maps for the following data-set (Davidson2019b)
 
 *same as above*
 
-3. Produce static maps for the following data-set (Davidson2019b)
+3. Produce static maps for the following data-set (Davidson2019c)
 
 *same as above*
 
