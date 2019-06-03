@@ -13,7 +13,7 @@ This page is a outline of the current resources I am working on and using for my
 
 {: style="text-align: justify"}
 
-1. Produce static maps for the first publication of my PhD. [Draft here](https://davan690.github.io/2019-05-03-beech-forest-objectives).
+1. Produce static maps for the first publication of my PhD. [Draft here](https://www.ssnhub.com/2019-05-03-beech-forest-objectives).
 
 - Datasets
   - Grid locations are in a csv file called ""

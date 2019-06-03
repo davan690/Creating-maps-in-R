@@ -2,7 +2,7 @@
 
 Introductory tutorials on GIS forked from 'creating maps in R'. This repository has been build from Geocomputational analysis in R and other supporting documents ranging from blogs to scientific publications.
 
-1. Produce static maps for the first publication of my PhD. [Draft here](https://davan690.github.io/2019-05-03-beech-forest-objectives).
+1. Produce static maps for the first publication of my PhD. [Draft here](https://www.ssnhub.com/2019-05-03-beech-forest-objectives).
 
 - Datasets
   - Grid locations are in a csv file called ""
