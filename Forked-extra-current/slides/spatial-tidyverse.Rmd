@@ -62,7 +62,6 @@ The workshop is based on our work on the forthcoming book *Geocomputation with R
 ---
 background-image: url("https://pbs.twimg.com/media/CvzEQcfWIAAIs-N.jpg")
 background-size: cover
-
 ---
 
 ## Enter sf
