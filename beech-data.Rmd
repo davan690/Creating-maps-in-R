@@ -1,78 +1,71 @@
 ---
 title: "An Interactive Map"
+subtitle: "A very simple example"
 output: 
-rmarkdown::html_document: default
+  rmarkdown::html_document: default
+flexdashboard::flex_dashboard:
+runtime: shiny
 ---
   
 ```{r libraries-info}
 library(leaflet)
+library(leaflet.extras)
 ```
 
-## Map test 1
+Using and applying GIS techniques in R has become much easier since the additional functionality of Java-script libraries. One of these libraries in the `leaflet` library for mapping. Below are some examples of these mapping tools with examples.
 
-Here is the birthplace of R
+## Resources
 
-```{r auckland-uni}
+I like the idea of know what to do in arcGIS so that it is easy to work with researchers that use either R or arcGIS. For a GIS map there are two main options. Here are the resources for building interactive and static maps in R using a range of different packages:
+
+- 'leaflet`
+
+### A single location on a map
+
+Here is the birthplace of R plotted with `leaflet`, `addTiles` and the `addMarkers`...
+
+```{r, echo = FALSE}
+# my_data <- mpd.m
+p_list <- list()
+
 m <- leaflet() %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
-m  # Print the map
-```
+  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R") %>% addMyResetMapButton()
+# m  
+# save a ggplot
 
-## Map test 2
+# Print the map
 
-Below is a interactive map shows the location of a statistics department.
-
-```{r leaflet-map1, out.width='50%'}
-leaflet() %>% 
+lm <- leaflet() %>% 
   addTiles() %>%
     setView(-93.65, 42.0285, zoom = 17) %>%
       addPopups(
     -93.65, 42.0285,
-    'Here is the <b>Department of Statistics</b>, ISU')
+    'Here is the <b>Department of Statistics</b>, ISU') %>% addMyResetMapButton()
+# lm
+
+p_list[[1]] <- list(print(m), "Map option 1")
+p_list[[2]] <- list(print(lm), "Map option 2")
 ```
 
-## Map test 3
+### Leaflet plot options
 
-Below is a interactive map of the University of Canberra that shows the location of the statistics network [approx location currently].
+*still coming*
 
-```{r leaflet-map2, out.width='50%'}
-leaflet() %>% 
-  addTiles() %>%
-    setView(-93.65, 42.0285, zoom = 17) %>%
-      addPopups(
-    -93.65, 42.0285,
-    'Here is the <b>Department of Statistics</b>, ISU')
+## My Notes
+
+I have sent the following to Matt to input into arcGIS and compare rendered maps.
+
+```{r}
+# grid.locations <- 
+# label
+
+
 ```
 
-## Map test 4
+*add hand drawn image here*
 
-Here is a collection of different themes.
-
-```{r, echo=FALSE,message=FALSE, fig.height=4, fig.width=2, fig.show='hold'}
-#devtools::install_github("wch/webshot")
-
-library(leaflet)
-library(htmltools)
-library(RColorBrewer)
-
-m1 <- leaflet(quakes) %>% 
-        addTiles() %>% 
-        addMarkers(lng=174.768, lat=-36.852)
-
-m2 <- leaflet(quakes) %>% 
-        addProviderTiles("Esri.WorldGrayCanvas") %>% 
-        addMarkers(lng=174.768, lat=-36.852)
-
-m3 <- leaflet(quakes) %>%
-        addProviderTiles("Stamen.Toner") %>%
-        addMarkers(lng=174.768, lat=-36.852)
-m1
-m2
-m3
-```
-
-## Extracting mymaps data
+### Extracting mymaps data
 
 This is for security reasons.
 

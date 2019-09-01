@@ -44,4 +44,9 @@ This is added to the `/docs` folder and contains the project webpage. So far it 
 
 ## Resources
 
-Start with the blog post in this repository or on the website under mapping projects.
+This is the absolute minimum you need to start a [bookdown](https://bookdown.org/yihui/bookdown/) book. You can find the
+preview of this book at http://seankross.com/bookdown-start/
+
+All of the content of this repository is licensed 
+[CC0](https://creativecommons.org/publicdomain/zero/1.0/).
+

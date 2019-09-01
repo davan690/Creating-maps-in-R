@@ -1,0 +1,60 @@
+---
+title: "QuestionforStackOverflow"
+output: 
+  flexdashboard::flex_dashboard:
+  runtime: shiny
+---
+  
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(leaflet)
+```
+
+Tab One
+======================================================================
+  
+```{r tab1}
+output$map1 <-
+  renderLeaflet(
+    leaflet() %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      setView(-93.65, 42.0285, zoom = 4)
+  )
+
+actionButton("syncMap1", "Fit to map2 bounds")
+leafletOutput("map1")
+
+observeEvent(input$syncMap1,{
+  map2coords <- input$map2_bounds
+  map1Proxy <- leafletProxy("map1")
+  map1Proxy %>% fitBounds(lng1 = map2coords$east,
+                          lat1 = map2coords$north,
+                          lng2 = map2coords$west,
+                          lat2 = map2coords$south)
+})
+```
+
+Tab Two
+======================================================================
+  
+```{r tab2}
+
+output$map2 <-
+  renderLeaflet(
+    leaflet() %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      setView(-93.65, 42.0285, zoom = 4)
+  )
+actionButton("syncMap2", "Fit to map1 bounds")
+leafletOutput("map2")
+
+observeEvent(input$syncMap2,{
+  map1coords <- input$map1_bounds
+  map2Proxy <- leafletProxy("map2")
+  map2Proxy %>% fitBounds(lng1 = map1coords$east,
+                          lat1 = map1coords$north,
+                          lng2 = map1coords$west,
+                          lat2 = map1coords$south)
+})
+```
