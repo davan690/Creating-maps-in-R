@@ -1,0 +1,86 @@
+---
+title: "An Interactive Map"
+output: 
+rmarkdown::html_document: default
+---
+  
+```{r libraries-info}
+library(leaflet)
+```
+
+## Map test 1
+
+Here is the birthplace of R
+
+```{r auckland-uni}
+m <- leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
+m  # Print the map
+```
+
+## Map test 2
+
+Below is a interactive map shows the location of a statistics department.
+
+```{r leaflet-map1, out.width='50%'}
+leaflet() %>% 
+  addTiles() %>%
+    setView(-93.65, 42.0285, zoom = 17) %>%
+      addPopups(
+    -93.65, 42.0285,
+    'Here is the <b>Department of Statistics</b>, ISU')
+```
+
+## Map test 3
+
+Below is a interactive map of the University of Canberra that shows the location of the statistics network [approx location currently].
+
+```{r leaflet-map2, out.width='50%'}
+leaflet() %>% 
+  addTiles() %>%
+    setView(-93.65, 42.0285, zoom = 17) %>%
+      addPopups(
+    -93.65, 42.0285,
+    'Here is the <b>Department of Statistics</b>, ISU')
+```
+
+## Map test 4
+
+Here is a collection of different themes.
+
+```{r, echo=FALSE,message=FALSE, fig.height=4, fig.width=2, fig.show='hold'}
+#devtools::install_github("wch/webshot")
+
+library(leaflet)
+library(htmltools)
+library(RColorBrewer)
+
+m1 <- leaflet(quakes) %>% 
+        addTiles() %>% 
+        addMarkers(lng=174.768, lat=-36.852)
+
+m2 <- leaflet(quakes) %>% 
+        addProviderTiles("Esri.WorldGrayCanvas") %>% 
+        addMarkers(lng=174.768, lat=-36.852)
+
+m3 <- leaflet(quakes) %>%
+        addProviderTiles("Stamen.Toner") %>%
+        addMarkers(lng=174.768, lat=-36.852)
+m1
+m2
+m3
+```
+
+## Extracting mymaps data
+
+This is for security reasons.
+
+```{r}
+
+```
+
+
+
+
+
