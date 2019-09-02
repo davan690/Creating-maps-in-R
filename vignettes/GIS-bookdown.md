@@ -1,7 +1,7 @@
 --- 
 title: "Using GIS for invasive species research"
 author: "Anthony Davidson"
-date: "`r Sys.Date()`"
+date: "2019-09-02"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
@@ -10,15 +10,35 @@ link-citations: yes
 github-repo: davan690/Creating-maps-in-R
 url: 'https://www.ssnhub.com/beech-publication-wr'
 description: "Everything you need to start using GIS in RMarkdown/bookdown projects."
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">Small mammal dynamics in NZ beech forests.</a></li>
+      after: |
+        <li><a href="https://github.com/davan690/beech-publication-wr" target="blank">Published with bookdown</a></li>
+    edit: https://github.com/davan690/beech-publication-wr/docs/%s
+    download: ["pdf", "epub", "mobi", "docx"]
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+bookdown::epub_book: default
+bookdown::word_document2:
+  reference_docx: ms4.docx
+  fig_caption: yes
+  toc: yes
+editor_options:
+  chunk_output_type: console
 ---
 
-# Overview {#overview}
+# Preface {-}
 
-This respository contains a collection of dynamic programming tools and introductory tutorials for mapping/GIS from the following `github` repositories:
+This is the very first part of the book. This respositiory is a collection of introductory tutorials for mapping/GIS from a collection on `github` repositories.
 
-- ['creating maps in R'](): Geocomputational analysis in R and other supporting documents ranging from blogs to scientific publications
-
-- [](): more coming
+- 'creating maps in R': Geocomputational analysis in R and other supporting documents ranging from blogs to scientific publications.
 
 ## The objectives
 
@@ -68,3 +88,19 @@ preview of this book at http://seankross.com/bookdown-start/
 - All of the content of this repository is licensed [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
 
 ## My notes
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction
+
+This is the first real chapter.
+
+
+<!--chapter:end:01-Introduction.Rmd-->
+
+# Diving In
+
+Now let's talk details.
+
+<!--chapter:end:02-Diving-In.Rmd-->
+

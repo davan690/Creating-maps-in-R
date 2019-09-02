@@ -1,22 +1,24 @@
 --- 
-title: "A Minimal Bookdown Book"
-author: "Sean Kross"
+title: "Using GIS for invasive species research"
+author: "Anthony Davidson"
 date: "2019-09-02"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: seankross/bookdown-start
-url: 'http\://seankross.com/bookdown-start/'
-description: "Everything you need (and nothing more) to start a bookdown book."
+github-repo: davan690/Creating-maps-in-R
+url: 'https://www.ssnhub.com/beech-publication-wr'
+description: "Everything you need to start using GIS in RMarkdown/bookdown projects."
 ---
 
-# Preface {-}
+# Overview {#overview}
 
-This is the very first part of the book. This respositiory is a collection of introductory tutorials for mapping/GIS from a collection on `github` repositories.
+This respository contains a collection of dynamic programming tools and introductory tutorials for mapping/GIS from the following `github` repositories:
 
-- 'creating maps in R': Geocomputational analysis in R and other supporting documents ranging from blogs to scientific publications.
+- ['creating maps in R'](): Geocomputational analysis in R and other supporting documents ranging from blogs to scientific publications
+
+- [](): more coming
 
 ## The objectives
 
