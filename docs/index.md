@@ -16,15 +16,17 @@ description: "Everything you need to start using GIS in RMarkdown/bookdown proje
 
 This respository contains a collection of dynamic programming tools and introductory tutorials for mapping/GIS from the following `github` repositories:
 
-- ['creating maps in R'](): Geocomputational analysis in R and other supporting documents ranging from blogs to scientific publications
+- [Creating maps in R](): A textbook on geocomputational analysis in R
 
-- [](): more coming
+- []():  and other supporting documents ranging from blogs to scientific publications coming below...
 
 ## The objectives
 
-Create a landing page and resource of GIS work in R. With a particular focus on invasive species dynamics. The current goals are as follows:
+generally the objective is to create a landing page and resource of GIS work in R with a particular focus on invasive species dynamics. The current goals under my PhD work is as follows:
 
-1. Produce static maps for the first publication of my PhD. [Draft here](https://www.ssnhub.com/2019-05-03-beech-forest-objectives).
+### One 
+
+Produce static maps for the first publication of my PhD. [Draft here](https://www.ssnhub.com/2019-05-03-beech-forest-objectives).
 
 - Datasets
   - Grid locations are in a csv file called ""
@@ -43,11 +45,15 @@ Create a landing page and resource of GIS work in R. With a particular focus on 
   - only 6 used
   - South Island of NZ
 
-2. Produce static maps for the following data-set (Davidson2019b)
+### Two
+
+Produce static maps for the following data-set (Davidson2019b)
 
 *same as above*
 
-3. Produce static maps for the following data-set (Davidson2019c)
+### Three
+
+Produce static maps for the following data-set (Davidson2019c)
 
 *same as above*
 
@@ -64,7 +70,6 @@ Create a landing page and resource of GIS work in R. With a particular focus on 
 - Software
   - This is the absolute minimum you need to start a [bookdown](https://bookdown.org/yihui/bookdown/) book. You can find the
 preview of this book at http://seankross.com/bookdown-start/
-
 - All of the content of this repository is licensed [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
 
 ## My notes
