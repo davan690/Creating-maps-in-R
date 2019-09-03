@@ -15,6 +15,13 @@ This page is a outline of the current resources I am working on and using for my
 
 - [The whole bookdown guide for a start](https://rmarkdown.rstudio.com/articles_docx.html/): its good but it just seems that an independent blog or `a stack-overflow` feed is easier to find the answers in. A good start to begin to build RMarkdown documents quickly.
 
+### In jekyll
+
+- [MAPS](https://stackoverflow.com/questions/37800755/embedding-google-map-in-a-jekyll-post)
+- [MOre maps](http://matthewowen.github.io/jekyll-mapping/)
+- [git jekyll maps](https://github.com/ayastreb/jekyll-maps)
+
+
 ### Videos
 
 - [video suprise 1](https://www.gislounge.com/introduction-to-geospatial-analysis-in-r-video/)
