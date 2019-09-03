@@ -17,16 +17,16 @@ description: "Everything you need to start using GIS in RMarkdown/bookdown proje
 This respository contains a collection of dynamic programming tools and introductory tutorials for mapping/GIS from the following `github` repositories:
 
 - [Creating maps in R](https://geocompr.robinlovelace.net/): A textbook on geocomputational analysis in R
-
-- [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R package
-s
+- [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R packages
 - [Video](https://www.youtube.com/watch?v=GMi1ThlGFMo)
 
 ## The objectives
 
 generally the objective is to create a landing page and resource of GIS work in R with a particular focus on invasive species dynamics. The current goals under my PhD work is as follows:
 
-One: *Produce static maps for the first publication of my PhD.* Draft here - [Davidson2019a](https://www.ssnhub.com/2019-05-03-beech-forest-objectives)
+One: *Produce static maps for the first publication of my PhD.* 
+
+Draft here - [Davidson2019a](https://www.ssnhub.com/2019-05-03-beech-forest-objectives)
 
 - Datasets
   - Grid locations are in a csv file called "" [here]()

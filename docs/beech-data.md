@@ -8,7 +8,8 @@ flexdashboard::flex_dashboard:
 runtime: shiny
 ---
   
-```{r libraries-info}
+
+```r
 library(leaflet)
 library(leaflet.extras)
 ```
@@ -25,29 +26,7 @@ I like the idea of know what to do in arcGIS so that it is easy to work with res
 
 Here is the birthplace of R plotted with `leaflet`, `addTiles` and the `addMarkers`...
 
-```{r, echo = FALSE}
-# my_data <- mpd.m
-p_list <- list()
 
-m <- leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
-# m  
-# save a ggplot
-
-# Print the map
-
-lm <- leaflet() %>% 
-  addTiles() %>%
-    setView(-93.65, 42.0285, zoom = 17) %>%
-      addPopups(
-    -93.65, 42.0285,
-    'Here is the <b>Department of Statistics</b>, ISU')
-# lm
-
-p_list[[1]] <- list(print(m), "Map option 1")
-p_list[[2]] <- list(print(lm), "Map option 2")
-```
 
 ### Leaflet plot options
 
@@ -57,11 +36,10 @@ p_list[[2]] <- list(print(lm), "Map option 2")
 
 I have sent the following to Matt to input into arcGIS and compare rendered maps.
 
-```{r}
+
+```r
 # grid.locations <- 
 # label
-
-
 ```
 
 *add hand drawn image here*
@@ -70,9 +48,7 @@ I have sent the following to Matt to input into arcGIS and compare rendered maps
 
 This is for security reasons.
 
-```{r}
 
-```
 
 
 

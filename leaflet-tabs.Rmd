@@ -1,18 +1,14 @@
 ---
-title: "REPRODUCIBLE EXAMPLE <br> April 2019"
-always_allow_html: yes
-output:
-  html_document:
-  self_contained: false
-df_print: paged
+flexdashboard::flex_dashboard:
+runtime: shiny
 ---
-  
-# {.tabset .tabset-fade}
-  
-## TAB 1
-  
-### HEADING 1
-  
+
+```{r libraries-info}
+library(leaflet)
+library(leaflet.extras)
+```
+
+# Leaflet tabs {#tabs}
 ```{r natl_map, echo = FALSE, message=FALSE, warning=FALSE, comment=NA, out.width='100%'}
 library(leaflet)
 library(leaflet.extras)
@@ -57,25 +53,15 @@ function(el, x){
 make_map()
 ```
 
-## TAB 2
+## Tests {.tabset}
 
-### HEADING 2
+*Still working on this...*
 
-```{r cent_map, echo = FALSE, message=FALSE, warning=FALSE, comment=NA, out.width='100%'}
-make_map()
-```
-
-## TAB 3
-
-### HEADING 3
+Would  be nice if something like this would work. And the headings and tabs function is not working. (For coding reasons not yet known by me but should be basic)
 
 ```{r east_map, echo = FALSE, message=FALSE, warning=FALSE, comment=NA, out.width='100%'}
 make_map()
 ```
-
-## TAB 4
-
-### HEADING 4
 
 ```{r map4, echo = FALSE, message=FALSE, warning=FALSE, comment=NA, out.width='100%'}
 make_map()
