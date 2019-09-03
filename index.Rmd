@@ -20,9 +20,9 @@ This respository contains a collection of dynamic programming tools and introduc
 - [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R packages
 - [Video](https://www.youtube.com/watch?v=GMi1ThlGFMo)
 
-## The objectives
+## Project objectives
 
-generally the objective is to create a landing page and resource of GIS work in R with a particular focus on invasive species dynamics. The current goals under my PhD work is as follows:
+The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics. The current goals that also meet the requirements to produce the figures needed for reproducible phd research.
 
 One: *Produce static maps for the first publication of my PhD.* 
 
@@ -70,7 +70,7 @@ Three: *Produce static maps for the following data-set* [Davidson2019c]
 
 3. Ensure that packages are up to date.
 
-For more details this following the same contrinutiing options as the website instructions [here](https://www.ssnhub.com/contributing.html).
+For more details this following the same contrinutiing options as the website instructions [here](https://www.ssnhub.com/contributing/).
 
 ### Templates
 
