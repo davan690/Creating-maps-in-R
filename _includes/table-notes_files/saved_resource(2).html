@@ -1,0 +1,12479 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://www.jakeruss.com/cheatsheets/stargazer/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="map[]">
+    <meta name="description" content="economist and statistical programmer">
+    <link rel="shortcut icon" type="image/x-icon" href="https://www.jakeruss.com/img/favicon.ico">
+    <title>Stargazer</title>
+    <meta name="generator" content="Hugo 0.19">
+    <link rel="stylesheet" href="./bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./main.css">
+    <link rel="stylesheet" type="text/css" href="./font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./css">
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+<script async="" src="./analytics.js.download"></script><script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-44185619-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+  <script type="text/javascript" async="" src="./embed.js.download"></script><style id="holderjs-style" type="text/css"></style><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.90bbe7dd462e64a6c99045d2dadef75c.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.5e2845671155c097129ebd8a2aeb308d.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.a6f02d687d0ea86d65834e6023759772.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://www.jakeruss.com/"><i class="fa fa-home"></i></a>
+    </div>
+    <div id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="https://www.jakeruss.com/about/">ABOUT</a></li>
+        
+        <li><a href="https://www.jakeruss.com/blog/">BLOG</a></li>
+        
+        <li><a href="https://www.jakeruss.com/cheatsheets/">CHEATSHEETS</a></li>
+        
+        <li><a href="https://www.jakeruss.com/papers/">PAPERS</a></li>
+        
+        <li><a href="https://www.jakeruss.com/resume/">RESUME</a></li>
+        
+        <li><a href="https://www.jakeruss.com/restaurant-guide/">RESTAURANT-GUIDE</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="https://www.jakeruss.com/cheatsheets/stargazer/">Stargazer</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          September 3, 2014
+            &nbsp;&nbsp;
+            
+            <span class="label label-success">rstats</span>
+            
+            <span class="label label-success">stargazer</span>
+            
+            <span class="label label-success">cheatsheet</span>
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              <div id="TOC">
+<ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#last-updated-june-16-2017">Last updated: June 16, 2017</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#dataset-dplyr-and-nycflights13">Dataset: dplyr and nycflights13</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#quick-notes">Quick notes</a><ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#html-formatting">HTML formatting</a></li>
+</ul></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#the-default-summary-statistics-table">The default summary statistics table</a><ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#remove-row-and-column-names">Remove row and column names</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-which-statistics-are-displayed">Change which statistics are displayed</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-which-statistics-are-displayed-a-second-way">Change which statistics are displayed (a second way)</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#remove-logical-variables-in-the-summary-statistics">Remove logical variables in the summary statistics</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#flip-the-table-axes">Flip the table axes</a></li>
+</ul></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#the-default-regression-table">The default regression table</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-the-style">Change the style</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#labelling-the-table">Labelling the table</a><ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#add-a-title-change-the-variable-labels">Add a title; change the variable labels</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#exclude-the-dependent-variable-label-or-the-model-numbers">Exclude the dependent variable label or the model numbers</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-the-column-names">Change the column names</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#apply-a-label-to-more-than-one-column">Apply a label to more than one column</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#model-names">Model names</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#model-names-again">Model names (again)</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#add-a-custom-row-to-the-reported-statistics">Add a custom row to the reported statistics</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#include-r-object-names">Include R object names</a></li>
+</ul></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-the-default-output">Change the default output</a><ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#report-t-statistics-or-p-values-instead-of-standard-errors">Report t-statistics or p-values instead of standard errors</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#report-confidence-intervals">Report confidence intervals</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#adjust-the-confidence-intervals">Adjust the confidence intervals</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#robust-standard-errors-replicating-statas-robust-option">Robust standard errors (replicating Stata’s robust option)</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#move-the-intercept-term-to-the-top-of-the-table">Move the intercept term to the top of the table</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#compress-the-table-output">Compress the table output</a></li>
+</ul></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#omit-parts-of-the-default-output">Omit parts of the default output</a><ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#reporting-omitted-variables">Reporting omitted variables</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#omit-summary-statistics">Omit summary statistics</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#omit-whole-parts-of-the-table">Omit whole parts of the table</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#omit-whole-parts-of-the-table-a-second-way">Omit whole parts of the table (a second way)</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#omit-the-degrees-of-freedom">Omit the degrees of freedom</a></li>
+</ul></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#statistical-significance-options">Statistical significance options</a><ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-the-cutoffs-for-significance">Change the cutoffs for significance</a></li>
+</ul></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#modifying-table-notes">Modifying table notes</a><ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#make-an-addition-to-the-existing-note-section">Make an addition to the existing note section</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#replace-the-note-section">Replace the note section</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-note-alignment">Change note alignment</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-the-note-section-label">Change the note section label</a></li>
+</ul></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#table-aesthetics">Table aesthetics</a><ul>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#use-html-tags-to-modify-table-elements">Use html tags to modify table elements</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-decimal-character">Change decimal character</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#control-the-number-of-decimal-places">Control the number of decimal places</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#additional-decimal-controls">Additional decimal controls</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#drop-leading-zeros-from-decimals">Drop leading zeros from decimals</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#change-the-order-of-the-variables">Change the order of the variables</a></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#select-which-variables-to-keep-in-the-table">Select which variables to keep in the table</a></li>
+</ul></li>
+<li><a href="https://www.jakeruss.com/cheatsheets/stargazer/#feedback">Feedback</a></li>
+</ul>
+</div>
+
+<div id="last-updated-june-16-2017" class="section level3">
+<h3>Last updated: June 16, 2017</h3>
+</div>
+<div id="dataset-dplyr-and-nycflights13" class="section level2">
+<h2>Dataset: dplyr and nycflights13</h2>
+<p>Setting up a dataset for this cheatsheet allows me to spotlight two recent R packages created by <a href="http://had.co.nz/">Hadley Wickham</a>. The first, <a href="https://github.com/hadley/dplyr">dplyr</a>, is a set of new tools for data manipulation. Using <code>dplyr</code>, I will extract flights and weather data from another new package called <a href="https://github.com/hadley/nycflights13">nycflights13</a>. With this data I will show how to estimate a couple of regression models and nicely format the results into tables with <code>stargazer</code>.</p>
+<p>Note: <code>stargazer</code> v. 5.1 does not play nicely with <code>dplyr</code>’s tbl_df class. As a temporary work-around I pipe the merged dataset to <code>data.frame</code>.</p>
+<pre class="r"><code>library("dplyr")
+library("nycflights13")
+library("AER") # Applied Econometrics with R
+library("stargazer")
+
+daily &lt;- flights %&gt;%
+  filter(origin == "EWR") %&gt;%
+  group_by(year, month, day) %&gt;%
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+
+daily_weather &lt;- weather %&gt;%
+  filter(origin == "EWR") %&gt;%
+  group_by(year, month, day) %&gt;%
+  summarise(temp   = mean(temp, na.rm = TRUE),
+            wind   = mean(wind_speed, na.rm = TRUE),
+            precip = sum(precip, na.rm = TRUE))
+
+# Merge flights with weather data frames
+both &lt;- daily %&gt;%
+  inner_join(y = daily_weather, by = c("year", "month", "day")) %&gt;% 
+  data.frame()  # Temporary fix
+
+# Create an indicator for quarter
+both$quarter &lt;- cut(both$month, breaks = c(0, 3, 6, 9, 12), 
+                                labels = c("1", "2", "3", "4"))
+
+# Create a vector of class logical
+both$hot &lt;- as.logical(both$temp &gt; 85)
+
+head(both)</code></pre>
+<pre><code>##   year month day     delay    temp      wind precip quarter   hot
+## 1 2013     1   1 17.483553 38.4800 12.758648      0       1 FALSE
+## 2 2013     1   2 25.322674 28.8350 12.514732      0       1 FALSE
+## 3 2013     1   3  8.450450 29.4575  7.863663      0       1 FALSE
+## 4 2013     1   4 12.103858 33.4775 13.857309      0       1 FALSE
+## 5 2013     1   5  5.696203 36.7325 10.836512      0       1 FALSE
+## 6 2013     1   6 12.383333 37.9700  8.007511      0       1 FALSE</code></pre>
+<p><br>
+We can use the <code>both</code> data frame to estimate a couple of linear models predicting the average delay out of Newark controlling for the weather. The first model will use only the weather variables and in the second I’ll add dummy variables indicating the quarter. I also estimate a third model, using using the <code>ivreg</code> command from package <a href="http://cran.r-project.org/web/packages/AER/index.html">AER</a> to demonstrate output with mixed models. The raw R output:</p>
+<pre class="r"><code>output  &lt;- lm(delay ~ temp + wind + precip, data = both)
+output2 &lt;- lm(delay ~ temp + wind + precip + quarter, data = both)
+
+# Instrumental variables model 
+output3 &lt;- ivreg(delay ~ temp + wind + precip | . - temp + hot, data = both)
+
+summary(output)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = delay ~ temp + wind + precip, data = both)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -26.201  -8.496  -3.533   4.708  75.727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  7.26300    3.09886   2.344   0.0196 *  
+## temp         0.08809    0.04068   2.165   0.0310 *  
+## wind         0.16643    0.16392   1.015   0.3106    
+## precip      18.91808    3.24948   5.822 1.29e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.25 on 360 degrees of freedom
+## Multiple R-squared:  0.09693,    Adjusted R-squared:  0.0894 
+## F-statistic: 12.88 on 3 and 360 DF,  p-value: 5.19e-08</code></pre>
+<pre class="r"><code>summary(output2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = delay ~ temp + wind + precip + quarter, data = both)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -26.927  -8.741  -3.937   5.181  74.631 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  6.14120    3.53607   1.737  0.08330 .  
+## temp         0.18400    0.06856   2.684  0.00762 ** 
+## wind         0.11437    0.16358   0.699  0.48489    
+## precip      18.16741    3.22972   5.625 3.75e-08 ***
+## quarter2    -2.26575    2.66044  -0.852  0.39498    
+## quarter3    -7.52745    3.22594  -2.333  0.02018 *  
+## quarter4    -4.75787    2.10382  -2.262  0.02433 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.12 on 357 degrees of freedom
+## Multiple R-squared:  0.1218, Adjusted R-squared:  0.1071 
+## F-statistic: 8.253 on 6 and 357 DF,  p-value: 2.219e-08</code></pre>
+<pre class="r"><code>summary(output3)</code></pre>
+<pre><code>## 
+## Call:
+## ivreg(formula = delay ~ temp + wind + precip | . - temp + hot, 
+##     data = both)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -25.739  -8.929  -3.834   5.016  74.767 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  10.7302     9.1385   1.174    0.241    
+## temp          0.0342     0.1397   0.245    0.807    
+## wind          0.1156     0.2070   0.559    0.577    
+## precip       18.8775     3.2589   5.793 1.51e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.28 on 360 degrees of freedom
+## Multiple R-Squared: 0.09253, Adjusted R-squared: 0.08496 
+## Wald test: 11.28 on 3 and 360 DF,  p-value: 4.326e-07</code></pre>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+<div id="quick-notes" class="section level2">
+<h2>Quick notes</h2>
+<p>Since I’m using <a href="http://cran.rstudio.com/web/packages/knitr/index.html">knitr</a> and <a href="http://rmarkdown.rstudio.com/">R markdown</a> to create this webpage, in the code that follows I will include the <code>stargazer</code> option <code>type = "html"</code>. <code>stargazer</code> is set to produce <strong>LaTeX</strong> output by default. If you desire <strong>LaTeX</strong> output, just remove the type option from the code below.</p>
+<p><br>
+Also, while I have added an example for many of the available <code>stargazer</code> options, I have not included all of them. So while you’re likely to find a relevant example don’t assume if it’s not listed that <code>stargazer</code> can’t do it. Check the documentation for additional features and updates to the package. It is often the case that an omitted argument is specific for <strong>LaTeX</strong> output and I can’t demonstrate it here.</p>
+<div id="html-formatting" class="section level3">
+<h3>HTML formatting</h3>
+<p>It is possible to change the formatting of html tables generated with <code>stargazer</code> via an html style sheet. See the <a href="http://rmarkdown.rstudio.com/html_document_format.html#custom_css">R Markdown documentation</a> about incorporating a custom CSS.</p>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+</div>
+<div id="the-default-summary-statistics-table" class="section level2">
+<h2>The default summary statistics table</h2>
+<pre class="r"><code>stargazer(both, type = "html")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+N
+</td>
+<td>
+Mean
+</td>
+<td>
+St.&nbsp;Dev.
+</td>
+<td>
+Min
+</td>
+<td>
+Max
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+year
+</td>
+<td>
+364
+</td>
+<td>
+2,013.000
+</td>
+<td>
+0.000
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+month
+</td>
+<td>
+364
+</td>
+<td>
+6.511
+</td>
+<td>
+3.445
+</td>
+<td>
+1
+</td>
+<td>
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+day
+</td>
+<td>
+364
+</td>
+<td>
+15.679
+</td>
+<td>
+8.784
+</td>
+<td>
+1
+</td>
+<td>
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+delay
+</td>
+<td>
+364
+</td>
+<td>
+15.080
+</td>
+<td>
+13.883
+</td>
+<td>
+-1.349
+</td>
+<td>
+97.771
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+364
+</td>
+<td>
+55.481
+</td>
+<td>
+17.581
+</td>
+<td>
+15.492
+</td>
+<td>
+91.168
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+364
+</td>
+<td>
+9.339
+</td>
+<td>
+4.363
+</td>
+<td>
+2.014
+</td>
+<td>
+55.669
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+364
+</td>
+<td>
+0.073
+</td>
+<td>
+0.214
+</td>
+<td>
+0.000
+</td>
+<td>
+1.890
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+hot
+</td>
+<td>
+364
+</td>
+<td>
+0.022
+</td>
+<td>
+0.147
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+<p><br>
+When supplied a data frame, by default <code>stargazer</code> creates a table with summary statistics. If the <code>summary</code> option is set to <code>FALSE</code> then stargazer will instead print the contents of the data frame.</p>
+<pre class="r"><code># Use only a few rows
+both2 &lt;- both %&gt;% slice(1:6)
+
+stargazer(both2, type = "html", summary = FALSE, rownames = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="9" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+year
+</td>
+<td>
+month
+</td>
+<td>
+day
+</td>
+<td>
+delay
+</td>
+<td>
+temp
+</td>
+<td>
+wind
+</td>
+<td>
+precip
+</td>
+<td>
+quarter
+</td>
+<td>
+hot
+</td>
+</tr>
+<tr>
+<td colspan="9" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+17.4835526315789
+</td>
+<td>
+38.48
+</td>
+<td>
+12.758647826087
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+2
+</td>
+<td>
+25.3226744186047
+</td>
+<td>
+28.835
+</td>
+<td>
+12.5147325
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+8.45045045045045
+</td>
+<td>
+29.4575
+</td>
+<td>
+7.86366333333333
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+12.1038575667656
+</td>
+<td>
+33.4775
+</td>
+<td>
+13.8573091666667
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+5
+</td>
+<td>
+5.69620253164557
+</td>
+<td>
+36.7325
+</td>
+<td>
+10.8365116666667
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+12.3833333333333
+</td>
+<td>
+37.97
+</td>
+<td>
+8.00751083333333
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td colspan="9" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+<div id="remove-row-and-column-names" class="section level3">
+<h3>Remove row and column names</h3>
+<pre class="r"><code>stargazer(both2, type = "html", summary = FALSE,
+          rownames = FALSE,
+          colnames = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="9" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+17.4835526315789
+</td>
+<td>
+38.48
+</td>
+<td>
+12.758647826087
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+2
+</td>
+<td>
+25.3226744186047
+</td>
+<td>
+28.835
+</td>
+<td>
+12.5147325
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+8.45045045045045
+</td>
+<td>
+29.4575
+</td>
+<td>
+7.86366333333333
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+12.1038575667656
+</td>
+<td>
+33.4775
+</td>
+<td>
+13.8573091666667
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+5
+</td>
+<td>
+5.69620253164557
+</td>
+<td>
+36.7325
+</td>
+<td>
+10.8365116666667
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2013
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+12.3833333333333
+</td>
+<td>
+37.97
+</td>
+<td>
+8.00751083333333
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+FALSE
+</td>
+</tr>
+<tr>
+<td colspan="9" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="change-which-statistics-are-displayed" class="section level3">
+<h3>Change which statistics are displayed</h3>
+<p>In order to customize which summary statistics are displayed, change any of the the following (logical) parameters, <code>nobs</code>, <code>mean.sd</code>, <code>min.max</code>, <code>median</code>, and <code>iqr</code>.</p>
+<pre class="r"><code>stargazer(both, type = "html", nobs = FALSE, mean.sd = TRUE, median = TRUE,
+          iqr = TRUE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+Mean
+</td>
+<td>
+St.&nbsp;Dev.
+</td>
+<td>
+Min
+</td>
+<td>
+Pctl(25)
+</td>
+<td>
+Median
+</td>
+<td>
+Pctl(75)
+</td>
+<td>
+Max
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+year
+</td>
+<td>
+2,013.000
+</td>
+<td>
+0.000
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+month
+</td>
+<td>
+6.511
+</td>
+<td>
+3.445
+</td>
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+7
+</td>
+<td>
+9.2
+</td>
+<td>
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+day
+</td>
+<td>
+15.679
+</td>
+<td>
+8.784
+</td>
+<td>
+1
+</td>
+<td>
+8
+</td>
+<td>
+16
+</td>
+<td>
+23
+</td>
+<td>
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+delay
+</td>
+<td>
+15.080
+</td>
+<td>
+13.883
+</td>
+<td>
+-1.349
+</td>
+<td>
+5.446
+</td>
+<td>
+10.501
+</td>
+<td>
+20.007
+</td>
+<td>
+97.771
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+55.481
+</td>
+<td>
+17.581
+</td>
+<td>
+15.492
+</td>
+<td>
+39.873
+</td>
+<td>
+56.960
+</td>
+<td>
+71.570
+</td>
+<td>
+91.168
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+9.339
+</td>
+<td>
+4.363
+</td>
+<td>
+2.014
+</td>
+<td>
+6.557
+</td>
+<td>
+8.847
+</td>
+<td>
+11.556
+</td>
+<td>
+55.669
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+0.073
+</td>
+<td>
+0.214
+</td>
+<td>
+0.000
+</td>
+<td>
+0.000
+</td>
+<td>
+0.000
+</td>
+<td>
+0.020
+</td>
+<td>
+1.890
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+hot
+</td>
+<td>
+0.022
+</td>
+<td>
+0.147
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="change-which-statistics-are-displayed-a-second-way" class="section level3">
+<h3>Change which statistics are displayed (a second way)</h3>
+<pre class="r"><code>stargazer(both, type = "html", summary.stat = c("n", "p75", "sd"))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+N
+</td>
+<td>
+Pctl(75)
+</td>
+<td>
+St.&nbsp;Dev.
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+year
+</td>
+<td>
+364
+</td>
+<td>
+2,013
+</td>
+<td>
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+month
+</td>
+<td>
+364
+</td>
+<td>
+9.2
+</td>
+<td>
+3.445
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+day
+</td>
+<td>
+364
+</td>
+<td>
+23
+</td>
+<td>
+8.784
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+delay
+</td>
+<td>
+364
+</td>
+<td>
+20.007
+</td>
+<td>
+13.883
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+364
+</td>
+<td>
+71.570
+</td>
+<td>
+17.581
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+364
+</td>
+<td>
+11.556
+</td>
+<td>
+4.363
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+364
+</td>
+<td>
+0.020
+</td>
+<td>
+0.214
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+hot
+</td>
+<td>
+364
+</td>
+<td>
+0
+</td>
+<td>
+0.147
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="remove-logical-variables-in-the-summary-statistics" class="section level3">
+<h3>Remove logical variables in the summary statistics</h3>
+<p><code>stargazer</code> reports summary statistics for logical variables by default (0 = FALSE and 1 = TRUE). To supress the reporting of logical vectors change <code>summary.logical</code> to <code>FALSE</code>. Note the stats for our vector <code>hot</code> are gone.</p>
+<pre class="r"><code>stargazer(both, type = "html", summary.logical = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+N
+</td>
+<td>
+Mean
+</td>
+<td>
+St.&nbsp;Dev.
+</td>
+<td>
+Min
+</td>
+<td>
+Max
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+year
+</td>
+<td>
+364
+</td>
+<td>
+2,013.000
+</td>
+<td>
+0.000
+</td>
+<td>
+2,013
+</td>
+<td>
+2,013
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+month
+</td>
+<td>
+364
+</td>
+<td>
+6.511
+</td>
+<td>
+3.445
+</td>
+<td>
+1
+</td>
+<td>
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+day
+</td>
+<td>
+364
+</td>
+<td>
+15.679
+</td>
+<td>
+8.784
+</td>
+<td>
+1
+</td>
+<td>
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+delay
+</td>
+<td>
+364
+</td>
+<td>
+15.080
+</td>
+<td>
+13.883
+</td>
+<td>
+-1.349
+</td>
+<td>
+97.771
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+364
+</td>
+<td>
+55.481
+</td>
+<td>
+17.581
+</td>
+<td>
+15.492
+</td>
+<td>
+91.168
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+364
+</td>
+<td>
+9.339
+</td>
+<td>
+4.363
+</td>
+<td>
+2.014
+</td>
+<td>
+55.669
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+364
+</td>
+<td>
+0.073
+</td>
+<td>
+0.214
+</td>
+<td>
+0.000
+</td>
+<td>
+1.890
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="flip-the-table-axes" class="section level3">
+<h3>Flip the table axes</h3>
+<pre class="r"><code>stargazer(both, type = "html", flip = TRUE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="9" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Statistic
+</td>
+<td>
+year
+</td>
+<td>
+month
+</td>
+<td>
+day
+</td>
+<td>
+delay
+</td>
+<td>
+temp
+</td>
+<td>
+wind
+</td>
+<td>
+precip
+</td>
+<td>
+hot
+</td>
+</tr>
+<tr>
+<td colspan="9" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+N
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Mean
+</td>
+<td>
+2,013.000
+</td>
+<td>
+6.511
+</td>
+<td>
+15.679
+</td>
+<td>
+15.080
+</td>
+<td>
+55.481
+</td>
+<td>
+9.339
+</td>
+<td>
+0.073
+</td>
+<td>
+0.022
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+St.&nbsp;Dev.
+</td>
+<td>
+0.000
+</td>
+<td>
+3.445
+</td>
+<td>
+8.784
+</td>
+<td>
+13.883
+</td>
+<td>
+17.581
+</td>
+<td>
+4.363
+</td>
+<td>
+0.214
+</td>
+<td>
+0.147
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Min
+</td>
+<td>
+2,013
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+-1.349
+</td>
+<td>
+15.492
+</td>
+<td>
+2.014
+</td>
+<td>
+0.000
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Max
+</td>
+<td>
+2,013
+</td>
+<td>
+12
+</td>
+<td>
+31
+</td>
+<td>
+97.771
+</td>
+<td>
+91.168
+</td>
+<td>
+55.669
+</td>
+<td>
+1.890
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td colspan="9" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+</div>
+<div id="the-default-regression-table" class="section level2">
+<h2>The default regression table</h2>
+<pre class="r"><code>stargazer(output, output2, type = "html")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+<div id="change-the-style" class="section level2">
+<h2>Change the style</h2>
+<p><code>stargazer</code> includes several pre-formatted styles that imitate popular academic journals. Use the <code>style</code> argument.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", style = "qje")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>N</em>
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Notes:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup>***</sup>Significant at the 1 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2" style="text-align:right">
+<sup>**</sup>Significant at the 5 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2" style="text-align:right">
+<sup>*</sup>Significant at the 10 percent level.
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+<div id="labelling-the-table" class="section level2">
+<h2>Labelling the table</h2>
+<div id="add-a-title-change-the-variable-labels" class="section level3">
+<h3>Add a title; change the variable labels</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          title            = "These are awesome results!",
+          covariate.labels = c("Temperature", "Wind speed", "Rain (inches)",
+                               "2nd quarter", "3rd quarter", "Fourth quarter"),
+          dep.var.caption  = "A better caption",
+          dep.var.labels   = "Flight delay (in minutes)")</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>These are awesome results!</strong>
+</caption>
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+A better caption
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+Flight delay (in minutes)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Temperature
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Wind speed
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Rain (inches)
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2nd quarter
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+3rd quarter
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Fourth quarter
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="exclude-the-dependent-variable-label-or-the-model-numbers" class="section level3">
+<h3>Exclude the dependent variable label or the model numbers</h3>
+<p>Note the dependent variable caption stays. To additionally remove the caption add <code>dep.var.caption = ""</code>.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          dep.var.labels.include = FALSE,
+          model.numbers          = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="change-the-column-names" class="section level3">
+<h3>Change the column names</h3>
+<p>To change the column names just supply a character vector with the new labels, as shown below.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", column.labels = c("Good", "Better"))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Good
+</td>
+<td>
+Better
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="apply-a-label-to-more-than-one-column" class="section level3">
+<h3>Apply a label to more than one column</h3>
+<p>The option <code>column.separate</code> allows for assigning a label to more than one column. In this example I told <code>stargazer</code> to report each regression twice, for a total of four columns. Using <code>column.separate</code>, <code>stargazer</code> now applies the first label to the first two columns and the second label to the next two columns.</p>
+<pre class="r"><code>stargazer(output, output, output2, output2, type = "html", 
+          column.labels   = c("Good", "Better"),
+          column.separate = c(2, 2))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+Good
+</td>
+<td colspan="2">
+Better
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="4" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="model-names" class="section level3">
+<h3>Model names</h3>
+<p>When the results from different types of regression models (e.g., “OLS”, “probit”) are displayed in the same table <code>stargazer</code> adds a row indicating model type. Remove these labels by including <code>model.names = FALSE</code> (not shown).</p>
+<pre class="r"><code>stargazer(output, output2, output3, type = "html")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>OLS</em>
+</td>
+<td>
+<em>instrumental</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em></em>
+</td>
+<td>
+<em>variable</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+<td>
+0.034
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+<td>
+(0.140)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+<td>
+0.116
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.207)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+<td>
+18.877<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+<td>
+(3.259)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+<td>
+10.730
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+<td>
+(9.139)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+<td>
+0.093
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+<td>
+0.085
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+<td>
+13.280 (df = 360)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="model-names-again" class="section level3">
+<h3>Model names (again)</h3>
+<p>The example above shows the default behavior of <code>stargazer</code> is to display only one model name (and dependent variable caption) for adjacent columns with the same model type. To repeat these labels for all of the columns, do the following:</p>
+<pre class="r"><code>stargazer(output, output2, output3, type = "html",
+          multicolumn = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+delay
+</td>
+<td>
+delay
+</td>
+<td>
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>OLS</em>
+</td>
+<td>
+<em>OLS</em>
+</td>
+<td>
+<em>instrumental</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em></em>
+</td>
+<td>
+<em></em>
+</td>
+<td>
+<em>variable</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+<td>
+0.034
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+<td>
+(0.140)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+<td>
+0.116
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.207)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+<td>
+18.877<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+<td>
+(3.259)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+<td>
+10.730
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+<td>
+(9.139)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+<td>
+0.093
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+<td>
+0.085
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+<td>
+13.280 (df = 360)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="add-a-custom-row-to-the-reported-statistics" class="section level3">
+<h3>Add a custom row to the reported statistics</h3>
+<p>I use this example to show how to add a row(s), such as reporting fixed effects.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html",
+          add.lines = list(c("Fixed effects?", "No", "No"),
+                           c("Results believable?", "Maybe", "Try again later")))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Fixed effects?
+</td>
+<td>
+No
+</td>
+<td>
+No
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Results believable?
+</td>
+<td>
+Maybe
+</td>
+<td>
+Try again later
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="include-r-object-names" class="section level3">
+<h3>Include R object names</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          object.names = TRUE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+output
+</td>
+<td>
+output2
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+</div>
+<div id="change-the-default-output" class="section level2">
+<h2>Change the default output</h2>
+<div id="report-t-statistics-or-p-values-instead-of-standard-errors" class="section level3">
+<h3>Report t-statistics or p-values instead of standard errors</h3>
+<p>Standard errors are reported by default. To report the t-statistics or p-values instead, see the <code>report</code> argument. Notice that I’ve used this option to move the star characters to the t-statistics instead of being next to the coefficients.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html",
+          report = "vct*")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088
+</td>
+<td>
+0.184
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+t = 2.165<sup>**</sup>
+</td>
+<td>
+t = 2.684<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+t = 1.015
+</td>
+<td>
+t = 0.699
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918
+</td>
+<td>
+18.167
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+t = 5.822<sup>***</sup>
+</td>
+<td>
+t = 5.625<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+t = -0.852
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+t = -2.333<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+t = -2.262<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263
+</td>
+<td>
+6.141
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+t = 2.344<sup>**</sup>
+</td>
+<td>
+t = 1.737<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="report-confidence-intervals" class="section level3">
+<h3>Report confidence intervals</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html",
+          ci = TRUE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.008, 0.168)
+</td>
+<td>
+(0.050, 0.318)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(-0.155, 0.488)
+</td>
+<td>
+(-0.206, 0.435)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(12.549, 25.287)
+</td>
+<td>
+(11.837, 24.498)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(-7.480, 2.949)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(-13.850, -1.205)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(-8.881, -0.634)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.189, 13.337)
+</td>
+<td>
+(-0.789, 13.072)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="adjust-the-confidence-intervals" class="section level3">
+<h3>Adjust the confidence intervals</h3>
+<p>By default <code>ci.level = 0.95</code>. You may also change the character that separates the intervals with the <code>ci.separator</code> argument.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html",
+          ci = TRUE, ci.level = 0.90, ci.separator = " @@ ")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.021 @@ 0.155)
+</td>
+<td>
+(0.071 @@ 0.297)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(-0.103 @@ 0.436)
+</td>
+<td>
+(-0.155 @@ 0.383)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(13.573 @@ 24.263)
+</td>
+<td>
+(12.855 @@ 23.480)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(-6.642 @@ 2.110)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(-12.834 @@ -2.221)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(-8.218 @@ -1.297)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(2.166 @@ 12.360)
+</td>
+<td>
+(0.325 @@ 11.958)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="robust-standard-errors-replicating-statas-robust-option" class="section level3">
+<h3>Robust standard errors (replicating Stata’s robust option)</h3>
+<p>If you want to use robust standard errors (or clustered), <code>stargazer</code> allows for replacing the default output by supplying a new vector of values to the option <code>se</code>. For this example I will display the same model twice and adjust the standard errors in the second column with the <code>HC1</code> correction from the <code>sandwich</code> package (i.e.&nbsp;the same correction Stata uses).</p>
+<p>I also need to adjust the F statistic with the corrected variance-covariance matrix (matching Stata’s results). Currently, this must be done manually (via <code>add.lines</code>) as <code>stargazer</code> does not (yet) have an option for directly replacing the F statistic.</p>
+<p>Similar options exist to supply adjusted values to the coefficients, t-statistics, confidence intervals, and p-values. See <code>coef</code>, <code>t</code>, <code>ci.custom</code>, or <code>p</code>.</p>
+<pre class="r"><code>library(sandwich)
+library(lmtest)   # waldtest; see also coeftest.
+
+# Adjust standard errors
+cov1         &lt;- vcovHC(output, type = "HC1")
+robust_se    &lt;- sqrt(diag(cov1))
+
+# Adjust F statistic 
+wald_results &lt;- waldtest(output, vcov = cov1)
+
+stargazer(output, output, type = "html",
+          se        = list(NULL, robust_se),
+          omit.stat = "f",
+          add.lines = list(c("F Statistic (df = 3; 360)", "12.879***", "7.73***")))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.043)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.166
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.159)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(4.735)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.053)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic (df = 3; 360)
+</td>
+<td>
+12.879***
+</td>
+<td>
+7.73***
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.097
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.089
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 360)
+</td>
+<td>
+13.248
+</td>
+<td>
+13.248
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="move-the-intercept-term-to-the-top-of-the-table" class="section level3">
+<h3>Move the intercept term to the top of the table</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html",
+          intercept.bottom = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="compress-the-table-output" class="section level3">
+<h3>Compress the table output</h3>
+<p>We can condense the table output by placing all the the output on the same row. When <code>single.row</code> is set to <code>TRUE</code>, the argument <code>no.space</code> is automatically set to <code>TRUE</code>.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html",
+          single.row = TRUE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup> (0.041)
+</td>
+<td>
+0.184<sup>***</sup> (0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166 (0.164)
+</td>
+<td>
+0.114 (0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup> (3.249)
+</td>
+<td>
+18.167<sup>***</sup> (3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266 (2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup> (3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup> (2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup> (3.099)
+</td>
+<td>
+6.141<sup>*</sup> (3.536)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+</div>
+<div id="omit-parts-of-the-default-output" class="section level2">
+<h2>Omit parts of the default output</h2>
+<p>In fixed effect model specifications it is often undesirable to report the fixed effect coefficients. To omit any coefficient, supply a regular expression to <code>omit</code>.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", omit = "quarter")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<div id="reporting-omitted-variables" class="section level3">
+<h3>Reporting omitted variables</h3>
+<p>Add the <code>omit.labels</code> parameter to report which variables have been omitted. Must be the same length as the number of regular expressions supplied to <code>omit</code>. By default <code>omit.labels</code> reports “Yes” or “No”. To change this supply a new vector of length 2 to <code>omit.yes.no = c("Yes", "No")</code>.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          omit        = "quarter",
+          omit.labels = "Quarter dummies?")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Quarter dummies?
+</td>
+<td>
+No
+</td>
+<td>
+No
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="omit-summary-statistics" class="section level3">
+<h3>Omit summary statistics</h3>
+<pre class="r"><code>## Remove r-square and f-statistic
+stargazer(output, output2, type = "html", 
+          omit.stat = c("rsq", "f"))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<p><br>
+See also <code>keep.stat</code> a related argument with the opposite behavior.</p>
+</div>
+<div id="omit-whole-parts-of-the-table" class="section level3">
+<h3>Omit whole parts of the table</h3>
+<p>If you just want to remove parts of the table it is easier to use <code>omit.table.layout</code> to explicitly specify table elements. See <code>table layout chracters</code> for a list of codes.</p>
+<pre class="r"><code># Remove statistics and notes sections completely
+stargazer(output, output2, type = "html", 
+          omit.table.layout = "sn")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="omit-whole-parts-of-the-table-a-second-way" class="section level3">
+<h3>Omit whole parts of the table (a second way)</h3>
+<p>Another way to achieve the result above is through the argument <code>table.layout</code>. It also accepts a character string that tells <code>stargazer</code> which table elements to <strong>include</strong>.</p>
+<pre class="r"><code># Include everything except the statistics and notes sections
+stargazer(output, output2, type = "html", 
+          table.layout = "-ld#-t-")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="omit-the-degrees-of-freedom" class="section level3">
+<h3>Omit the degrees of freedom</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          df = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248
+</td>
+<td>
+13.119
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup>
+</td>
+<td>
+8.253<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+</div>
+<div id="statistical-significance-options" class="section level2">
+<h2>Statistical significance options</h2>
+<p>By default <code>stargazer</code> uses ***, **, and * to denote statistical significance at the one, five, and ten percent levels. This behavior can be changed by altering the <code>star.char</code> option.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          star.char = c("@", "@@", "@@@"))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>@@</sup>
+</td>
+<td>
+0.184<sup>@@@</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>@@@</sup>
+</td>
+<td>
+18.167<sup>@@@</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>@@</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>@@</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>@@</sup>
+</td>
+<td>
+6.141<sup>@</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>@@@</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>@@@</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<div id="change-the-cutoffs-for-significance" class="section level3">
+<h3>Change the cutoffs for significance</h3>
+<p>Notice that temperature, quarter3, and quarter4 have each lost a gold star because we made it tougher to earn them.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          star.cutoffs = c(0.05, 0.01, 0.001)) # star.cutoffs = NULL by default</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>*</sup>
+</td>
+<td>
+0.184<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>*</sup>
+</td>
+<td>
+6.141
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.05; <sup><strong></strong></sup><strong>p&lt;0.01; <sup></sup></strong></em>p&lt;0.001
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+</div>
+<div id="modifying-table-notes" class="section level2">
+<h2>Modifying table notes</h2>
+<div id="make-an-addition-to-the-existing-note-section" class="section level3">
+<h3>Make an addition to the existing note section</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          notes = "I make this look good!")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2" style="text-align:right">
+I make this look good!
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="replace-the-note-section" class="section level3">
+<h3>Replace the note section</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          notes        = "Sometimes you just have to start over.", 
+          notes.append = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+Sometimes you just have to start over.
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="change-note-alignment" class="section level3">
+<h3>Change note alignment</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          notes.align = "l")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:left">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="change-the-note-section-label" class="section level3">
+<h3>Change the note section label</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          notes.label = "New note label")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+New note label
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+</div>
+<div id="table-aesthetics" class="section level2">
+<h2>Table aesthetics</h2>
+<div id="use-html-tags-to-modify-table-elements" class="section level3">
+<h3>Use html tags to modify table elements</h3>
+<pre class="r"><code># For LaTeX output you can also wrap table text in commands like \textbf{...}, 
+# just remember to escape the first backslash, e.g., "A \\textbf{better} caption"
+
+stargazer(output, output2, type = "html", 
+          title = "These are &lt;em&gt; awesome &lt;/em&gt; results!",  # Italics
+          dep.var.caption  = "A &lt;b&gt; better &lt;/b&gt; caption")   # Bold</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>These are <em> awesome </em> results!</strong>
+</caption>
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+A <b> better </b> caption
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="change-decimal-character" class="section level3">
+<h3>Change decimal character</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          decimal.mark = ",")</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0,088<sup>**</sup>
+</td>
+<td>
+0,184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0,041)
+</td>
+<td>
+(0,069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0,166
+</td>
+<td>
+0,114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0,164)
+</td>
+<td>
+(0,164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18,918<sup>***</sup>
+</td>
+<td>
+18,167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3,249)
+</td>
+<td>
+(3,230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2,266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2,660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7,527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3,226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4,758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2,104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7,263<sup>**</sup>
+</td>
+<td>
+6,141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3,099)
+</td>
+<td>
+(3,536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0,097
+</td>
+<td>
+0,122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0,089
+</td>
+<td>
+0,107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13,248 (df = 360)
+</td>
+<td>
+13,119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12,880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8,253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0,1; <sup><strong></strong></sup><strong>p&lt;0,05; <sup></sup></strong></em>p&lt;0,01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="control-the-number-of-decimal-places" class="section level3">
+<h3>Control the number of decimal places</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          digits = 1)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.1<sup>**</sup>
+</td>
+<td>
+0.2<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+<td>
+(0.1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.2
+</td>
+<td>
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.2)
+</td>
+<td>
+(0.2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.9<sup>***</sup>
+</td>
+<td>
+18.2<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.2)
+</td>
+<td>
+(3.2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.7)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.5<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.8<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.3<sup>**</sup>
+</td>
+<td>
+6.1<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.1)
+</td>
+<td>
+(3.5)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.1
+</td>
+<td>
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.1
+</td>
+<td>
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.2 (df = 360)
+</td>
+<td>
+13.1 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.9<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.3<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="additional-decimal-controls" class="section level3">
+<h3>Additional decimal controls</h3>
+<p>You may also specify the number of additional decimal places to be used if a number, when rounded to <code>digits</code> decimal places, is equal to zero (Use argument <code>digits.extra</code>).</p>
+<p>My example models do not have any numbers in the thousands, so I won’t show them, but <code>digit.separate</code> and <code>digits.separator</code> are also available for customizing the output of those characters.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          digits       = 1,
+          digits.extra = 1)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.1<sup>**</sup>
+</td>
+<td>
+0.2<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+<td>
+(0.1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.2
+</td>
+<td>
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.2)
+</td>
+<td>
+(0.2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.9<sup>***</sup>
+</td>
+<td>
+18.2<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.2)
+</td>
+<td>
+(3.2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.7)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.5<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.8<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.3<sup>**</sup>
+</td>
+<td>
+6.1<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.1)
+</td>
+<td>
+(3.5)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.1
+</td>
+<td>
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.1
+</td>
+<td>
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.2 (df = 360)
+</td>
+<td>
+13.1 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.9<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.3<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="drop-leading-zeros-from-decimals" class="section level3">
+<h3>Drop leading zeros from decimals</h3>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          initial.zero = FALSE)</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+.088<sup>**</sup>
+</td>
+<td>
+.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(.041)
+</td>
+<td>
+(.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+.166
+</td>
+<td>
+.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(.164)
+</td>
+<td>
+(.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+.097
+</td>
+<td>
+.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+.089
+</td>
+<td>
+.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="change-the-order-of-the-variables" class="section level3">
+<h3>Change the order of the variables</h3>
+<p>The <code>order</code> argument will also accept a vector of regular expressions.</p>
+<pre class="r"><code>stargazer(output, output2, type = "html", 
+          order = c(4, 5, 6, 3, 2, 1))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter2
+</td>
+<td>
+</td>
+<td>
+-2.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.660)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter3
+</td>
+<td>
+</td>
+<td>
+-7.527<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(3.226)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+quarter4
+</td>
+<td>
+</td>
+<td>
+-4.758<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(2.104)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wind
+</td>
+<td>
+0.166
+</td>
+<td>
+0.114
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.164)
+</td>
+<td>
+(0.164)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+temp
+</td>
+<td>
+0.088<sup>**</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.069)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+7.263<sup>**</sup>
+</td>
+<td>
+6.141<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.099)
+</td>
+<td>
+(3.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="select-which-variables-to-keep-in-the-table" class="section level3">
+<h3>Select which variables to keep in the table</h3>
+<p>By default <code>keep = NULL</code> meaning all variables are included. <code>keep</code> accepts a vector of regular expressions.</p>
+<pre class="r"><code># Regex for keep "precip" but not "precipitation"
+stargazer(output, output2, type = "html", 
+          keep = c("\\bprecip\\b"))</code></pre>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+delay
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+precip
+</td>
+<td>
+18.918<sup>***</sup>
+</td>
+<td>
+18.167<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.249)
+</td>
+<td>
+(3.230)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+364
+</td>
+<td>
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.097
+</td>
+<td>
+0.122
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.089
+</td>
+<td>
+0.107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+13.248 (df = 360)
+</td>
+<td>
+13.119 (df = 357)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+12.880<sup>***</sup> (df = 3; 360)
+</td>
+<td>
+8.253<sup>***</sup> (df = 6; 357)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+</tbody></table>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+</div>
+<div id="feedback" class="section level2">
+<h2>Feedback</h2>
+<p>The .Rmd file for this cheatsheet <a href="https://github.com/JakeRuss/cheatsheets">is on GitHub</a> and I welcome suggestions or pull requests.</p>
+<p><br>
+<a href="https://www.jakeruss.com/cheatsheets/stargazer/#TOC">Back to table of contents</a></p>
+</div>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <h6 style="text-align: right">
+                        September 3, 2014
+                      </h6>
+                    </div>
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                      <h6 style="text-align: left">
+                        <strong><a href="https://www.jakeruss.com/blog/a-stargazer-cheatsheet/">A Stargazer Cheatsheet</a></strong>
+                      </h6>
+                    </div>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"><iframe id="dsq-app7712" name="dsq-app7712" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 75px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = 'jake_russ';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  
+</div>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">Copyright © 2017 Jake Russ. Powered by <a href="https://gohugo.io/">Hugo</a>, <a href="https://www.netlify.com/">Netlify</a>, and the
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain theme</a>.</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="./jquery.min.js.download"></script>
+
+<script src="./bootstrap.min.js.download" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="./docs.min.js.download"></script>
+<script src="./main.js.download"></script>
+
+<script src="./ie10-viewport-bug-workaround.js.download"></script>
+
+
+    
+  
+
+<iframe style="display: none;" src="./saved_resource(1).html"></iframe></body></html>
