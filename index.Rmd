@@ -20,10 +20,12 @@ This respository contains a collection of dynamic programming tools and introduc
 
 The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics. The current goals that also meet the requirements to produce the figures needed for reproducible phd research.
 
-**One**: *Produce static maps for the first publication of my PhD.* 
+### Objective one
+
+*Produce static maps for the first publication of my PhD.* 
 Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/summary.html)
 
-### Datasets
+#### Datasets
 
   - Grid locations are in a `kmz` file called "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kmz)
     - `kml` file still called "invasive-species-location-research.kmz" [currently](data/google-data/invasive-species-location-research.kmz)
