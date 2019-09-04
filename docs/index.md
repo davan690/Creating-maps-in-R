@@ -14,15 +14,7 @@ description: "Everything you need to start using GIS in RMarkdown/bookdown proje
 
 # Overview {#overview}
 
-This respository contains a collection of dynamic programming tools and introductory tutorials for mapping/GIS from the following `github` repositories:
-
-- [Creating maps in R](https://geocompr.robinlovelace.net/): A textbook on geocomputational analysis in R
-
-## Packages
-
-- [tidyverse]()
-- [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R packages
-- [Video](https://www.youtube.com/watch?v=GMi1ThlGFMo)
+This respository contains a collection of dynamic programming tools and introductory tutorials for 
 
 ## Project objectives
 
@@ -79,8 +71,18 @@ Three: *Produce static maps for the following data-set* [Davidson2019c]
 
 For more details this following the same contributing options as the website instructions [here](https://www.ssnhub.com/contributing/).
 
-### Templates
-
-This is the absolute minimum you need to start a [bookdown](https://bookdown.org/yihui/bookdown/) book. You can find the preview of this book at http://seankross.com/bookdown-start/
+**Note** This book is built from the absolute minimum you need to start a  [bookdown](https://bookdown.org/yihui/bookdown/) book. You can find the preview of the unmodified template of the book at http://seankross.com/bookdown-start/
 
 - All of the content of this repository is licensed [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
+
+The content of the mapping/GIS was orginally forked from from the following `github` repositories:
+
+- [Creating maps in R](https://geocompr.robinlovelace.net/): A textbook on geocomputational analysis in R
+
+### Packages
+
+To run this book in RStudio the following packages are needed.
+
+- [tidyverse]()
+- [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R packages
+- [Video](https://www.youtube.com/watch?v=GMi1ThlGFMo)
