@@ -20,13 +20,13 @@ This respository contains a collection of dynamic programming tools and introduc
 
 The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics. The current goals that also meet the requirements to produce the figures needed for reproducible phd research.
 
-One: *Produce static maps for the first publication of my PhD.* 
+**One**: *Produce static maps for the first publication of my PhD.* 
+Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/summary.html)
 
-Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/)
+### Datasets
 
-- Datasets
   - Grid locations are in a `kmz` file called "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kmz)
-    - `kml` file still called "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kmz)
+    - `kml` file still called "invasive-species-location-research.kmz" [currently](data/google-data/invasive-species-location-research.kmz)
   - Outline of NZ here "" [here]()
   - Forest vegetation here "" [here]()
   - Data from landCare 2019 publication here "" [here]()
@@ -86,3 +86,61 @@ To run this book in RStudio the following packages are needed.
 - [tidyverse]()
 - [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R packages
 - [Video](https://www.youtube.com/watch?v=GMi1ThlGFMo)
+
+
+```r
+library(spData)
+```
+
+```
+## To access larger datasets in this package, install the spDataLarge
+## package with: `install.packages('spDataLarge',
+## repos='https://nowosad.github.io/drat/', type='source')`
+```
+
+```r
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+library(sf)
+```
+
+```
+## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3
+```
+
+```r
+library(bookdown)
+library(leaflet)
+library(leaflet.extras)
+library(geojsonio)
+```
+
+```
+## 
+## Attaching package: 'geojsonio'
+```
+
+```
+## The following object is masked from 'package:base':
+## 
+##     pretty
+```

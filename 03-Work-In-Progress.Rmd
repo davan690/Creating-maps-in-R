@@ -1,3 +1,3 @@
-# Technical Details
+# Work in progress {#wnp}
 
-Now I'll teach you some crazy math, but I need to work it out first...
+As I work through the steps I will add code and notes to this section of the `gitbook`. The first step I have done is to convert the downloaded my-maps data 

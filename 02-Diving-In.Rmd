@@ -23,7 +23,7 @@ To begin with check this is working in your local RStudio enviroment
 
 2. Load the ones we need:
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(spData)
 library(dplyr)
 library(sf)
@@ -35,8 +35,9 @@ library(geojsonio)
 
 3. Check it's all working, e.g. with this command:
 
-```{r}
-world %>%  plot()
+```{r message=FALSE, warning=FALSE}
+world %>%  
+  plot()
 ```
 
 And some blogging on the matter [here](http://zevross.com/blog/2014/09/30/use-the-amazing-d3-library-to-animate-a-path-on-a-leaflet-map/).

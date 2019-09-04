@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 5 Resources | Using GIS for invasive species research</title>
+  <title> 2 Introduction | Using GIS for invasive species research</title>
   <meta name="description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 5 Resources | Using GIS for invasive species research" />
+  <meta property="og:title" content=" 2 Introduction | Using GIS for invasive species research" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://www.ssnhub.com/Creating-maps-in-R" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="davan690/Creating-maps-in-R" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 5 Resources | Using GIS for invasive species research" />
+  <meta name="twitter:title" content=" 2 Introduction | Using GIS for invasive species research" />
   
   <meta name="twitter:description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="outputs.html">
-<link rel="next" href="tabs.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="divingin.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -206,56 +206,24 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="resources" class="section level1">
-<h1><span class="header-section-number"> 5</span> Resources</h1>
-<p>Using and applying GIS techniques in R has become much easier since the additional functionality of Java-script libraries. One of these libraries in the <code>leaflet</code> library for mapping. Below are some examples of these mapping tools with examples.</p>
-<p>I like the idea of know what to do in arcGIS so that it is easy to work with researchers that use either R or arcGIS. For a GIS map there are two main options. Here are the resources for building interactive and static maps in R using a range of different packages:</p>
-<ul>
-<li>’leaflet`</li>
-</ul>
-<div id="a-single-location-on-a-map-1" class="section level2">
-<h2><span class="header-section-number">5.1</span> A single location on a map</h2>
-<p>Here is the birthplace of R plotted with <code>leaflet</code>, <code>addTiles</code> and the <code>addMarkers</code>…</p>
-</div>
-<div id="leaflet-plots" class="section level2">
-<h2><span class="header-section-number">5.2</span> Leaflet plots</h2>
-<p><em>still coming</em></p>
-</div>
-<div id="my-notes-2" class="section level2">
-<h2><span class="header-section-number">5.3</span> My Notes</h2>
-<p>I have sent the following to Matt to input into arcGIS and compare rendered maps.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="co"># grid.locations &lt;- </span></a>
-<a class="sourceLine" id="cb36-2" title="2"><span class="co"># label</span></a></code></pre></div>
-<p><em>add hand drawn image here</em></p>
-<div id="extracting-mymaps-data-1" class="section level3">
-<h3><span class="header-section-number">5.3.1</span> Extracting mymaps data</h3>
-<p>This is for security reasons.</p>
+<div id="intro" class="section level1">
+<h1><span class="header-section-number"> 2</span> Introduction</h1>
+<p><em>Creating maps using spatial data in R</em></p>
+<p>GIS is an area of R coding I have kept away from hoping that I would work it out at a later date. Sadly, it has got to the point where I want to be able to build more complex maps in shiny applications towards the end of my PhD and need to create a base of code to go from. Luckily, the text book “Spatial Analysis in R” has just come out in its second edition and is available in as a bookdown repository including the full text <a href="https://bookdown.org/robinlovelace/geocompr/">here</a>.
+This page is a outline of the current resources I am working on and using for my publication and website maps. I have begun by using my normal reproducible workflow and file structure.</p>
+<div id="wms-tiles" class="section level3">
+<h3><span class="header-section-number">2.0.1</span> WMS Tiles</h3>
+<p>You can use <code>addWMSTiles()</code> to add WMS (Web Map Service) tiles. The map below shows the Base Reflectivity (a measure of the intensity of precipitation occurring) using the WMS from the <a href="http://mesonet.agron.iastate.edu">Iowa Environmental Mesonet</a>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setView</span>(<span class="op">-</span><span class="fl">93.65</span>, <span class="fl">42.0285</span>, <span class="dt">zoom =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">addWMSTiles</span>(</a>
+<a class="sourceLine" id="cb12-3" title="3">    <span class="st">&quot;http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi&quot;</span>,</a>
+<a class="sourceLine" id="cb12-4" title="4">    <span class="dt">layers =</span> <span class="st">&quot;nexrad-n0r-900913&quot;</span>,</a>
+<a class="sourceLine" id="cb12-5" title="5">    <span class="dt">options =</span> <span class="kw">WMSTileOptions</span>(<span class="dt">format =</span> <span class="st">&quot;image/png&quot;</span>, <span class="dt">transparent =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb12-6" title="6">    <span class="dt">attribution =</span> <span class="st">&quot;Weather data © 2012 IEM Nexrad&quot;</span></a>
+<a class="sourceLine" id="cb12-7" title="7">  )</a></code></pre></div>
+<div id="htmlwidget-20bab5b365bdc2d767b1" style="width:672px;height:240px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-20bab5b365bdc2d767b1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addWMSTiles","args":["http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi",null,null,{"styles":"","format":"image/png","transparent":true,"version":"1.1.1","attribution":"Weather data © 2012 IEM Nexrad","layers":"nexrad-n0r-900913"}]}],"setView":[[42.0285,-93.65],4,[]]},"evals":[],"jsHooks":[]}</script>
 
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb37-2" title="2"><span class="kw">library</span>(leaflet.extras)</a></code></pre></div>
-<div id="htmlwidget-c190cd06ea70a31cd332" style="width:100%;height:480px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c190cd06ea70a31cd332">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap.BlackAndWhite",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"setMaxBounds","args":[1.422041,22.625227,13.528717,36.978083]},{"method":"addEasyButton","args":[{"icon":"ion-arrow-shrink","title":"Reset View","onClick":"function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }","position":"topleft"}]}],"setView":[[7.1751893,30.2189853],7,[]]},"evals":["calls.2.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x){ \n  var map = this; \n  map.whenReady(function(){\n    map._initialCenter = map.getCenter(); \n    map._initialZoom = map.getZoom();\n  });\n}).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
-<div class="tabbable">
-<ul class="nav nav-tabs shiny-tab-input" id="tbSet1" data-tabsetid="4139">
-<li class="active">
-<a href="resources.html#tab-4139-1" data-toggle="tab" data-value="Tab Name 1">Tab Name 1</a>
-</li>
-<li>
-<a href="resources.html#tab-4139-2" data-toggle="tab" data-value="Tab Name 2">Tab Name 2</a>
-</li>
-</ul>
-<div class="tab-content" data-tabsetid="4139">
-<div class="tab-pane active" data-value="Tab Name 1" id="tab-4139-1">
-<div id="htmlwidget-dfc38e41ace95a76f2e4" style="width:100%;height:400px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dfc38e41ace95a76f2e4">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap.BlackAndWhite",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"setMaxBounds","args":[1.422041,22.625227,13.528717,36.978083]},{"method":"addEasyButton","args":[{"icon":"ion-arrow-shrink","title":"Reset View","onClick":"function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }","position":"topleft"}]}],"setView":[[7.1751893,30.2189853],7,[]]},"evals":["calls.2.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x){ \n  var map = this; \n  map.whenReady(function(){\n    map._initialCenter = map.getCenter(); \n    map._initialZoom = map.getZoom();\n  });\n}).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
-</div>
-<div class="tab-pane" data-value="Tab Name 2" id="tab-4139-2">
-<div id="htmlwidget-c8d49f31605590f1409a" style="width:100%;height:400px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c8d49f31605590f1409a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap.BlackAndWhite",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"setMaxBounds","args":[1.422041,22.625227,13.528717,36.978083]},{"method":"addEasyButton","args":[{"icon":"ion-arrow-shrink","title":"Reset View","onClick":"function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }","position":"topleft"}]}],"setView":[[7.1751893,30.2189853],7,[]]},"evals":["calls.2.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\nfunction(el, x){ \n  var map = this; \n  map.whenReady(function(){\n    map._initialCenter = map.getCenter(); \n    map._initialZoom = map.getZoom();\n  });\n}).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -263,8 +231,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="outputs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="tabs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="divingin.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -294,7 +262,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/davan690/beech-publication-wr/docs/resources.Rmd",
+"link": "https://github.com/davan690/beech-publication-wr/docs/01-Introduction.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Using GIS for invasive species research</title>
   <meta name="description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Using GIS for invasive species research" />
   <meta property="og:type" content="book" />
@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="introduction.html"/>
+<link rel="next" href="intro.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -142,20 +142,24 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#datasets"><i class="fa fa-check"></i><b>1.1.1</b> Datasets</a></li>
+</ul></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#my-notes"><i class="fa fa-check"></i><b>1.2</b> My notes</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#get-started"><i class="fa fa-check"></i><b>1.3</b> Get started…</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.3.1</b> Packages</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.0.1" data-path="intro.html"><a href="intro.html#wms-tiles"><i class="fa fa-check"></i><b>2.0.1</b> WMS Tiles</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="divingin.html"><a href="divingin.html"><i class="fa fa-check"></i><b>3</b> Diving In</a><ul>
 <li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#extra-resources"><i class="fa fa-check"></i><b>3.1</b> Extra resources</a></li>
 <li class="chapter" data-level="3.2" data-path="divingin.html"><a href="divingin.html#using-basemaps"><i class="fa fa-check"></i><b>3.2</b> Using Basemaps</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="divingin.html"><a href="divingin.html#default-openstreetmap-tiles"><i class="fa fa-check"></i><b>3.2.1</b> Default (OpenStreetMap) Tiles</a></li>
 <li class="chapter" data-level="3.2.2" data-path="divingin.html"><a href="divingin.html#third-party-tiles"><i class="fa fa-check"></i><b>3.2.2</b> Third-Party Tiles</a></li>
 <li class="chapter" data-level="3.2.3" data-path="divingin.html"><a href="divingin.html#custom-tile-url-template"><i class="fa fa-check"></i><b>3.2.3</b> Custom Tile URL Template</a></li>
-<li class="chapter" data-level="3.2.4" data-path="divingin.html"><a href="divingin.html#wms-tiles"><i class="fa fa-check"></i><b>3.2.4</b> WMS Tiles</a></li>
+<li class="chapter" data-level="3.2.4" data-path="divingin.html"><a href="divingin.html#wms-tiles-1"><i class="fa fa-check"></i><b>3.2.4</b> WMS Tiles</a></li>
 <li class="chapter" data-level="3.2.5" data-path="divingin.html"><a href="divingin.html#combining-tile-layers"><i class="fa fa-check"></i><b>3.2.5</b> Combining Tile Layers</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="divingin.html"><a href="divingin.html#choropleths"><i class="fa fa-check"></i><b>3.3</b> Choropleths</a><ul>
@@ -213,19 +217,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="project-objectives" class="section level2">
 <h2><span class="header-section-number">1.1</span> Project objectives</h2>
 <p>The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics. The current goals that also meet the requirements to produce the figures needed for reproducible phd research.</p>
-<p>One: <em>Produce static maps for the first publication of my PhD.</em></p>
-<p>Draft here - <a href="https://www.ssnhub.com/beech-publication-wr/">Davidson2019a</a></p>
-<ul>
-<li>Datasets
+<p><strong>One</strong>: <em>Produce static maps for the first publication of my PhD.</em>
+Draft here - <a href="https://www.ssnhub.com/beech-publication-wr/summary.html">Davidson2019a</a></p>
+<div id="datasets" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Datasets</h3>
 <ul>
 <li>Grid locations are in a <code>kmz</code> file called “invasive-species-location-research.kmz” <a href="data/google-data/invasive-species-location-research.kmz">here</a>
 <ul>
-<li><code>kml</code> file still called “invasive-species-location-research.kmz” <a href="data/google-data/invasive-species-location-research.kmz">here</a></li>
+<li><code>kml</code> file still called “invasive-species-location-research.kmz” <a href="data/google-data/invasive-species-location-research.kmz">currently</a></li>
 </ul></li>
 <li>Outline of NZ here "" <a href="">here</a></li>
 <li>Forest vegetation here "" <a href="">here</a></li>
-<li>Data from landCare 2019 publication here "" <a href="">here</a></li>
-</ul></li>
+<li><p>Data from landCare 2019 publication here "" <a href="">here</a></p></li>
 <li>Rcode
 <ul>
 <li>My attempt so far "" <a href="">here</a></li>
@@ -244,6 +247,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>[<em>same as above</em>]</p>
 <p>Three: <em>Produce static maps for the following data-set</em> [Davidson2019c]</p>
 <p>[<em>same as above</em>]</p>
+</div>
 </div>
 <div id="my-notes" class="section level2">
 <h2><span class="header-section-number">1.2</span> My notes</h2>
@@ -287,6 +291,30 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://r-spatial.github.io/mapview/">MapView</a>: a 3D interactive R packages</li>
 <li><a href="https://www.youtube.com/watch?v=GMi1ThlGFMo">Video</a></li>
 </ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(spData)</a></code></pre></div>
+<pre><code>## To access larger datasets in this package, install the spDataLarge
+## package with: `install.packages(&#39;spDataLarge&#39;,
+## repos=&#39;https://nowosad.github.io/drat/&#39;, type=&#39;source&#39;)`</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(dplyr)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">library</span>(sf)</a></code></pre></div>
+<pre><code>## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">library</span>(bookdown)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">library</span>(leaflet.extras)</a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw">library</span>(geojsonio)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;geojsonio&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     pretty</code></pre>
 
 </div>
 </div>
@@ -297,7 +325,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

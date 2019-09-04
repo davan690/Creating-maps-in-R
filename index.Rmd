@@ -20,13 +20,13 @@ This respository contains a collection of dynamic programming tools and introduc
 
 The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics. The current goals that also meet the requirements to produce the figures needed for reproducible phd research.
 
-One: *Produce static maps for the first publication of my PhD.* 
+**One**: *Produce static maps for the first publication of my PhD.* 
+Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/summary.html)
 
-Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/)
+### Datasets
 
-- Datasets
   - Grid locations are in a `kmz` file called "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kmz)
-    - `kml` file still called "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kmz)
+    - `kml` file still called "invasive-species-location-research.kmz" [currently](data/google-data/invasive-species-location-research.kmz)
   - Outline of NZ here "" [here]()
   - Forest vegetation here "" [here]()
   - Data from landCare 2019 publication here "" [here]()
@@ -86,3 +86,13 @@ To run this book in RStudio the following packages are needed.
 - [tidyverse]()
 - [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R packages
 - [Video](https://www.youtube.com/watch?v=GMi1ThlGFMo)
+
+```{r echo = TRUE}
+library(spData)
+library(dplyr)
+library(sf)
+library(bookdown)
+library(leaflet)
+library(leaflet.extras)
+library(geojsonio)
+```
