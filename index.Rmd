@@ -8,7 +8,7 @@ bibliography: [book.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: davan690/Creating-maps-in-R
-url: 'https://www.ssnhub.com/beech-publication-wr'
+url: 'https://www.ssnhub.com/Creating-maps-in-R'
 description: "Everything you need to start using GIS in RMarkdown/bookdown projects."
 ---
 
@@ -17,6 +17,10 @@ description: "Everything you need to start using GIS in RMarkdown/bookdown proje
 This respository contains a collection of dynamic programming tools and introductory tutorials for mapping/GIS from the following `github` repositories:
 
 - [Creating maps in R](https://geocompr.robinlovelace.net/): A textbook on geocomputational analysis in R
+
+## Packages
+
+- [tidyverse]()
 - [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R packages
 - [Video](https://www.youtube.com/watch?v=GMi1ThlGFMo)
 
@@ -26,10 +30,11 @@ The overall objective is to create a landing page and collection of GIS work in 
 
 One: *Produce static maps for the first publication of my PhD.* 
 
-Draft here - [Davidson2019a](https://www.ssnhub.com/2019-05-03-beech-forest-objectives)
+Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/)
 
 - Datasets
-  - Grid locations are in a `kml` file called "" [here]()
+  - Grid locations are in a `kmz` file called "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kmz)
+    - `kml` file still called "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kmz)
   - Outline of NZ here "" [here]()
   - Forest vegetation here "" [here]()
   - Data from landCare 2019 publication here "" [here]()
