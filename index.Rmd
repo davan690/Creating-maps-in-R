@@ -1,4 +1,4 @@
---- 
+---
 title: "Using GIS for invasive species research"
 author: "Anthony Davidson"
 date: "`r Sys.Date()`"
@@ -29,7 +29,7 @@ One: *Produce static maps for the first publication of my PhD.*
 Draft here - [Davidson2019a](https://www.ssnhub.com/2019-05-03-beech-forest-objectives)
 
 - Datasets
-  - Grid locations are in a csv file called "" [here]()
+  - Grid locations are in a `kml` file called "" [here]()
   - Outline of NZ here "" [here]()
   - Forest vegetation here "" [here]()
   - Data from landCare 2019 publication here "" [here]()
@@ -68,11 +68,14 @@ Three: *Produce static maps for the following data-set* [Davidson2019c]
 
 2. Pull project into Rstudio using version control.
 
-3. Ensure that packages are up to date.
+   ![1567561101782](img/fork.PNG)
 
-For more details this following the same contrinutiing options as the website instructions [here](https://www.ssnhub.com/contributing/).
+3. Ensure that your local RStudio packages are up to date.
+
+For more details this following the same contributing options as the website instructions [here](https://www.ssnhub.com/contributing/).
 
 ### Templates
 
 This is the absolute minimum you need to start a [bookdown](https://bookdown.org/yihui/bookdown/) book. You can find the preview of this book at http://seankross.com/bookdown-start/
+
 - All of the content of this repository is licensed [CC0](https://creativecommons.org/publicdomain/zero/1.0/).

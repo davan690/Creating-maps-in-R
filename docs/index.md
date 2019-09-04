@@ -1,7 +1,7 @@
---- 
+---
 title: "Using GIS for invasive species research"
 author: "Anthony Davidson"
-date: "2019-09-03"
+date: "2019-09-04"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
@@ -20,16 +20,16 @@ This respository contains a collection of dynamic programming tools and introduc
 - [MapView](https://r-spatial.github.io/mapview/): a 3D interactive R packages
 - [Video](https://www.youtube.com/watch?v=GMi1ThlGFMo)
 
-## The objectives
+## Project objectives
 
-generally the objective is to create a landing page and resource of GIS work in R with a particular focus on invasive species dynamics. The current goals under my PhD work is as follows:
+The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics. The current goals that also meet the requirements to produce the figures needed for reproducible phd research.
 
 One: *Produce static maps for the first publication of my PhD.* 
 
 Draft here - [Davidson2019a](https://www.ssnhub.com/2019-05-03-beech-forest-objectives)
 
 - Datasets
-  - Grid locations are in a csv file called "" [here]()
+  - Grid locations are in a `kml` file called "" [here]()
   - Outline of NZ here "" [here]()
   - Forest vegetation here "" [here]()
   - Data from landCare 2019 publication here "" [here]()
@@ -68,11 +68,14 @@ Three: *Produce static maps for the following data-set* [Davidson2019c]
 
 2. Pull project into Rstudio using version control.
 
-3. Ensure that packages are up to date.
+   ![1567561101782](img/fork.PNG)
 
-For more details this following the same contrinutiing options as the website instructions [here](https://www.ssnhub.com/contributing.html).
+3. Ensure that your local RStudio packages are up to date.
+
+For more details this following the same contributing options as the website instructions [here](https://www.ssnhub.com/contributing/).
 
 ### Templates
 
 This is the absolute minimum you need to start a [bookdown](https://bookdown.org/yihui/bookdown/) book. You can find the preview of this book at http://seankross.com/bookdown-start/
+
 - All of the content of this repository is licensed [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
