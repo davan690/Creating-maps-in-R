@@ -1,7 +1,7 @@
 ---
 title: "Using GIS for invasive species research"
 author: "Anthony Davidson"
-date: "2019-09-05"
+date: "2019-09-06"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
