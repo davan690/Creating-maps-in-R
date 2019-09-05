@@ -1,0 +1,6 @@
+package,published,title,depends_count,suggests_count,tidyverse_happy,has_vignette_build,has_tests,reverse_count,dl_last_month,ci,test_coverage,forks,stars,watchers,last_commit,last_issue_closed,contributors
+cartogram,2018-12-01,Create Cartograms with R,NA,2,FALSE,FALSE,FALSE,0,3639,Travis,NONE,11,78,7,NA,8,1
+geogrid,2018-12-11,Turn Geospatial Polygons into Regular or Hexagonal Grids,NA,3,FALSE,FALSE,TRUE,1,640,Travis,CodeCov,24,299,15,9.033333333333333,8.7,0
+geofacet,2019-03-13,'ggplot2' Faceting Utilities for Geographical Data,1,6,TRUE,TRUE,TRUE,0,581,NA,NA,NA,NA,NA,NA,NA,NA
+globe,2017-05-12,"Plot 2D and 3D Views of the Earth, Including Major Coastline",3,NA,NA,FALSE,FALSE,0,386,NA,NA,NA,NA,NA,NA,NA,NA
+linemap,2017-09-15,Line Maps,1,NA,FALSE,FALSE,FALSE,0,385,NA,NA,NA,NA,NA,NA,NA,NA

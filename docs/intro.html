@@ -10,8 +10,8 @@
 
   <meta property="og:title" content=" 2 Introduction | Using GIS for invasive species research" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://www.ssnhub.com/Creating-maps-in-R" />
-  
+  <meta property="og:url" content="https://ssnhub.com/Creating-maps-in-R/" />
+  <meta property="og:image" content="https://ssnhub.com/Creating-maps-in-R/images/cover.png" />
   <meta property="og:description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
   <meta name="github-repo" content="davan690/Creating-maps-in-R" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content=" 2 Introduction | Using GIS for invasive species research" />
   
   <meta name="twitter:description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
-  
+  <meta name="twitter:image" content="https://ssnhub.com/Creating-maps-in-R/images/cover.png" />
 
 <meta name="author" content="Anthony Davidson" />
 
@@ -57,6 +57,9 @@
 <script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.1.17/leaflet-providers.js"></script>
 <script src="libs/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
 <link href="libs/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet" />
 <script src="libs/leaflet-easybutton-1.3.1/easy-button.js"></script>
 <script src="libs/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script>
@@ -151,25 +154,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
-<li class="chapter" data-level="2.0.1" data-path="intro.html"><a href="intro.html#wms-tiles"><i class="fa fa-check"></i><b>2.0.1</b> WMS Tiles</a></li>
+<li class="chapter" data-level="2.0.1" data-path="intro.html"><a href="intro.html#nz-layers"><i class="fa fa-check"></i><b>2.0.1</b> NZ layers</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="divingin.html"><a href="divingin.html"><i class="fa fa-check"></i><b>3</b> Diving In</a><ul>
-<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#extra-resources"><i class="fa fa-check"></i><b>3.1</b> Extra resources</a></li>
-<li class="chapter" data-level="3.2" data-path="divingin.html"><a href="divingin.html#using-basemaps"><i class="fa fa-check"></i><b>3.2</b> Using Basemaps</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="divingin.html"><a href="divingin.html#default-openstreetmap-tiles"><i class="fa fa-check"></i><b>3.2.1</b> Default (OpenStreetMap) Tiles</a></li>
-<li class="chapter" data-level="3.2.2" data-path="divingin.html"><a href="divingin.html#third-party-tiles"><i class="fa fa-check"></i><b>3.2.2</b> Third-Party Tiles</a></li>
-<li class="chapter" data-level="3.2.3" data-path="divingin.html"><a href="divingin.html#custom-tile-url-template"><i class="fa fa-check"></i><b>3.2.3</b> Custom Tile URL Template</a></li>
-<li class="chapter" data-level="3.2.4" data-path="divingin.html"><a href="divingin.html#wms-tiles-1"><i class="fa fa-check"></i><b>3.2.4</b> WMS Tiles</a></li>
-<li class="chapter" data-level="3.2.5" data-path="divingin.html"><a href="divingin.html#combining-tile-layers"><i class="fa fa-check"></i><b>3.2.5</b> Combining Tile Layers</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="divingin.html"><a href="divingin.html#choropleths"><i class="fa fa-check"></i><b>3.3</b> Choropleths</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="divingin.html"><a href="divingin.html#data-source"><i class="fa fa-check"></i><b>3.3.1</b> Data source</a></li>
-<li class="chapter" data-level="3.3.2" data-path="divingin.html"><a href="divingin.html#basic-states-map"><i class="fa fa-check"></i><b>3.3.2</b> Basic states map</a></li>
-<li class="chapter" data-level="3.3.3" data-path="divingin.html"><a href="divingin.html#adding-some-color"><i class="fa fa-check"></i><b>3.3.3</b> Adding some color</a></li>
-<li class="chapter" data-level="3.3.4" data-path="divingin.html"><a href="divingin.html#adding-interaction"><i class="fa fa-check"></i><b>3.3.4</b> Adding interaction</a></li>
-<li class="chapter" data-level="3.3.5" data-path="divingin.html"><a href="divingin.html#custom-info"><i class="fa fa-check"></i><b>3.3.5</b> Custom info</a></li>
-<li class="chapter" data-level="3.3.6" data-path="divingin.html"><a href="divingin.html#legend"><i class="fa fa-check"></i><b>3.3.6</b> Legend</a></li>
-</ul></li>
+<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#downloading"><i class="fa fa-check"></i><b>3.1</b> Downloading</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>4</b> Outputs</a><ul>
 <li class="chapter" data-level="4.0.1" data-path="outputs.html"><a href="outputs.html#a-single-location-on-a-map"><i class="fa fa-check"></i><b>4.0.1</b> A single location on a map</a></li>
@@ -178,11 +166,43 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.1" data-path="outputs.html"><a href="outputs.html#extracting-mymaps-data"><i class="fa fa-check"></i><b>4.1.1</b> Extracting mymaps data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>5</b> Resources</a><ul>
-<li class="chapter" data-level="5.1" data-path="resources.html"><a href="resources.html#a-single-location-on-a-map-1"><i class="fa fa-check"></i><b>5.1</b> A single location on a map</a></li>
-<li class="chapter" data-level="5.2" data-path="resources.html"><a href="resources.html#leaflet-plots"><i class="fa fa-check"></i><b>5.2</b> Leaflet plots</a></li>
-<li class="chapter" data-level="5.3" data-path="resources.html"><a href="resources.html#my-notes-2"><i class="fa fa-check"></i><b>5.3</b> My Notes</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="resources.html"><a href="resources.html#extracting-mymaps-data-1"><i class="fa fa-check"></i><b>5.3.1</b> Extracting mymaps data</a></li>
+<li class="chapter" data-level="5" data-path="resource.html"><a href="resource.html"><i class="fa fa-check"></i><b>5</b> Resources</a><ul>
+<li class="chapter" data-level="5.1" data-path="resource.html"><a href="resource.html#downloading-1"><i class="fa fa-check"></i><b>5.1</b> Downloading</a></li>
+<li class="chapter" data-level="5.2" data-path="resource.html"><a href="resource.html#using-basemaps"><i class="fa fa-check"></i><b>5.2</b> Using Basemaps</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="resource.html"><a href="resource.html#default-openstreetmap-tiles"><i class="fa fa-check"></i><b>5.2.1</b> Default (OpenStreetMap) Tiles</a></li>
+<li class="chapter" data-level="5.2.2" data-path="resource.html"><a href="resource.html#third-party-tiles"><i class="fa fa-check"></i><b>5.2.2</b> Third-Party Tiles</a></li>
+<li class="chapter" data-level="5.2.3" data-path="resource.html"><a href="resource.html#custom-tile-url-template"><i class="fa fa-check"></i><b>5.2.3</b> Custom Tile URL Template</a></li>
+<li class="chapter" data-level="5.2.4" data-path="resource.html"><a href="resource.html#wms-tiles"><i class="fa fa-check"></i><b>5.2.4</b> WMS Tiles</a></li>
+<li class="chapter" data-level="5.2.5" data-path="resource.html"><a href="resource.html#combining-tile-layers"><i class="fa fa-check"></i><b>5.2.5</b> Combining Tile Layers</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="resource.html"><a href="resource.html#choropleths"><i class="fa fa-check"></i><b>5.3</b> Choropleths</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="resource.html"><a href="resource.html#data-source"><i class="fa fa-check"></i><b>5.3.1</b> Data source</a></li>
+<li class="chapter" data-level="5.3.2" data-path="resource.html"><a href="resource.html#basic-states-map"><i class="fa fa-check"></i><b>5.3.2</b> Basic states map</a></li>
+<li class="chapter" data-level="5.3.3" data-path="resource.html"><a href="resource.html#adding-some-color"><i class="fa fa-check"></i><b>5.3.3</b> Adding some color</a></li>
+<li class="chapter" data-level="5.3.4" data-path="resource.html"><a href="resource.html#adding-interaction"><i class="fa fa-check"></i><b>5.3.4</b> Adding interaction</a></li>
+<li class="chapter" data-level="5.3.5" data-path="resource.html"><a href="resource.html#custom-info"><i class="fa fa-check"></i><b>5.3.5</b> Custom info</a></li>
+<li class="chapter" data-level="5.3.6" data-path="resource.html"><a href="resource.html#legend"><i class="fa fa-check"></i><b>5.3.6</b> Legend</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="resource.html"><a href="resource.html#introduction"><i class="fa fa-check"></i><b>5.4</b> Introduction</a></li>
+<li class="chapter" data-level="5.5" data-path="resource.html"><a href="resource.html#static-maps"><i class="fa fa-check"></i><b>5.5</b> Static maps</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="resource.html"><a href="resource.html#tmap-basics"><i class="fa fa-check"></i><b>5.5.1</b> tmap basics</a></li>
+<li class="chapter" data-level="5.5.2" data-path="resource.html"><a href="resource.html#map-obj"><i class="fa fa-check"></i><b>5.5.2</b> Map objects</a></li>
+<li class="chapter" data-level="5.5.3" data-path="resource.html"><a href="resource.html#aesthetics"><i class="fa fa-check"></i><b>5.5.3</b> Aesthetics</a></li>
+<li class="chapter" data-level="5.5.4" data-path="resource.html"><a href="resource.html#color-settings"><i class="fa fa-check"></i><b>5.5.4</b> Color settings</a></li>
+<li class="chapter" data-level="5.5.5" data-path="resource.html"><a href="resource.html#layouts"><i class="fa fa-check"></i><b>5.5.5</b> Layouts</a></li>
+<li class="chapter" data-level="5.5.6" data-path="resource.html"><a href="resource.html#faceted-maps"><i class="fa fa-check"></i><b>5.5.6</b> Faceted maps</a></li>
+<li class="chapter" data-level="5.5.7" data-path="resource.html"><a href="resource.html#inset-maps"><i class="fa fa-check"></i><b>5.5.7</b> Inset maps</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="resource.html"><a href="resource.html#animated-maps"><i class="fa fa-check"></i><b>5.6</b> Animated maps</a></li>
+<li class="chapter" data-level="5.7" data-path="resource.html"><a href="resource.html#interactive-maps"><i class="fa fa-check"></i><b>5.7</b> Interactive maps</a></li>
+<li class="chapter" data-level="5.8" data-path="resource.html"><a href="resource.html#mapping-applications"><i class="fa fa-check"></i><b>5.8</b> Mapping applications</a></li>
+<li class="chapter" data-level="5.9" data-path="resource.html"><a href="resource.html#other-mapping-packages"><i class="fa fa-check"></i><b>5.9</b> Other mapping packages</a></li>
+<li class="chapter" data-level="5.10" data-path="resource.html"><a href="resource.html#exercises"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+<li class="chapter" data-level="5.11" data-path="resource.html"><a href="resource.html#my-notes-2"><i class="fa fa-check"></i><b>5.11</b> My Notes</a></li>
+<li class="chapter" data-level="5.12" data-path="resource.html"><a href="resource.html#a-single-location-on-a-map-1"><i class="fa fa-check"></i><b>5.12</b> A single location on a map</a></li>
+<li class="chapter" data-level="5.13" data-path="resource.html"><a href="resource.html#leaflet-plots"><i class="fa fa-check"></i><b>5.13</b> Leaflet plots</a></li>
+<li class="chapter" data-level="5.14" data-path="resource.html"><a href="resource.html#my-notes-3"><i class="fa fa-check"></i><b>5.14</b> My Notes</a><ul>
+<li class="chapter" data-level="5.14.1" data-path="resource.html"><a href="resource.html#extracting-mymaps-data-1"><i class="fa fa-check"></i><b>5.14.1</b> Extracting mymaps data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="tabs.html"><a href="tabs.html"><i class="fa fa-check"></i><b>6</b> Leaflet tabs</a></li>
@@ -211,19 +231,77 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Creating maps using spatial data in R</em></p>
 <p>GIS is an area of R coding I have kept away from hoping that I would work it out at a later date. Sadly, it has got to the point where I want to be able to build more complex maps in shiny applications towards the end of my PhD and need to create a base of code to go from. Luckily, the text book “Spatial Analysis in R” has just come out in its second edition and is available in as a bookdown repository including the full text <a href="https://bookdown.org/robinlovelace/geocompr/">here</a>.
 This page is a outline of the current resources I am working on and using for my publication and website maps. I have begun by using my normal reproducible workflow and file structure.</p>
-<div id="wms-tiles" class="section level3">
-<h3><span class="header-section-number">2.0.1</span> WMS Tiles</h3>
-<p>You can use <code>addWMSTiles()</code> to add WMS (Web Map Service) tiles. The map below shows the Base Reflectivity (a measure of the intensity of precipitation occurring) using the WMS from the <a href="http://mesonet.agron.iastate.edu">Iowa Environmental Mesonet</a>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setView</span>(<span class="op">-</span><span class="fl">93.65</span>, <span class="fl">42.0285</span>, <span class="dt">zoom =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">addWMSTiles</span>(</a>
-<a class="sourceLine" id="cb12-3" title="3">    <span class="st">&quot;http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi&quot;</span>,</a>
-<a class="sourceLine" id="cb12-4" title="4">    <span class="dt">layers =</span> <span class="st">&quot;nexrad-n0r-900913&quot;</span>,</a>
-<a class="sourceLine" id="cb12-5" title="5">    <span class="dt">options =</span> <span class="kw">WMSTileOptions</span>(<span class="dt">format =</span> <span class="st">&quot;image/png&quot;</span>, <span class="dt">transparent =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb12-6" title="6">    <span class="dt">attribution =</span> <span class="st">&quot;Weather data © 2012 IEM Nexrad&quot;</span></a>
-<a class="sourceLine" id="cb12-7" title="7">  )</a></code></pre></div>
-<div id="htmlwidget-b457235b21d3a3118885" style="width:672px;height:240px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b457235b21d3a3118885">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addWMSTiles","args":["http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi",null,null,{"styles":"","format":"image/png","transparent":true,"version":"1.1.1","attribution":"Weather data © 2012 IEM Nexrad","layers":"nexrad-n0r-900913"}]}],"setView":[[42.0285,-93.65],4,[]]},"evals":[],"jsHooks":[]}</script>
+<p><strong>EXAMPLE</strong> You can use things like <code>addWMSTiles()</code> to add WMS (Web Map Service) tiles. The map below shows the Base Reflectivity (a measure of the intensity of precipitation occurring) using the WMS from the <a href="http://mesonet.agron.iastate.edu">Iowa Environmental Mesonet</a>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">setView</span>(<span class="op">-</span><span class="fl">93.65</span>, <span class="fl">42.0285</span>, <span class="dt">zoom =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">addWMSTiles</span>(</a>
+<a class="sourceLine" id="cb10-3" title="3">    <span class="st">&quot;http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi&quot;</span>,</a>
+<a class="sourceLine" id="cb10-4" title="4">    <span class="dt">layers =</span> <span class="st">&quot;nexrad-n0r-900913&quot;</span>,</a>
+<a class="sourceLine" id="cb10-5" title="5">    <span class="dt">options =</span> <span class="kw">WMSTileOptions</span>(<span class="dt">format =</span> <span class="st">&quot;image/png&quot;</span>, <span class="dt">transparent =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb10-6" title="6">    <span class="dt">attribution =</span> <span class="st">&quot;Weather data © 2012 IEM Nexrad&quot;</span></a>
+<a class="sourceLine" id="cb10-7" title="7">  )</a></code></pre></div>
+<div id="htmlwidget-e7f95e2842cb002de82d" style="width:672px;height:240px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e7f95e2842cb002de82d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addWMSTiles","args":["http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi",null,null,{"styles":"","format":"image/png","transparent":true,"version":"1.1.1","attribution":"Weather data © 2012 IEM Nexrad","layers":"nexrad-n0r-900913"}]}],"setView":[[42.0285,-93.65],4,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="nz-layers" class="section level3">
+<h3><span class="header-section-number">2.0.1</span> NZ layers</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># Add fill layer to nz shape</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">tm_shape</span>(nz) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span><span class="kw">tm_fill</span>() </a></code></pre></div>
+<p><img src="01-Introduction_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># Add border layer to nz shape</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="kw">tm_shape</span>(nz) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">tm_borders</span>() </a></code></pre></div>
+<p><img src="01-Introduction_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Add fill and border layers to nz shape</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="kw">tm_shape</span>(nz) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="st">  </span><span class="kw">tm_fill</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="st">  </span><span class="kw">tm_borders</span>() </a></code></pre></div>
+<p><img src="01-Introduction_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<div id="attributes" class="section level4">
+<h4><span class="header-section-number">2.0.1.1</span> Attributes</h4>
 
+<div class="rmdnote">
+<code>qtm()</code> is a handy function to create <strong>q</strong>uick <strong>t</strong>hematic <strong>m</strong>aps (hence the snappy name).
+It is concise and provides a good default visualization in many cases:
+<code>qtm(nz)</code>, for example, is equivalent to <code>tm_shape(nz) + tm_fill() + tm_borders()</code>.
+Further, layers can be added concisely using multiple <code>qtm()</code> calls, such as <code>qtm(nz) + qtm(nz_height)</code>.
+The disadvantage is that it makes aesthetics of individual layers harder to control, explaining why we avoid teaching it in this chapter.
+</div>
+
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">map_nz =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>()</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">class</span>(map_nz)</a></code></pre></div>
+<pre><code>## [1] &quot;tmap&quot;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co">#&gt; [1] &quot;tmap&quot;</span></a>
+<a class="sourceLine" id="cb16-2" title="2">nz_water =<span class="st"> </span><span class="kw">st_union</span>(nz) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">st_buffer</span>(<span class="dv">22200</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="st">  </span><span class="kw">st_cast</span>(<span class="dt">to =</span> <span class="st">&quot;LINESTRING&quot;</span>)</a>
+<a class="sourceLine" id="cb16-4" title="4"></a>
+<a class="sourceLine" id="cb16-5" title="5">g =<span class="st"> </span><span class="kw">st_graticule</span>(nz, <span class="dt">lon =</span> <span class="kw">c</span>(<span class="dv">170</span>, <span class="dv">175</span>), <span class="dt">lat =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">45</span>, <span class="dv">-40</span>, <span class="dv">-35</span>))</a>
+<a class="sourceLine" id="cb16-6" title="6"><span class="kw">plot</span>(nz_water, <span class="dt">graticule =</span> g, <span class="dt">axes =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb16-7" title="7"><span class="co"># raster::plot(nz_elev / 1000, add = TRUE)</span></a>
+<a class="sourceLine" id="cb16-8" title="8"><span class="co"># map_nz1 = map_nz +</span></a>
+<a class="sourceLine" id="cb16-9" title="9"><span class="co">#   tm_shape(nz_elev) + tm_raster(alpha = 0.7)</span></a>
+<a class="sourceLine" id="cb16-10" title="10"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(nz), <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="01-Introduction_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># map_nz2 = map_nz1 +</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co">#   tm_shape(nz_water) + tm_lines()</span></a>
+<a class="sourceLine" id="cb17-3" title="3"></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="co"># map_nz3 = map_nz2 +</span></a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="co">#   tm_shape(nz_height) + tm_dots()</span></a>
+<a class="sourceLine" id="cb17-6" title="6"></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="co"># tmap_arrange(map_nz1, map_nz2, map_nz3)</span></a></code></pre></div>
+</div>
+<div id="asthetics" class="section level4">
+<h4><span class="header-section-number">2.0.1.2</span> Asthetics</h4>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">ma1 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb18-2" title="2">ma2 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a>
+<a class="sourceLine" id="cb18-3" title="3">ma3 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb18-4" title="4">ma4 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">lwd =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb18-5" title="5">ma5 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb18-6" title="6">ma6 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-7" title="7"><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb18-8" title="8"><span class="kw">tmap_arrange</span>(ma1, ma2, ma3, ma4, ma5, ma6)</a></code></pre></div>
+<p><img src="01-Introduction_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+
+</div>
 </div>
 </div>
             </section>

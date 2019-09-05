@@ -2,19 +2,25 @@
 title: "Using GIS for invasive species research"
 author: "Anthony Davidson"
 date: "2019-09-05"
+knit: bookdown::render_book
 site: bookdown::bookdown_site
-documentclass: book
+documentclass: krantz
+monofont: "Source Code Pro"
+monofontoptions: "Scale=0.7"
 bibliography: [book.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: davan690/Creating-maps-in-R
-url: 'https://www.ssnhub.com/Creating-maps-in-R'
+url: 'https\://ssnhub.com/Creating-maps-in-R/'
 description: "Everything you need to start using GIS in RMarkdown/bookdown projects."
+cover-image: "images/cover.png"
+colorlinks: yes
+graphics: yes
 ---
 
 # Overview {#overview}
 
-This respository contains a collection of dynamic programming tools and introductory tutorials for 
+This respository contains a collection of dynamic programming tools and introductory tutorials for dealing with maps and geo-spatical analysis using `rmarkdown and shiny`.
 
 ## Project objectives
 
@@ -22,8 +28,11 @@ The overall objective is to create a landing page and collection of GIS work in 
 
 ### Objective one
 
-*Produce static maps for the first publication of my PhD.* 
-Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/summary.html)
+*Produce **static-maps** for the first publication of my PhD.*
+
+| Draft here | [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/summary.html) |
+|------------|---------------------------------------------------------------------------|
+|            |                                                                           |
 
 #### Datasets
 
@@ -92,15 +101,6 @@ To run this book in RStudio the following packages are needed.
 
 ```r
 library(spData)
-```
-
-```
-## To access larger datasets in this package, install the spDataLarge
-## package with: `install.packages('spDataLarge',
-## repos='https://nowosad.github.io/drat/', type='source')`
-```
-
-```r
 library(dplyr)
 ```
 
