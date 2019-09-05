@@ -142,14 +142,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#objective-one"><i class="fa fa-check"></i><b>1.1.1</b> Objective One</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#objective-two"><i class="fa fa-check"></i><b>1.1.2</b> Objective Two</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#objective-three"><i class="fa fa-check"></i><b>1.1.3</b> Objective Three</a></li>
+</ul></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#get-started"><i class="fa fa-check"></i><b>1.2</b> Get started…</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.2.1</b> Packages</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="divingin.html"><a href="divingin.html"><i class="fa fa-check"></i><b>3</b> Diving In</a><ul>
-<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#kml-to-tidy-dataset"><i class="fa fa-check"></i><b>3.1</b> <code>kml</code> to <code>tidy</code> dataset</a></li>
+<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#kml-to-tidy-dataset"><i class="fa fa-check"></i><b>3.1</b> <code>kml</code> to <code>tidy</code> dataset</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="divingin.html"><a href="divingin.html#save"><i class="fa fa-check"></i><b>3.1.1</b> Save</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>4</b> Outputs</a><ul>
 <li class="chapter" data-level="4.0.1" data-path="outputs.html"><a href="outputs.html#a-single-location-on-a-map"><i class="fa fa-check"></i><b>4.0.1</b> A single location on a map</a></li>
@@ -203,19 +211,66 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="divingin" class="section level1">
 <h1><span class="header-section-number"> 3</span> Diving In</h1>
-<p>There are plenty of github repositories explaining the different types of GIS and using R.</p>
-<p>Below is the public <code>google-my-maps</code> map that can be modified an worked on from within the window provided below.</p>
-<iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="640" height="480">
-</iframe>
-<p>{: .box-note}
-<strong>Note:</strong> This can currently me modified and changed by anyone with the link. As it comes more important for the dataset to not be modified by others we will tighten this process up using the leaflet and shiny app process we are using for the mapping and analysis at the bottom of this post.</p>
-<p>So far we have saved a <code>leaflet</code> <code>rmd</code> file as an html file and pasted it from the includes folder of the website. We will tighten this up too.</p>
+<p>There are plenty of github repositories explaining the different types of GIS and using R. Below is the public <code>google-my-maps</code> map that can be modified an worked on from within the window provided below.</p>
 <div id="kml-to-tidy-dataset" class="section level2">
 <h2><span class="header-section-number">3.1</span> <code>kml</code> to <code>tidy</code> dataset</h2>
 <p>Import data from downloaded <code>kml</code> file from the my-maps data.</p>
+<ol style="list-style-type: decimal">
+<li>Download the <code>kml</code> file from online (NOT the <code>kmz</code> file)</li>
+</ol>
+<p>{.:Note} A <code>KMZ</code> file is just a zipped <code>KML</code> <a href="https://en.wikipedia.org/wiki/Keyhole_Markup_Language">file</a>, possibly with associated embedded images, icons, etc.</p>
+<p>So any program that supports <code>KMZ</code> files internally unzips them to access their KML files. That may be a reason why many open source programs do not bother supporting KMZ once KML support is implemented: you just need to use an additional unzipping library of your choice, to convert the KMZ to KML. The linked posts give some JavaScript-based solutions for unzipping.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/kml_to_tidy.R&quot;</span>)</a></code></pre></div>
+<pre><code>## -- Attaching packages ---------------</code></pre>
+<pre><code>## v ggplot2 3.2.1     v readr   1.3.1
+## v tibble  2.1.3     v purrr   0.3.2
+## v tidyr   0.8.3     v stringr 1.4.0
+## v ggplot2 3.2.1     v forcats 0.4.0</code></pre>
+<pre><code>## -- Conflicts ------------------------
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## Multiple layers are present in data source C:\Code\Creating-maps-in-R\data\invasive-species-NAH-research.kml, reading layer `Hollyford&#39;.
+## Use `st_layers&#39; to list all layer names and their type in a data source.
+## Set the `layer&#39; argument in `st_read&#39; to read a particular layer.</code></pre>
+<pre><code>## Warning in evalq((function (..., call. = TRUE, immediate. = FALSE,
+## noBreaks. = FALSE, : automatically selected the first layer in a data
+## source containing more than one.</code></pre>
+<pre><code>## Reading layer `Hollyford&#39; from data source `C:\Code\Creating-maps-in-R\data\invasive-species-NAH-research.kml&#39; using driver `KML&#39;
+## Simple feature collection with 10 features and 2 fields
+## geometry type:  GEOMETRY
+## dimension:      XYZ
+## bbox:           xmin: 167.9963 ymin: -45.06019 xmax: 168.1392 ymax: -44.70935
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## Observations: 10
+## Variables: 3
+## $ Name        &lt;fct&gt; Gunns Camp, Choqenout and Ruscoe 2000, Hollyford V...
+## $ Description &lt;fct&gt; &quot;&quot;, &quot;Eglinton Valley&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,...
+## $ geometry    &lt;GEOMETRY [°]&gt; POINT Z (168.1392 -44.76039 0), POINT Z (...</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">tidy.kat</a></code></pre></div>
+<pre><code>## # A tibble: 12 x 7
+##    folder    name       description styleUrl    longitude latitude altitude
+##    &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Hollyford Gunns Camp &lt;NA&gt;        #icon-1899~      168.    -44.8        0
+##  2 Hollyford Choqenout~ Eglinton V~ #icon-1899~      168.    -45.1        0
+##  3 Hollyford Hollyford~ &lt;NA&gt;        #icon-1899~      168.    -44.8        0
+##  4 Hollyford Hollyford~ &lt;NA&gt;        #icon-1899~      168.    -44.7        0
+##  5 Hollyford Point 9    &lt;NA&gt;        #icon-1899~      168.    -44.8        0
+##  6 Hollyford Point 10   x = 10, y ~ #icon-1899~      168.    -44.9        0
+##  7 Eglinton~ MR1        &lt;NA&gt;        #icon-1899~      168.    -44.9        0
+##  8 Eglinton~ M1         &lt;NA&gt;        #icon-1899~      168.    -44.9        0
+##  9 Eglinton~ M1         &lt;NA&gt;        #icon-1899~      168.    -44.9        0
+## 10 Eglinton~ R1         &lt;NA&gt;        #icon-1899~      168.    -44.9        0
+## 11 Eglinton~ MR1        &lt;NA&gt;        #icon-1899~      168.    -44.9        0
+## 12 Eglinton~ R1         &lt;NA&gt;        #icon-1899~      168.    -44.9        0</code></pre>
+<div id="save" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Save</h3>
+<p>Save csv data for arcGIS work from here as:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">write.csv</span>(tidy.kat, <span class="st">&quot;./data/kml_tidy_data.csv&quot;</span>)</a></code></pre></div>
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(leaflet.extras)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">library</span>(leaflet.extras)</a></code></pre></div>
+</div>
 </div>
 </div>
             </section>
@@ -254,14 +309,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/davan690/beech-publication-wr/docs/02-Diving-In.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
 "text": null
 },
-"download": ["GIS-bookdown.pdf", "GIS-bookdown.epub", "GIS-bookdown.mobi", "GIS-bookdown.docx"],
+"download": ["GIS-bookdown.pdf", "GIS-bookdown.epub"],
 "toc": {
 "collapse": "subsection"
 }

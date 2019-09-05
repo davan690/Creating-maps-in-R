@@ -142,14 +142,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#objective-one"><i class="fa fa-check"></i><b>1.1.1</b> Objective One</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#objective-two"><i class="fa fa-check"></i><b>1.1.2</b> Objective Two</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#objective-three"><i class="fa fa-check"></i><b>1.1.3</b> Objective Three</a></li>
+</ul></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#get-started"><i class="fa fa-check"></i><b>1.2</b> Get started…</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.2.1</b> Packages</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="divingin.html"><a href="divingin.html"><i class="fa fa-check"></i><b>3</b> Diving In</a><ul>
-<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#kml-to-tidy-dataset"><i class="fa fa-check"></i><b>3.1</b> <code>kml</code> to <code>tidy</code> dataset</a></li>
+<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#kml-to-tidy-dataset"><i class="fa fa-check"></i><b>3.1</b> <code>kml</code> to <code>tidy</code> dataset</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="divingin.html"><a href="divingin.html#save"><i class="fa fa-check"></i><b>3.1.1</b> Save</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>4</b> Outputs</a><ul>
 <li class="chapter" data-level="4.0.1" data-path="outputs.html"><a href="outputs.html#a-single-location-on-a-map"><i class="fa fa-check"></i><b>4.0.1</b> A single location on a map</a></li>
@@ -212,36 +220,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="project-objectives" class="section level2">
 <h2><span class="header-section-number">1.1</span> Project objectives</h2>
 <p>The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics for now but will extend to other areas of ecology and research. The current set of goals for this project also meet the requirements needed to produce the figures for my personal reproducible phd research.</p>
-<p>One: <em>Produce static maps for the first publication of my PhD.</em></p>
-<p>Draft here - <a href="https://www.ssnhub.com/beech-publication-wr/">Davidson2019a</a></p>
+<div id="objective-one" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Objective One</h3>
+<p><em>Produce static maps for the first publication of my PhD.</em> Draft here - <a href="https://www.ssnhub.com/beech-publication-wr/">Davidson2019a</a></p>
+<table>
+<thead>
+<tr class="header">
+<th>Datasets</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Beech forest dataset</td>
+<td><iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="150" height="100"></iframe></td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>Datasets</li>
+<li>Grid locations are can be downloaded as a <code>kmz</code> or <code>kml</code> file. This is currently labedl “invasive-species-location-research.kml” <a href="data/google-data/invasive-species-location-research.kml">here</a></li>
+<li>NZ basic map examples are here under resources chapter</li>
+<li>NZ Forest vegetation data comes from … and saved as "" <a href="">here</a></li>
 </ul>
-<iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="640" height="480">
-</iframe>
-<ul>
-<li><p>Grid locations are can be downloaded as a <code>kmz</code> or <code>kml</code> file. This is currently labedl “invasive-species-location-research.kmz” <a href="data/google-data/invasive-species-location-research.kml">here</a></p></li>
-<li><p>NZ basic map examples are here under resources <a href="">here</a></p></li>
-<li><p>Forest vegetation here "" <a href="">here</a></p></li>
-<li><p>Data from landCare 2019 publication here "" <a href="">here</a></p></li>
-<li><p>Rcode</p>
-<ul>
-<li>My attempt so far "" <a href="">here</a></li>
-<li>GIS cheat "" <a href="">here</a></li>
-<li>Powerpoint cheat "" <a href="">here</a></li>
-</ul></li>
-<li><p>Static maps</p>
-<ul>
-<li>NZ beech forest dynamics "" <a href="">here</a></li>
-<li>8 grids full data "" <a href="">here</a></li>
-<li>only 6 used "" <a href="">here</a></li>
-<li>South Island of NZ "" <a href="">here</a></li>
-</ul></li>
-</ul>
-<p>Two: <em>Produce static maps for the following data-set</em> [Davidson2019b]</p>
-<p>[<em>same as above</em>]</p>
-<p>Three: <em>Produce static maps for the following data-set</em> [Davidson2019c]</p>
-<p>[<em>same as above</em>]</p>
+</div>
+<div id="objective-two" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Objective Two</h3>
+<p><em>Produce static maps for the following data-set</em> [Davidson2019b] [<em>same as above</em>]</p>
+</div>
+<div id="objective-three" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Objective Three</h3>
+<p><em>Produce static maps for the following data-set</em> [Davidson2019c] [<em>same as above</em>]</p>
+</div>
 </div>
 <div id="get-started" class="section level2">
 <h2><span class="header-section-number">1.2</span> Get started…</h2>
@@ -311,14 +320,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/davan690/beech-publication-wr/docs/index.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
 "text": null
 },
-"download": ["GIS-bookdown.pdf", "GIS-bookdown.epub", "GIS-bookdown.mobi", "GIS-bookdown.docx"],
+"download": ["GIS-bookdown.pdf", "GIS-bookdown.epub"],
 "toc": {
 "collapse": "subsection"
 }

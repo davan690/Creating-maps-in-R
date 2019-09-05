@@ -1,3 +1,50 @@
-# Technical Details
+# Work in progress {#wnp}
 
-Now I'll teach you some crazy math, but I need to work it out first...
+```{r}
+library(tidyverse)
+```
+
+```{r}
+source("./R/kml_to_tidy.R")
+# tidy.kat
+```
+
+As I work through the steps I will add code and notes to this section of the `gitbook`. The first step I have done is to convert the downloaded my-maps data. To conbvert a my-maps online map into a tidy format we can work in I have done the following.
+
+### [Static maps](https://geocompr.robinlovelace.net/adv-map.html)
+
+Static maps are the most common type of visual output from geocomputation. Standard formats include .png and .pdf for raster and vector outputs respectively. Initially, static maps were the only type of maps that R could produce. Things advanced with the release of sp (see Pebesma and Bivand 2005) and many techniques for map making have been developed since then. However, despite the innovation of interactive mapping, static plotting was still the emphasis of geographic data visualisation in R a decade later (Cheshire and Lovelace 2015).
+
+The generic plot() function is often the fastest way to create static maps from vector and raster spatial objects (see sections 2.2.3 and 2.3.2). Sometimes, simplicity and speed are priorities, especially during the development phase of a project, and this is where plot() excels. The base R approach is also extensible, with plot() offering dozens of arguments. Another approach is the grid package which allows low level control of static maps, as illustrated in Chapter 14 of Murrell (2016). This section focuses on tmap and emphasizes the important aesthetic and layout options.
+
+tmap is a powerful and flexible map-making package with sensible defaults. It has a concise syntax that allows for the creation of attractive maps with minimal code which will be familiar to ggplot2 users. It also has the unique capability to generate static and interactive maps using the same code via tmap_mode(). Finally, it accepts a wider range of spatial classes (including raster objects) than alternatives such as ggplot2 (see the vignettes tmap-getstarted and tmap-changes-v2, as well as Tennekes (2018), for further documentation).
+
+```{r}
+# install dev version of ggmap
+# devtools::install_github("dkahle/ggmap")
+tidy.kat
+
+library(ggmap)
+#> Loading required package: ggplot2
+#> Google Maps API Terms of Service: http://developers.google.com/maps/terms.
+#> Please cite ggmap if you use it: see citation("ggmap") for details.
+
+# save api key
+register_google(key = "YOUR_API_KEY")
+
+# check if key is saved
+has_goog_key()
+#> [1] TRUE
+
+ggmap(
+  ggmap = get_map(
+    "Dayton",
+     zoom = 13, scale = "auto",
+     maptype = "satellite",
+     source = "google"),
+  extent = "device",
+  legend = "topright"
+  )
+#> Source : https://maps.googleapis.com/maps/api/staticmap?center=Dayton&zoom=13&size=640x640&scale=2&maptype=satellite&language=en-EN&key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU
+#> Source : https://maps.googleapis.com/maps/api/geocode/json?address=Dayton&key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU
+```

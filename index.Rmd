@@ -20,37 +20,25 @@ This respository contains a collection of dynamic programming tools and introduc
 
 The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics for now but will extend to other areas of ecology and research. The current set of goals for this project also meet the requirements needed to produce the figures for my personal reproducible phd research.
 
-One: *Produce static maps for the first publication of my PhD.* 
+### Objective One
 
-Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/)
+*Produce static maps for the first publication of my PhD.*  Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/)
 
-- Datasets
+| Datasets |                                        |
+|-----------|----------------------------|
+|Beech forest dataset | <iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="150" height="100"></iframe> |
 
-<iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="640" height="480"></iframe>
+  - Grid locations are can be downloaded as a `kmz` or `kml` file. This is currently labedl "invasive-species-location-research.kml" [here](data/google-data/invasive-species-location-research.kml)
+  - NZ basic map examples are here under resources chapter
+  - NZ Forest vegetation data comes from ... and saved as "" [here]()
 
-  - Grid locations are can be downloaded as a `kmz` or `kml` file. This is currently labedl "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kml)
-  - NZ basic map examples are here under resources [here]()
-  - Forest vegetation here "" [here]()
-  - Data from landCare 2019 publication here "" [here]()
+### Objective Two
 
-- Rcode
-  - My attempt so far "" [here]()
-  - GIS cheat "" [here]()
-  - Powerpoint cheat "" [here]()
+*Produce static maps for the following data-set* [Davidson2019b] [*same as above*]
 
-- Static maps
-  - NZ beech forest dynamics "" [here]()
-  - 8 grids full data "" [here]()
-  - only 6 used "" [here]()
-  - South Island of NZ "" [here]()
+### Objective Three
 
-Two: *Produce static maps for the following data-set* [Davidson2019b]
-
-[*same as above*]
-
-Three: *Produce static maps for the following data-set* [Davidson2019c]
-
-[*same as above*]
+*Produce static maps for the following data-set* [Davidson2019c] [*same as above*]
 
 ## Get started...
 

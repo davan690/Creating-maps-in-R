@@ -142,14 +142,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#objective-one"><i class="fa fa-check"></i><b>1.1.1</b> Objective One</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#objective-two"><i class="fa fa-check"></i><b>1.1.2</b> Objective Two</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#objective-three"><i class="fa fa-check"></i><b>1.1.3</b> Objective Three</a></li>
+</ul></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#get-started"><i class="fa fa-check"></i><b>1.2</b> Get started…</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.2.1</b> Packages</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="divingin.html"><a href="divingin.html"><i class="fa fa-check"></i><b>3</b> Diving In</a><ul>
-<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#kml-to-tidy-dataset"><i class="fa fa-check"></i><b>3.1</b> <code>kml</code> to <code>tidy</code> dataset</a></li>
+<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#kml-to-tidy-dataset"><i class="fa fa-check"></i><b>3.1</b> <code>kml</code> to <code>tidy</code> dataset</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="divingin.html"><a href="divingin.html#save"><i class="fa fa-check"></i><b>3.1.1</b> Save</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>4</b> Outputs</a><ul>
 <li class="chapter" data-level="4.0.1" data-path="outputs.html"><a href="outputs.html#a-single-location-on-a-map"><i class="fa fa-check"></i><b>4.0.1</b> A single location on a map</a></li>
@@ -205,8 +213,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number"> 2</span> Introduction</h1>
 <p><em>Creating maps using spatial data in R</em></p>
 <p>GIS is an area of R coding I have kept away from hoping that I would work it out at a later date. Sadly, it has got to the point where I want to be able to build more complex maps in shiny applications towards the end of my PhD and need to create a base of code to go from. Luckily, the text book “Spatial Analysis in R” has just come out in its second edition and is available in as a bookdown repository including the full text <a href="https://bookdown.org/robinlovelace/geocompr/">here</a>.</p>
-<p>This page is a outline of the current resources I am working on and using for my publication and website maps. I have begun by using my normal reproducible workflow and file structure. The full set of resources is currently on a private repository where the resources can be found in the following layout…</p>
+<p>This page is a outline of the current resources I am working on and using for my publication and website maps. I have begun by using my normal reproducible workflow and file structure. The full set of resources is currently on a private repository.</p>
+<div id="data" class="section level2">
+<h2><span class="header-section-number">2.1</span> Data</h2>
+<iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="640" height="480">
+</iframe>
+<p>{: .box-note} <strong>Note:</strong> This can currently me modified and changed by anyone with the link. As it comes more important for the dataset to not be modified by others we will tighten this process up using the leaflet and shiny app process we are using for the mapping and analysis at the bottom of this post.</p>
 
+</div>
 </div>
             </section>
 
@@ -244,14 +258,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/davan690/beech-publication-wr/docs/01-Introduction.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
 "text": null
 },
-"download": ["GIS-bookdown.pdf", "GIS-bookdown.epub", "GIS-bookdown.mobi", "GIS-bookdown.docx"],
+"download": ["GIS-bookdown.pdf", "GIS-bookdown.epub"],
 "toc": {
 "collapse": "subsection"
 }

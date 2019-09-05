@@ -338,6 +338,19 @@ I have sent the following colleagues to input into arcGIS and compare rendered m
 
 - Examples
   - LandCare 2019 publication here ""
+  
+  - Data from landCare 2019 publication here "" [here]()
+
+- Rcode
+  - My attempt so far "" [here]()
+  - GIS cheat "" [here]()
+  - Powerpoint cheat "" [here]()
+
+- Static maps
+  - NZ beech forest dynamics "" [here]()
+  - 8 grids full data "" [here]()
+  - only 6 used "" [here]()
+  - South Island of NZ "" [here]()
 
 
 
