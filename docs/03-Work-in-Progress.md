@@ -391,7 +391,7 @@ glimpse(nz)
 ## $ geom          <MULTIPOLYGON [m]> MULTIPOLYGON (((1745493 600..., MUL...
 ```
 
-### First outline from `tmap`
+### First `tmap` attempt
 
 
 ```r
@@ -407,6 +407,8 @@ tmap_arrange(ma1, ma2, ma3, ma4, ma5, ma6)
 
 <img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
+#### Grey background
+
 
 ```r
 tm_shape(nz) + 
@@ -414,6 +416,8 @@ tm_shape(nz) +
 ```
 
 <img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+
+#### Boarders
 
 
 ```r
@@ -423,6 +427,8 @@ tm_shape(nz) +
 ```
 
 <img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+
+#### Title and legend
 
 
 ```r
@@ -437,20 +443,50 @@ tm_shape(nz) +
 
 <img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
+#### North arrow
+
 
 ```r
 tm_shape(nz) + 
   tm_fill(col = "black", alpha = 0.3) +
-   tm_borders(col = "blue")
+   tm_borders(col = "blue") +
+    tm_compass(type = "8star", position = c("left", "top"))
 ```
 
 <img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
+#### Scale
+
 
 ```r
 tm_shape(nz) + 
   tm_fill(col = "black", alpha = 0.3) +
-   tm_borders(col = "blue")
+   tm_borders(col = "blue") +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 1)
 ```
 
 <img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+
+#### Black and white
+
+
+```r
+tm_shape(nz) + 
+  tm_fill(col = "black", alpha = 0.3) + 
+    tm_borders(lty = 2)
+```
+
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+
+
+```r
+tm_shape(world) +
+  tm_polygons() +
+  tm_shape(urb_1970_2030) +
+  tm_symbols(col = "black", border.col = "white", size = "population_millions") +
+  tm_facets(by = "year", nrow = 2, free.coords = FALSE)
+```
+
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+
