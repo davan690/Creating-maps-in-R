@@ -1,7 +1,24 @@
 # Work in progress {#wnp}
 
-```{r}
-library(tidyverse)
+```{r tmapping-123, message=FALSE}
+library(tmap)    # for static and interactive maps
+library(leaflet) # for interactive maps
+library(mapview) # for interactive maps
+library(ggplot2) # tidyverse data visualization package
+library(shiny)   # for web applications
+library(spData)
+library(dplyr)
+library(sf)
+library(bookdown)
+library(leaflet)
+library(leaflet.extras)
+library(geojsonio)
+library(sf)
+library(raster)
+library(dplyr)
+library(spData)
+
+# library(spDataLarge)
 ```
 
 As I work through the steps I will add code and notes to this section of the `gitbook`. The first step I have done is to convert the downloaded my-maps data. To conbvert a my-maps online map into a tidy format we can work in I have done the following.

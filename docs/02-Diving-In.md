@@ -33,9 +33,20 @@ library(leaflet) # for interactive maps
 library(mapview) # for interactive maps
 library(ggplot2) # tidyverse data visualization package
 library(shiny)   # for web applications
+library(spData)
+library(dplyr)
+library(sf)
+library(bookdown)
+library(leaflet)
+library(leaflet.extras)
+library(geojsonio)
+library(sf)
+library(raster)
+library(dplyr)
+library(spData)
+
+# library(spDataLarge)
 ```
-
-
 
 3. Check it's all working, e.g. with this command:
 
@@ -45,7 +56,7 @@ world %>%
   plot()
 ```
 
-<img src="02-Diving-In_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="02-Diving-In_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
 And some blogging on the matter [here](http://zevross.com/blog/2014/09/30/use-the-amazing-d3-library-to-animate-a-path-on-a-leaflet-map/).
 
@@ -67,7 +78,7 @@ source("./R/kml_to_tidy.R")
 ```
 
 ```
-## -- Attaching packages ----------------------------------------------- tidyverse 1.2.1 --
+## -- Attaching packages -------------------------------------------- tidyverse 1.2.1 --
 ```
 
 ```
@@ -77,7 +88,7 @@ source("./R/kml_to_tidy.R")
 ```
 
 ```
-## -- Conflicts -------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ----------------------------------------------- tidyverse_conflicts() --
 ## x tidyr::extract() masks raster::extract()
 ## x dplyr::filter()  masks stats::filter()
 ## x dplyr::lag()     masks stats::lag()
@@ -139,6 +150,6 @@ Save csv data for arcGIS work from here as:
 
 
 ```r
-write.csv(tidy.kat, "./data/kml_tidy_data.csv")
+# write.csv(tidy.kat, "./data/kml_tidy_data.csv")
 ```
 

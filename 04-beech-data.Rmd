@@ -3,12 +3,28 @@ flexdashboard::flex_dashboard:
 runtime: shiny
 ---
   
-```{r libraries-info}
+```{r tmapping-123, message=FALSE}
+library(tmap)    # for static and interactive maps
+library(leaflet) # for interactive maps
+library(mapview) # for interactive maps
+library(ggplot2) # tidyverse data visualization package
+library(shiny)   # for web applications
+library(spData)
+library(dplyr)
+library(sf)
+library(bookdown)
 library(leaflet)
 library(leaflet.extras)
+library(geojsonio)
+library(sf)
+library(raster)
+library(dplyr)
+library(spData)
+library(kableExtra)
+# library(spDataLarge)
 ```
 
-# Resources
+# Adding additional information {#contentadd}
 
 Using and applying GIS techniques in R has become much easier since the additional functionality of Java-script libraries. One of these libraries in the `leaflet` library for mapping. Below are some examples of these mapping tools with examples.
 
@@ -30,6 +46,9 @@ The datasets we are going to merge here are:
 #### Point locations (`nz + kml data`)
 
 ```{r}
+source("./R/kml_to_tidy.R")
+kable(tidy.kat, format = "markdown")
+
 glimpse(nz)
 glimpse(tidy.kat)
 
@@ -45,8 +64,8 @@ m.kat <- tidy.kat %>%
                    alt = altitude)
 
 plot.dat1 <- full_join(nz, m.kat)
-
 glimpse(plot.dat1)
+
 # nz %>%
 #   # mutate(grid = )
 ```
@@ -54,13 +73,15 @@ glimpse(plot.dat1)
 ### Plots
 
 ```{r}
+library(tmap)
 tm_shape(plot.dat1) + 
   tm_fill(col = "black", alpha = 0.3) +
    tm_borders(col = "blue") +
   # tm_compass(type = "8star", position = c("left", "top")) +
   tm_compass(type = "arrow", position = c("left", "top")) +
   tm_scale_bar(breaks = c(0, 100, 200), text.size = 1) +
-  tm_dots(col = "black")
+  tm_dots(col = "black", size = 4)
+?tm_dots
 ```
 
 Is it easier to work with polygons and centriod points as above??
@@ -70,7 +91,6 @@ Is it easier to work with polygons and centriod points as above??
 #### Abundance
 
 ```{r}
-
 abund.dat5 <- read_csv("../data/abundance5.csv")
 glimpse(abund.dat5)
 
@@ -85,34 +105,3 @@ glimpse(abund.dat5)
 #                 mutate()
                 
 ```
-
-
-#### A single location on a map
-
-Here is the birthplace of R plotted with `leaflet`, `addTiles` and the `addMarkers`...
-
-
-I have sent the following to Matt to input into arcGIS and compare rendered maps.
-
-```{r}
-# grid.locations <- 
-# label
-
-
-```
-
-*add hand drawn image here*
-
-### Extracting mymaps data
-
-This is for security reasons.
-
-```{r}
-
-```
-
-
-
-
-
-

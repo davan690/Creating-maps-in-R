@@ -20,17 +20,13 @@ graphics: yes
 
 # Overview {#overview}
 
-<<<<<<< HEAD
-This respository contains a collection of dynamic programming tools and introductory tutorials for dealing with maps and geo-spatical analysis using `rmarkdown and shiny`.
-=======
-This respository contains a collection of dynamic programming tools and introductory tutorials for GIS in R.
->>>>>>> jekyll-testing
+
+This respository contains a collection of dynamic programming tools and introductory tutorials for dealing with maps and geo-spatical analysis using `rmarkdown and shiny`. This respository contains a collection of dynamic programming tools and introductory tutorials for GIS in R.
 
 ## Project objectives
 
 The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics for now but will extend to other areas of ecology and research. The current set of goals for this project also meet the requirements needed to produce the figures for my personal reproducible phd research.
 
-<<<<<<< HEAD
 ### Objective one
 
 *Produce **static-maps** for the first publication of my PhD.*
@@ -46,7 +42,7 @@ The overall objective is to create a landing page and collection of GIS work in 
   - Outline of NZ here "" [here]()
   - Forest vegetation here "" [here]()
   - Data from landCare 2019 publication here "" [here]()
-=======
+
 ### Objective One
 
 *Produce static maps for the first publication of my PhD.*  Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/)
@@ -74,7 +70,7 @@ The overall objective is to create a landing page and collection of GIS work in 
 
 2. Pull project into Rstudio using version control.
 
-   ![1567561101782](img/fork.PNG)
+![1567561101782](./img/fork.PNG)
 
 3. Ensure that your local RStudio packages are up to date.
 

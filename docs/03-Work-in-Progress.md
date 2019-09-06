@@ -2,24 +2,24 @@
 
 
 ```r
-library(tidyverse)
-```
+library(tmap)    # for static and interactive maps
+library(leaflet) # for interactive maps
+library(mapview) # for interactive maps
+library(ggplot2) # tidyverse data visualization package
+library(shiny)   # for web applications
+library(spData)
+library(dplyr)
+library(sf)
+library(bookdown)
+library(leaflet)
+library(leaflet.extras)
+library(geojsonio)
+library(sf)
+library(raster)
+library(dplyr)
+library(spData)
 
-```
-## -- Attaching packages ----------------------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 3.2.1     v purrr   0.3.2
-## v tibble  2.1.3     v dplyr   0.8.3
-## v tidyr   0.8.3     v stringr 1.4.0
-## v readr   1.3.1     v forcats 0.4.0
-```
-
-```
-## -- Conflicts -------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
+# library(spDataLarge)
 ```
 
 As I work through the steps I will add code and notes to this section of the `gitbook`. The first step I have done is to convert the downloaded my-maps data. To conbvert a my-maps online map into a tidy format we can work in I have done the following.
@@ -113,6 +113,27 @@ These resources are very basic but they may be helpful for me later.
 
 ```r
 library(tidyverse)
+```
+
+```
+## -- Attaching packages -------------------------------------------- tidyverse 1.2.1 --
+```
+
+```
+## v tibble  2.1.3     v purrr   0.3.2
+## v tidyr   0.8.3     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0
+```
+
+```
+## -- Conflicts ----------------------------------------------- tidyverse_conflicts() --
+## x tidyr::extract() masks raster::extract()
+## x dplyr::filter()  masks stats::filter()
+## x dplyr::lag()     masks stats::lag()
+## x raster::select() masks dplyr::select()
+```
+
+```r
 library(kableExtra)
 ```
 
@@ -130,27 +151,6 @@ library(kableExtra)
 
 ```r
 source("./R/kml_to_tidy.R")
-```
-
-```
-## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3
-```
-
-```
-## Registered S3 method overwritten by 'geojsonio':
-##   method         from 
-##   print.location dplyr
-```
-
-```
-## 
-## Attaching package: 'geojsonio'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     pretty
 ```
 
 ```
@@ -216,7 +216,7 @@ These starting resources have come from `chapter-8` of the geocomp book. To make
 source("./R/03-Work-In-Progress.R", echo = FALSE)
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-2.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-1.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-2.png" width="672" />
 
 ```
 ## Legend labels were too wide. The labels have been resized to 0.29, 0.29, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
@@ -234,7 +234,7 @@ source("./R/03-Work-In-Progress.R", echo = FALSE)
 ## Legend labels were too wide. The labels have been resized to 0.29, 0.29, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-3.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-3.png" width="672" />
 
 ```
 ## Legend labels were too wide. The labels have been resized to 0.47, 0.47, 0.47, 0.47, 0.47, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
@@ -246,7 +246,7 @@ source("./R/03-Work-In-Progress.R", echo = FALSE)
 ## Legend labels were too wide. The labels have been resized to 0.47, 0.47, 0.47, 0.47, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-4.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-5.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-6.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-4.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-5.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-6.png" width="672" />
 
 ```
 ## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
@@ -257,7 +257,7 @@ source("./R/03-Work-In-Progress.R", echo = FALSE)
 ## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-7.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-7.png" width="672" />
 
 ```
 ## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
@@ -266,7 +266,7 @@ source("./R/03-Work-In-Progress.R", echo = FALSE)
 ## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-8.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-8.png" width="672" />
 
 ```
 ## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
@@ -275,7 +275,7 @@ source("./R/03-Work-In-Progress.R", echo = FALSE)
 ## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-9.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-10.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-9.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-10.png" width="672" />
 
 ```r
 glimpse(nz)
@@ -307,7 +307,7 @@ ma6 = tm_shape(nz) + tm_fill(col = "red", alpha = 0.3) +
 tmap_arrange(ma1, ma2, ma3, ma4, ma5, ma6)
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 #### Grey background
 
@@ -317,7 +317,7 @@ tm_shape(nz) +
         tm_fill(col = "black", alpha = 0.3)
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 #### Boarders
 
@@ -328,7 +328,7 @@ tm_shape(nz) +
    tm_borders(col = "blue")
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 #### Title and legend
 
@@ -343,7 +343,7 @@ tm_shape(nz) +
     tm_fill(col = "Land_area", title = legend_title) + tm_borders()
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 #### North arrow
 
@@ -355,7 +355,7 @@ tm_shape(nz) +
     tm_compass(type = "8star", position = c("left", "top"))
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 #### Scale
 
@@ -368,7 +368,7 @@ tm_shape(nz) +
   tm_scale_bar(breaks = c(0, 100, 200), text.size = 1)
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 #### Black and white
 
@@ -379,4 +379,4 @@ tm_shape(nz) +
     tm_borders(lty = 2)
 ```
 
-<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-15-1.png" width="672" />

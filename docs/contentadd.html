@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 3 Diving In | Using GIS for invasive species research</title>
+  <title> 5 Adding additional information | Using GIS for invasive species research</title>
   <meta name="description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 3 Diving In | Using GIS for invasive species research" />
+  <meta property="og:title" content=" 5 Adding additional information | Using GIS for invasive species research" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://ssnhub.com/Creating-maps-in-R/" />
   <meta property="og:image" content="https://ssnhub.com/Creating-maps-in-R/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="davan690/Creating-maps-in-R" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 3 Diving In | Using GIS for invasive species research" />
+  <meta name="twitter:title" content=" 5 Adding additional information | Using GIS for invasive species research" />
   
   <meta name="twitter:description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
   <meta name="twitter:image" content="https://ssnhub.com/Creating-maps-in-R/images/cover.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html">
-<link rel="next" href="wnp.html">
+<link rel="prev" href="wnp.html">
+<link rel="next" href="outputs.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -247,73 +247,36 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="divingin" class="section level1">
-<h1><span class="header-section-number"> 3</span> Diving In</h1>
-<p>There are plenty of github repositories explaining the different types of GIS and using R.</p>
-<p>Below is the public <code>google-my-maps</code> map that can be modified an worked on from within the window provided below.</p>
-<iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="640" height="480">
-</iframe>
-<p>{: .box-note}</p>
-<p><strong>Note:</strong> This can currently me modified and changed by anyone with the link. As it comes more important for the dataset to not be modified by others we will tighten this process up using the leaflet and shiny app process we are using for the mapping and analysis at the bottom of this post.</p>
-<p>So far we have saved a <code>leaflet</code> <code>rmd</code> file as an html file and pasted it from the includes folder of the website. We will tighten this up too. :)</p>
-<div id="downloading" class="section level2">
-<h2><span class="header-section-number">3.1</span> Downloading</h2>
-<p>To begin with check this is working in your local RStudio enviroment</p>
-<ol style="list-style-type: decimal">
-<li>Install the required packages. You need a recent version of the GDAL, GEOS, Proj.4, and UDUNITS libraries installed for this to work on Mac and Linux. More information on that at <a href="https://github.com/r-spatial/sf#installling" class="uri">https://github.com/r-spatial/sf#installling</a>.</li>
-</ol>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># devtools::install_github(&quot;robinlovelace/geocompr&quot;)</span></a></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Load the ones we need:</li>
-</ol>
+<div id="contentadd" class="section level1">
+<h1><span class="header-section-number"> 5</span> Adding additional information</h1>
+<p>Using and applying GIS techniques in R has become much easier since the additional functionality of Java-script libraries. One of these libraries in the <code>leaflet</code> library for mapping. Below are some examples of these mapping tools with examples.</p>
+<p>I like the idea of know what to do in arcGIS so that it is easy to work with researchers that use either R or arcGIS. For a GIS map there are two main options. Here are the resources for building interactive and static maps in R using a range of different packages:</p>
 <ul>
-<li>In addition, it uses the following visualization packages:</li>
+<li><code>leaflet</code></li>
+<li><code>tmap</code></li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">library</span>(tmap)    <span class="co"># for static and interactive maps</span></a>
-<a class="sourceLine" id="cb20-2" title="2"><span class="kw">library</span>(leaflet) <span class="co"># for interactive maps</span></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="kw">library</span>(mapview) <span class="co"># for interactive maps</span></a>
-<a class="sourceLine" id="cb20-4" title="4"><span class="kw">library</span>(ggplot2) <span class="co"># tidyverse data visualization package</span></a>
-<a class="sourceLine" id="cb20-5" title="5"><span class="kw">library</span>(shiny)   <span class="co"># for web applications</span></a>
-<a class="sourceLine" id="cb20-6" title="6"><span class="kw">library</span>(spData)</a>
-<a class="sourceLine" id="cb20-7" title="7"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb20-8" title="8"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb20-9" title="9"><span class="kw">library</span>(bookdown)</a>
-<a class="sourceLine" id="cb20-10" title="10"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb20-11" title="11"><span class="kw">library</span>(leaflet.extras)</a>
-<a class="sourceLine" id="cb20-12" title="12"><span class="kw">library</span>(geojsonio)</a>
-<a class="sourceLine" id="cb20-13" title="13"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb20-14" title="14"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb20-15" title="15"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb20-16" title="16"><span class="kw">library</span>(spData)</a>
-<a class="sourceLine" id="cb20-17" title="17"></a>
-<a class="sourceLine" id="cb20-18" title="18"><span class="co"># library(spDataLarge)</span></a></code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>Check it’s all working, e.g. with this command:</li>
-</ol>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">world <span class="op">%&gt;%</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="st">  </span><span class="kw">plot</span>()</a></code></pre></div>
-<p><img src="02-Diving-In_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>And some blogging on the matter <a href="http://zevross.com/blog/2014/09/30/use-the-amazing-d3-library-to-animate-a-path-on-a-leaflet-map/">here</a>.</p>
-<p>There are plenty of github repositories explaining the different types of GIS and using R. Below is the public <code>google-my-maps</code> map that can be modified an worked on from within the window provided below.</p>
-</div>
-<div id="kml-to-tidy-dataset" class="section level2">
-<h2><span class="header-section-number">3.2</span> <code>kml</code> to <code>tidy</code> dataset</h2>
-<p>Import data from downloaded <code>kml</code> file from the my-maps data.</p>
-<ol style="list-style-type: decimal">
-<li>Download the <code>kml</code> file from online (NOT the <code>kmz</code> file)</li>
-</ol>
-<p>{.:Note} A <code>KMZ</code> file is just a zipped <code>KML</code> <a href="https://en.wikipedia.org/wiki/Keyhole_Markup_Language">file</a>, possibly with associated embedded images, icons, etc.</p>
-<p>So any program that supports <code>KMZ</code> files internally unzips them to access their KML files. That may be a reason why many open source programs do not bother supporting KMZ once KML support is implemented: you just need to use an additional unzipping library of your choice, to convert the KMZ to KML. The linked posts give some JavaScript-based solutions for unzipping.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/kml_to_tidy.R&quot;</span>)</a></code></pre></div>
+<div id="adding-points" class="section level3">
+<h3><span class="header-section-number">5.0.1</span> Adding points</h3>
+<p>THere are quite a few datasets to combine here but the key aspect here is that we can do all of this semlessly with the data in a <code>tidy</code> format.</p>
+<p>The datasets we are going to merge here are:</p>
+<ul>
+<li><code>nz</code></li>
+<li><code>kml data</code></li>
+<li><code>abunance data</code></li>
+</ul>
+<div id="point-locations-nz-kml-data" class="section level4">
+<h4><span class="header-section-number">5.0.1.1</span> Point locations (<code>nz + kml data</code>)</h4>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/kml_to_tidy.R&quot;</span>)</a></code></pre></div>
 <pre><code>## -- Attaching packages -------------------------------------------- tidyverse 1.2.1 --</code></pre>
 <pre><code>## v tibble  2.1.3     v purrr   0.3.2
 ## v tidyr   0.8.3     v stringr 1.4.0
 ## v readr   1.3.1     v forcats 0.4.0</code></pre>
 <pre><code>## -- Conflicts ----------------------------------------------- tidyverse_conflicts() --
-## x tidyr::extract() masks raster::extract()
-## x dplyr::filter()  masks stats::filter()
-## x dplyr::lag()     masks stats::lag()
-## x raster::select() masks dplyr::select()</code></pre>
+## x tidyr::extract()         masks raster::extract()
+## x dplyr::filter()          masks stats::filter()
+## x kableExtra::group_rows() masks dplyr::group_rows()
+## x dplyr::lag()             masks stats::lag()
+## x raster::select()         masks dplyr::select()</code></pre>
 <pre><code>## Multiple layers are present in data source C:\Code\Creating-maps-in-R\data\invasive-species-NAH-research.kml, reading layer `Hollyford&#39;.
 ## Use `st_layers&#39; to list all layer names and their type in a data source.
 ## Set the `layer&#39; argument in `st_read&#39; to read a particular layer.</code></pre>
@@ -332,27 +295,267 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## $ Name        &lt;fct&gt; Gunns Camp, Choqenout and Ruscoe 2000, Hollyford V...
 ## $ Description &lt;fct&gt; &quot;&quot;, &quot;Eglinton Valley&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,...
 ## $ geometry    &lt;GEOMETRY [°]&gt; POINT Z (168.1392 -44.76039 0), POINT Z (...</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">tidy.kat</a></code></pre></div>
-<pre><code>## # A tibble: 12 x 7
-##    folder    name       description styleUrl    longitude latitude altitude
-##    &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Hollyford Gunns Camp &lt;NA&gt;        #icon-1899~      168.    -44.8        0
-##  2 Hollyford Choqenout~ Eglinton V~ #icon-1899~      168.    -45.1        0
-##  3 Hollyford Hollyford~ &lt;NA&gt;        #icon-1899~      168.    -44.8        0
-##  4 Hollyford Hollyford~ &lt;NA&gt;        #icon-1899~      168.    -44.7        0
-##  5 Hollyford Point 9    &lt;NA&gt;        #icon-1899~      168.    -44.8        0
-##  6 Hollyford Point 10   x = 10, y ~ #icon-1899~      168.    -44.9        0
-##  7 Eglinton~ MR1        &lt;NA&gt;        #icon-1899~      168.    -44.9        0
-##  8 Eglinton~ M1         &lt;NA&gt;        #icon-1899~      168.    -44.9        0
-##  9 Eglinton~ M1         &lt;NA&gt;        #icon-1899~      168.    -44.9        0
-## 10 Eglinton~ R1         &lt;NA&gt;        #icon-1899~      168.    -44.9        0
-## 11 Eglinton~ MR1        &lt;NA&gt;        #icon-1899~      168.    -44.9        0
-## 12 Eglinton~ R1         &lt;NA&gt;        #icon-1899~      168.    -44.9        0</code></pre>
-<div id="save" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Save</h3>
-<p>Save csv data for arcGIS work from here as:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="co"># write.csv(tidy.kat, &quot;./data/kml_tidy_data.csv&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">kable</span>(tidy.kat, <span class="dt">format =</span> <span class="st">&quot;markdown&quot;</span>)</a></code></pre></div>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="23%" />
+<col width="14%" />
+<col width="22%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">folder</th>
+<th align="left">name</th>
+<th align="left">description</th>
+<th align="left">styleUrl</th>
+<th align="right">longitude</th>
+<th align="right">latitude</th>
+<th align="right">altitude</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Hollyford</td>
+<td align="left">Gunns Camp</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-0288D1-nodesc</td>
+<td align="right">168.1392</td>
+<td align="right">-44.76039</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Hollyford</td>
+<td align="left">Choqenout and Ruscoe 2000</td>
+<td align="left">Eglinton Valley</td>
+<td align="left">#icon-1899-0288D1</td>
+<td align="right">167.9963</td>
+<td align="right">-45.06019</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Hollyford</td>
+<td align="left">Hollyford Valley Lookout</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-0288D1-nodesc</td>
+<td align="right">168.1050</td>
+<td align="right">-44.80905</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Hollyford</td>
+<td align="left">Hollyford Airstrip</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-0288D1-nodesc</td>
+<td align="right">168.1337</td>
+<td align="right">-44.73744</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Hollyford</td>
+<td align="left">Point 9</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-0288D1-nodesc</td>
+<td align="right">168.1262</td>
+<td align="right">-44.79766</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Hollyford</td>
+<td align="left">Point 10</td>
+<td align="left">x = 10, y = 250</td>
+<td align="left">#icon-1899-0288D1</td>
+<td align="right">168.0794</td>
+<td align="right">-44.90247</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Eglinton Valley</td>
+<td align="left">MR1</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-F9A825-nodesc</td>
+<td align="right">168.0776</td>
+<td align="right">-44.89081</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Eglinton Valley</td>
+<td align="left">M1</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-FBC02D-nodesc</td>
+<td align="right">168.1005</td>
+<td align="right">-44.85371</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Eglinton Valley</td>
+<td align="left">M1</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-FBC02D-nodesc</td>
+<td align="right">168.0748</td>
+<td align="right">-44.89257</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Eglinton Valley</td>
+<td align="left">R1</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-000000-nodesc</td>
+<td align="right">168.0968</td>
+<td align="right">-44.85569</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Eglinton Valley</td>
+<td align="left">MR1</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-FBC02D-nodesc</td>
+<td align="right">168.0995</td>
+<td align="right">-44.85768</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Eglinton Valley</td>
+<td align="left">R1</td>
+<td align="left">NA</td>
+<td align="left">#icon-1899-000000-nodesc</td>
+<td align="right">168.0789</td>
+<td align="right">-44.89277</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="kw">glimpse</span>(nz)</a></code></pre></div>
+<pre><code>## Observations: 16
+## Variables: 7
+## $ Name          &lt;chr&gt; &quot;Northland&quot;, &quot;Auckland&quot;, &quot;Waikato&quot;, &quot;Bay of Plen...
+## $ Island        &lt;chr&gt; &quot;North&quot;, &quot;North&quot;, &quot;North&quot;, &quot;North&quot;, &quot;North&quot;, &quot;No...
+## $ Land_area     &lt;dbl&gt; 12500.5611, 4941.5726, 23900.0364, 12071.1447, 8...
+## $ Population    &lt;dbl&gt; 175500, 1657200, 460100, 299900, 48500, 164000, ...
+## $ Median_income &lt;int&gt; 23400, 29600, 27900, 26200, 24400, 26100, 29100,...
+## $ Sex_ratio     &lt;dbl&gt; 0.9424532, 0.9442858, 0.9520500, 0.9280391, 0.93...
+## $ geom          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((1745493 600..., MUL...</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1"><span class="kw">glimpse</span>(tidy.kat)</a></code></pre></div>
+<pre><code>## Observations: 12
+## Variables: 7
+## $ folder      &lt;chr&gt; &quot;Hollyford&quot;, &quot;Hollyford&quot;, &quot;Hollyford&quot;, &quot;Hollyford&quot;...
+## $ name        &lt;chr&gt; &quot;Gunns Camp&quot;, &quot;Choqenout and Ruscoe 2000&quot;, &quot;Hollyf...
+## $ description &lt;chr&gt; NA, &quot;Eglinton Valley&quot;, NA, NA, NA, &quot;x = 10, y = 25...
+## $ styleUrl    &lt;chr&gt; &quot;#icon-1899-0288D1-nodesc&quot;, &quot;#icon-1899-0288D1&quot;, &quot;...
+## $ longitude   &lt;dbl&gt; 168.1392, 167.9963, 168.1050, 168.1337, 168.1262, ...
+## $ latitude    &lt;dbl&gt; -44.76039, -45.06019, -44.80905, -44.73744, -44.79...
+## $ altitude    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1">m.kat &lt;-<span class="st"> </span>tidy.kat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb86-2" title="2"><span class="st">            </span><span class="kw">transmute</span>(<span class="dt">Name =</span> folder,</a>
+<a class="sourceLine" id="cb86-3" title="3">                   <span class="dt">Island =</span> <span class="st">&quot;South&quot;</span>,</a>
+<a class="sourceLine" id="cb86-4" title="4">                   <span class="dt">Land_area =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb86-5" title="5">                   <span class="dt">Population =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb86-6" title="6">                   <span class="dt">Sex_ratio =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb86-7" title="7">                   <span class="co"># geom = NA,</span></a>
+<a class="sourceLine" id="cb86-8" title="8">                   <span class="dt">lat =</span> latitude,</a>
+<a class="sourceLine" id="cb86-9" title="9">                   <span class="dt">long =</span> longitude,</a>
+<a class="sourceLine" id="cb86-10" title="10">                   <span class="dt">alt =</span> altitude)</a>
+<a class="sourceLine" id="cb86-11" title="11"></a>
+<a class="sourceLine" id="cb86-12" title="12">plot.dat1 &lt;-<span class="st"> </span><span class="kw">full_join</span>(nz, m.kat)</a></code></pre></div>
+<pre><code>## Joining, by = c(&quot;Name&quot;, &quot;Island&quot;, &quot;Land_area&quot;, &quot;Population&quot;, &quot;Sex_ratio&quot;)</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="kw">glimpse</span>(plot.dat1)</a></code></pre></div>
+<pre><code>## Observations: 28
+## Variables: 10
+## $ Name          &lt;chr&gt; &quot;Northland&quot;, &quot;Auckland&quot;, &quot;Waikato&quot;, &quot;Bay of Plen...
+## $ Island        &lt;chr&gt; &quot;North&quot;, &quot;North&quot;, &quot;North&quot;, &quot;North&quot;, &quot;North&quot;, &quot;No...
+## $ Land_area     &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ Population    &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ Median_income &lt;int&gt; 23400, 29600, 27900, 26200, 24400, 26100, 29100,...
+## $ Sex_ratio     &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ lat           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+## $ long          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+## $ alt           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+## $ geom          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((1745493 600..., MUL...</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="co"># nz %&gt;%</span></a>
+<a class="sourceLine" id="cb90-2" title="2"><span class="co">#   # mutate(grid = )</span></a></code></pre></div>
+</div>
+</div>
+<div id="plots" class="section level3">
+<h3><span class="header-section-number">5.0.2</span> Plots</h3>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">library</span>(tmap)</a>
+<a class="sourceLine" id="cb91-2" title="2"><span class="kw">tm_shape</span>(plot.dat1) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-3" title="3"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb91-4" title="4"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb91-5" title="5"><span class="st">  </span><span class="co"># tm_compass(type = &quot;8star&quot;, position = c(&quot;left&quot;, &quot;top&quot;)) +</span></a>
+<a class="sourceLine" id="cb91-6" title="6"><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;arrow&quot;</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb91-7" title="7"><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">200</span>), <span class="dt">text.size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb91-8" title="8"><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</a></code></pre></div>
+<p><img src="04-beech-data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1">?tm_dots</a></code></pre></div>
+<pre><code>## starting httpd help server ... done</code></pre>
+<p>Is it easier to work with polygons and centriod points as above??</p>
+</div>
+<div id="coming" class="section level2">
+<h2><span class="header-section-number">5.1</span> <em>coming</em></h2>
+<div id="abundance" class="section level4">
+<h4><span class="header-section-number">5.1.0.1</span> Abundance</h4>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">abund.dat5 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;../data/abundance5.csv&quot;</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   N = col_double(),
+##   se.N = col_double(),
+##   lcl.N = col_double(),
+##   ucl.N = col_double(),
+##   trip = col_double(),
+##   grid.n = col_double(),
+##   trip.no = col_double(),
+##   year = col_double(),
+##   cum.seed = col_double(),
+##   seed.account.N = col_double(),
+##   log.seed = col_double(),
+##   true.date = col_date(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## See spec(...) for full column specifications.</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">glimpse</span>(abund.dat5)</a></code></pre></div>
+<pre><code>## Observations: 144
+## Variables: 26
+## $ N              &lt;dbl&gt; 85.185920, 141.346453, 125.542907, 23.769273, 8...
+## $ se.N           &lt;dbl&gt; 17.258336, 24.813696, 15.717429, 1.661358, 18.5...
+## $ lcl.N          &lt;dbl&gt; 53, 103, 100, 22, 57, 88, 93, 25, 13, 0, 1, 1, ...
+## $ ucl.N          &lt;dbl&gt; 114, 200, 162, 28, 125, 179, 164, 43, 26, 5, 5,...
+## $ var            &lt;chr&gt; &quot;N[1,1]&quot;, &quot;N[2,1]&quot;, &quot;N[3,1]&quot;, &quot;N[4,1]&quot;, &quot;N[5,1]...
+## $ grid           &lt;chr&gt; &quot;egl M1&quot;, &quot;egl M1&quot;, &quot;egl M1&quot;, &quot;egl M1&quot;, &quot;egl M1...
+## $ trip           &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ...
+## $ grid.n         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
+## $ trip.no        &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ...
+## $ valley         &lt;chr&gt; &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;...
+## $ control        &lt;chr&gt; &quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;control&quot;, &quot;co...
+## $ Valley         &lt;chr&gt; &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;...
+## $ year           &lt;dbl&gt; 1999, 1999, 1999, 2000, 2000, 2000, 2000, 2001,...
+## $ month          &lt;chr&gt; &quot;May&quot;, &quot;Aug&quot;, &quot;Nov&quot;, &quot;Feb&quot;, &quot;May&quot;, &quot;Aug&quot;, &quot;Nov&quot;...
+## $ cum.seed       &lt;dbl&gt; 590.781767, 621.339445, 631.525337, 20.371785, ...
+## $ seed.account.N &lt;dbl&gt; 6.9352044, 4.3958616, 5.0303546, 0.8570639, 14....
+## $ log.seed       &lt;dbl&gt; 2.7714271, 2.7933289, 2.8003908, 1.3090291, 3.1...
+## $ valley.rep     &lt;chr&gt; &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;, &quot;egl&quot;...
+## $ grid.rats      &lt;chr&gt; &quot;M1&quot;, &quot;M1&quot;, &quot;M1&quot;, &quot;M1&quot;, &quot;M1&quot;, &quot;M1&quot;, &quot;M1&quot;, &quot;M1&quot;,...
+## $ Conditions     &lt;chr&gt; &quot;rats.removed&quot;, &quot;rats.removed&quot;, &quot;rats.removed&quot;,...
+## $ grouping.1     &lt;chr&gt; &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;t...
+## $ grouping.2     &lt;chr&gt; &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;t...
+## $ grouping.3     &lt;chr&gt; &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;t...
+## $ grouping.4     &lt;chr&gt; &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;t...
+## $ true.date      &lt;date&gt; 1999-05-01, 1999-08-01, 1999-11-01, 2000-02-01...
+## $ treat.six      &lt;chr&gt; &quot;egl control rats.removed&quot;, &quot;egl control rats.r...</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="co">### summarizing abundance data</span></a>
+<a class="sourceLine" id="cb99-2" title="2"></a>
+<a class="sourceLine" id="cb99-3" title="3"><span class="co"># sum.dat &lt;- abund.dat5 %&gt;%</span></a>
+<a class="sourceLine" id="cb99-4" title="4"><span class="co">#               group_by()</span></a>
+<a class="sourceLine" id="cb99-5" title="5"></a>
+<a class="sourceLine" id="cb99-6" title="6"><span class="co">### merge to datasets</span></a>
+<a class="sourceLine" id="cb99-7" title="7"></a>
+<a class="sourceLine" id="cb99-8" title="8"><span class="co"># dat.nz.add &lt;- nz %&gt;% </span></a>
+<a class="sourceLine" id="cb99-9" title="9"><span class="co">#                 mutate()</span></a></code></pre></div>
 
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb100-2" title="2"><span class="kw">library</span>(leaflet.extras)</a></code></pre></div>
 </div>
 </div>
 </div>
@@ -361,8 +564,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="wnp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="wnp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="outputs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
