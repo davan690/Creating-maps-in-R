@@ -24,7 +24,7 @@ source("./R/03-Work-In-Progress.R", echo = FALSE)
 glimpse(nz)
 ```
 
-### First outline from `tmap`
+### First `tmap` attempt
 
 ```{r}
 ma1 = tm_shape(nz) + tm_fill(col = "red")
@@ -37,10 +37,14 @@ ma6 = tm_shape(nz) + tm_fill(col = "red", alpha = 0.3) +
 tmap_arrange(ma1, ma2, ma3, ma4, ma5, ma6)
 ```
 
+#### Grey background
+
 ```{r}
 tm_shape(nz) + 
         tm_fill(col = "black", alpha = 0.3)
 ```
+
+#### Boarders
 
 ```{r}
 tm_shape(nz) + 
@@ -48,6 +52,8 @@ tm_shape(nz) +
    tm_borders(col = "blue")
           
 ```
+
+#### Title and legend
 
 ```{r}
 legend_title <- expression("Area (km"^2*")")
@@ -60,16 +66,41 @@ tm_shape(nz) +
           
 ```
 
-```{r}
-tm_shape(nz) + 
-  tm_fill(col = "black", alpha = 0.3) +
-   tm_borders(col = "blue")
-          
-```
+#### North arrow
 
 ```{r}
 tm_shape(nz) + 
   tm_fill(col = "black", alpha = 0.3) +
-   tm_borders(col = "blue")
+   tm_borders(col = "blue") +
+    tm_compass(type = "8star", position = c("left", "top"))
           
 ```
+
+#### Scale
+
+```{r}
+tm_shape(nz) + 
+  tm_fill(col = "black", alpha = 0.3) +
+   tm_borders(col = "blue") +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 1)
+          
+```
+
+#### Black and white
+
+```{r}
+tm_shape(nz) + 
+  tm_fill(col = "black", alpha = 0.3) + 
+    tm_borders(lty = 2)
+          
+```
+
+```{r}
+tm_shape(world) +
+  tm_polygons() +
+  tm_shape(urb_1970_2030) +
+  tm_symbols(col = "black", border.col = "white", size = "population_millions") +
+  tm_facets(by = "year", nrow = 2, free.coords = FALSE)
+```
+
