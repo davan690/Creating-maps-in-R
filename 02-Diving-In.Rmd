@@ -31,9 +31,12 @@ library(leaflet) # for interactive maps
 library(mapview) # for interactive maps
 library(ggplot2) # tidyverse data visualization package
 library(shiny)   # for web applications
+<<<<<<< HEAD
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
+=======
+>>>>>>> 9b96762fae9b2348d1854d9c67c5ffb28b789603
 library(spData)
 library(dplyr)
 library(sf)
@@ -41,11 +44,14 @@ library(bookdown)
 library(leaflet)
 library(leaflet.extras)
 library(geojsonio)
+<<<<<<< HEAD
 
 library(sf)
 library(raster)
 library(dplyr)
 library(spData)
+=======
+>>>>>>> 9b96762fae9b2348d1854d9c67c5ffb28b789603
 # library(spDataLarge)
 ```
 
@@ -58,6 +64,10 @@ world %>%
 
 And some blogging on the matter [here](http://zevross.com/blog/2014/09/30/use-the-amazing-d3-library-to-animate-a-path-on-a-leaflet-map/).
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9b96762fae9b2348d1854d9c67c5ffb28b789603
 There are plenty of github repositories explaining the different types of GIS and using R. Below is the public `google-my-maps` map that can be modified an worked on from within the window provided below.
 
 ## `kml` to `tidy` dataset
@@ -81,5 +91,9 @@ Save csv data for arcGIS work from here as:
 
 ```{r}
 write.csv(tidy.kat, "./data/kml_tidy_data.csv")
+<<<<<<< HEAD
 ```
 
+=======
+```
+>>>>>>> 9b96762fae9b2348d1854d9c67c5ffb28b789603
