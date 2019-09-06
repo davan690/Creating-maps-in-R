@@ -20,7 +20,7 @@ These starting resources have come from `chapter-8` of the geocomp book. To make
 ```
 
 ```{r}
-source("./R/03-Work-In-Progress.R", echo = FALSE)
+source("./R/03-Work-In-Progress.R", echo = FALSE, include = FALSE)
 glimpse(nz)
 ```
 
