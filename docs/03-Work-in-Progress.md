@@ -6,7 +6,7 @@ library(tidyverse)
 ```
 
 ```
-## -- Attaching packages --------------------------------------------------------------------------- tidyverse 1.2.1 --
+## -- Attaching packages ---------------------------------------------------- tidyverse 1.2.1 --
 ```
 
 ```
@@ -17,7 +17,7 @@ library(tidyverse)
 ```
 
 ```
-## -- Conflicts ------------------------------------------------------------------------------ tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
@@ -44,12 +44,6 @@ source("./R/kml_to_tidy.R")
 
 ```
 ## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3
-```
-
-```
-## Registered S3 method overwritten by 'geojsonio':
-##   method         from 
-##   print.location dplyr
 ```
 
 ```
