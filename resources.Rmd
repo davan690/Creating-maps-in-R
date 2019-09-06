@@ -3,13 +3,83 @@ flexdashboard::flex_dashboard:
 runtime: shiny
 ---
   
+```{r libraries-info1}
+library(leaflet)
+library(leaflet.extras)
+```
+
+# Resources {#resources}
+
+## A single location on a map
+
+Here is the birthplace of R plotted with `leaflet`, `addTiles` and the `addMarkers`...
+
+```{r, echo = FALSE}
+# my_data <- mpd.m
+p_list <- list()
+
+m <- leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
+# m  
+# save a ggplot
+
+# Print the map
+
+lm <- leaflet() %>% 
+  addTiles() %>%
+    setView(-93.65, 42.0285, zoom = 17) %>%
+      addPopups(
+    -93.65, 42.0285,
+    'Here is the <b>Department of Statistics</b>, ISU')
+# lm
+
+p_list[[1]] <- list(print(m), "Map option 1")
+p_list[[2]] <- list(print(lm), "Map option 2")
+```
+
+## Leaflet plots
+
+*still coming*
+
+## My Notes
+
+I have sent the following colleagues to input into arcGIS and compare rendered maps/workflow issues with reproducibililty.
+
+[*coming below*]
+
+- Vignettes
+  - Creating maps in R "www.ssnhub.com/creating-maps-in-r.html"
+  - Map for Chapter 2: Beech forests ""
+
+- Examples
+  - LandCare 2019 publication here ""
+  
+  - Data from landCare 2019 publication here "" [here]()
+
+- Rcode
+  - My attempt so far "" [here]()
+  - GIS cheat "" [here]()
+  - Powerpoint cheat "" [here]()
+
+- Static maps
+  - NZ beech forest dynamics "" [here]()
+  - 8 grids full data "" [here]()
+  - only 6 used "" [here]()
+  - South Island of NZ "" [here]()
+
+
+  
 ```{r libraries-info}
 library(leaflet)
 library(leaflet.extras)
 ```
 
+<<<<<<< HEAD
 # Resources {#resource}
 
+=======
+>>>>>>> jekyll-testing
 There are plenty of github repositories explaining the different types of GIS and using R.
 
 Below is the public `google-my-maps` map that can be modified an worked on from within the window provided below.
@@ -1453,6 +1523,7 @@ This is for security reasons.
 ```{r}
 
 ```
+
 
 
 

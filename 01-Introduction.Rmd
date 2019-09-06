@@ -92,3 +92,13 @@ ma6 = tm_shape(nz) + tm_fill(col = "red", alpha = 0.3) +
 tmap_arrange(ma1, ma2, ma3, ma4, ma5, ma6)
 ```
 
+<<<<<<< HEAD
+=======
+This page is a outline of the current resources I am working on and using for my publication and website maps. I have begun by using my normal reproducible workflow and file structure. The full set of resources is currently on a private repository.
+
+## Data
+
+<iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="640" height="480"></iframe>
+
+{: .box-note} **Note:** This can currently me modified and changed by anyone with the link. As it comes more important for the dataset to not be modified by others we will tighten this process up using the leaflet and shiny app process we are using for the mapping and analysis at the bottom of this post.
+>>>>>>> jekyll-testing

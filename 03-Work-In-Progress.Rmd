@@ -1,4 +1,5 @@
 # Work in progress {#wnp}
+<<<<<<< HEAD
 
 ```{r}
 library(tidyverse)
@@ -80,6 +81,108 @@ These resources are very basic but they may be helpful for me later.
 
 - Found in [stack comments here](https://stackoverflow.com/questions/35867793/using-kmz-file-in-leaflet-map)
 
-
-
 ## My notes
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+```
+
+```{r}
+source("./R/kml_to_tidy.R")
+kable(tidy.kat, formatv = "markdown")
+```
+
+## Building maps for manuscripts
+
+These starting resources have come from `chapter-8` of the geocomp book. To make this quick I have used the `rmarkdown` function `render` to create a `r` file that can then be sourced here for building my data specific maps.
+
+```{r}
+# rmarkdown::render("./03-Work-In-Progress.Rmd")
+# knitr::purl("./03-Work-In-Progress.Rmd", "./R/03-Work-In-Progress.R", documentation = 2)
+```
+
+```{r}
+source("./R/03-Work-In-Progress.R", echo = FALSE, include = FALSE)
+glimpse(nz)
+```
+
+### First `tmap` attempt
+
+```{r}
+ma1 = tm_shape(nz) + tm_fill(col = "red")
+ma2 = tm_shape(nz) + tm_fill(col = "red", alpha = 0.3)
+ma3 = tm_shape(nz) + tm_borders(col = "blue")
+ma4 = tm_shape(nz) + tm_borders(lwd = 3)
+ma5 = tm_shape(nz) + tm_borders(lty = 2)
+ma6 = tm_shape(nz) + tm_fill(col = "red", alpha = 0.3) +
+  tm_borders(col = "blue", lwd = 3, lty = 2)
+tmap_arrange(ma1, ma2, ma3, ma4, ma5, ma6)
+```
+
+#### Grey background
+
+```{r}
+tm_shape(nz) + 
+        tm_fill(col = "black", alpha = 0.3)
+```
+
+#### Boarders
+
+```{r}
+tm_shape(nz) + 
+  tm_fill(col = "black", alpha = 0.3) +
+   tm_borders(col = "blue")
+          
+```
+
+#### Title and legend
+
+```{r}
+legend_title <- expression("Area (km"^2*")")
+
+tm_shape(nz) + 
+  tm_fill(col = "black", alpha = 0.3) +
+   tm_borders(col = "blue") + 
+  tm_shape(nz) + 
+    tm_fill(col = "Land_area", title = legend_title) + tm_borders()
+          
+```
+
+#### North arrow
+
+```{r}
+tm_shape(nz) + 
+  tm_fill(col = "black", alpha = 0.3) +
+   tm_borders(col = "blue") +
+    tm_compass(type = "8star", position = c("left", "top"))
+          
+```
+
+#### Scale
+
+```{r}
+tm_shape(nz) + 
+  tm_fill(col = "black", alpha = 0.3) +
+   tm_borders(col = "blue") +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 1)
+          
+```
+
+#### Black and white
+
+```{r}
+tm_shape(nz) + 
+  tm_fill(col = "black", alpha = 0.3) + 
+    tm_borders(lty = 2)
+          
+```
+
+```{r}
+tm_shape(world) +
+  tm_polygons() +
+  tm_shape(urb_1970_2030) +
+  tm_symbols(col = "black", border.col = "white", size = "population_millions") +
+  tm_facets(by = "year", nrow = 2, free.coords = FALSE)
+```

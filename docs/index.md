@@ -1,8 +1,12 @@
 ---
 title: "Using GIS for invasive species research"
 author: "Anthony Davidson"
+<<<<<<< HEAD
 date: "2019-09-05"
 knit: bookdown::render_book
+=======
+date: "2019-09-06"
+>>>>>>> jekyll-testing
 site: bookdown::bookdown_site
 documentclass: krantz
 monofont: "Source Code Pro"
@@ -20,12 +24,17 @@ graphics: yes
 
 # Overview {#overview}
 
+<<<<<<< HEAD
 This respository contains a collection of dynamic programming tools and introductory tutorials for dealing with maps and geo-spatical analysis using `rmarkdown and shiny`.
+=======
+This respository contains a collection of dynamic programming tools and introductory tutorials for GIS in R.
+>>>>>>> jekyll-testing
 
 ## Project objectives
 
-The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics. The current goals that also meet the requirements to produce the figures needed for reproducible phd research.
+The overall objective is to create a landing page and collection of GIS work in R. All the examples will focus on invasive species dynamics for now but will extend to other areas of ecology and research. The current set of goals for this project also meet the requirements needed to produce the figures for my personal reproducible phd research.
 
+<<<<<<< HEAD
 ### Objective one
 
 *Produce **static-maps** for the first publication of my PhD.*
@@ -41,34 +50,27 @@ The overall objective is to create a landing page and collection of GIS work in 
   - Outline of NZ here "" [here]()
   - Forest vegetation here "" [here]()
   - Data from landCare 2019 publication here "" [here]()
+=======
+### Objective One
 
-- Rcode
-  - My attempt so far "" [here]()
-  - GIS cheat "" [here]()
-  - Powerpoint cheat "" [here]()
+*Produce static maps for the first publication of my PhD.*  Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/)
 
-- Static maps
-  - NZ beech forest dynamics "" [here]()
-  - 8 grids full data "" [here]()
-  - only 6 used "" [here]()
-  - South Island of NZ "" [here]()
+| Datasets |                                        |
+|-----------|----------------------------|
+|Beech forest dataset | <iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="150" height="100"></iframe> |
+>>>>>>> jekyll-testing
 
-Two: *Produce static maps for the following data-set* [Davidson2019b]
+  - Grid locations are can be downloaded as a `kmz` or `kml` file. This is currently labedl "invasive-species-location-research.kml" [here](data/google-data/invasive-species-location-research.kml)
+  - NZ basic map examples are here under resources chapter
+  - NZ Forest vegetation data comes from ... and saved as "" [here]()
 
-[*same as above*]
+### Objective Two
 
-Three: *Produce static maps for the following data-set* [Davidson2019c]
+*Produce static maps for the following data-set* [Davidson2019b] [*same as above*]
 
-[*same as above*]
+### Objective Three
 
-## My notes
-
-- Vignettes
-  - Creating maps in R "www.ssnhub.com/creating-maps-in-r.html"
-  - Map for Chapter 2: Beech forests ""
-
-- Examples
-  - LandCare 2019 publication here ""
+*Produce static maps for the following data-set* [Davidson2019c] [*same as above*]
 
 ## Get started...
 
