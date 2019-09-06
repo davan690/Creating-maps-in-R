@@ -9,3 +9,4 @@ mapview,2019-05-13,Interactive Viewing of Spatial Data in R,2,7,FALSE,FALSE,TRUE
 plotly,2019-04-10,Create Interactive Web Graphics via 'plotly.js',2,21,TRUE,FALSE,TRUE,116,109285,Travis,NONE,526,1538,116,0.1,NA,13
 rasterVis,2019-07-02,Visualization Methods for Raster Data,4,4,FALSE,FALSE,FALSE,10,7796,Travis,NONE,13,50,7,2.466666666666667,2,13
 tmap,2019-07-18,Thematic Maps,2,11,FALSE,TRUE,TRUE,3,15995,"Travis, Appveyor",CodeCov,61,341,24,0.16666666666666666,0.16666666666666666,0
+
