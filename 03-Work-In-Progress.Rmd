@@ -1,5 +1,4 @@
 # Work in progress {#wnp}
-<<<<<<< HEAD
 
 ```{r}
 library(tidyverse)
