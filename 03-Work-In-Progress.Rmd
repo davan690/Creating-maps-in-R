@@ -1,10 +1,8 @@
 # Work in progress {#wnp}
-<<<<<<< HEAD
 
 ```{r}
 library(tidyverse)
 ```
-
 
 As I work through the steps I will add code and notes to this section of the `gitbook`. The first step I have done is to convert the downloaded my-maps data. To conbvert a my-maps online map into a tidy format we can work in I have done the following.
 
@@ -40,48 +38,46 @@ outDir <- "C://Code/Creating-maps-in-R/data/unzipped-files/"
 - `exdir` defines the directory to extract files to. It will be created if not already available. If you don't set `exdir`, `unzip` will just unzip it to your current working directory.
 
 ```{r}
-glimpse(xml.locations)
-str(xml.locations)
+# glimpse(xml.locations)
+# str(xml.locations)
 
 ```
 
 ```{r}
 # install dev version of ggmap
-devtools::install_github("dkahle/ggmap")
+# devtools::install_github("dkahle/ggmap")
 
 library(ggmap)
 #> Loading required package: ggplot2
 #> Google Maps API Terms of Service: http://developers.google.com/maps/terms.
 #> Please cite ggmap if you use it: see citation("ggmap") for details.
 
-# save api key
-register_google(key = "YOUR_API_KEY")
-
-# check if key is saved
-has_goog_key()
-#> [1] TRUE
-
-ggmap(
-  ggmap = get_map(
-    "Dayton",
-     zoom = 13, scale = "auto",
-     maptype = "satellite",
-     source = "google"),
-  extent = "device",
-  legend = "topright"
-  )
+# # save api key
+# register_google(key = "YOUR_API_KEY")
+# 
+# # check if key is saved
+# has_goog_key()
+# #> [1] TRUE
+# 
+# ggmap(
+#   ggmap = get_map(
+#     "Dayton",
+#      zoom = 13, scale = "auto",
+#      maptype = "satellite",
+#      source = "google"),
+#   extent = "device",
+#   legend = "topright"
+#   )
 #> Source : https://maps.googleapis.com/maps/api/staticmap?center=Dayton&zoom=13&size=640x640&scale=2&maptype=satellite&language=en-EN&key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU
 #> Source : https://maps.googleapis.com/maps/api/geocode/json?address=Dayton&key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU
 ```
 
 
-## Resources
+## My notes
 
 These resources are very basic but they may be helpful for me later.
 
 - Found in [stack comments here](https://stackoverflow.com/questions/35867793/using-kmz-file-in-leaflet-map)
-
-## My notes
 
 ```{r}
 library(tidyverse)
@@ -90,7 +86,7 @@ library(kableExtra)
 
 ```{r}
 source("./R/kml_to_tidy.R")
-kable(tidy.kat, formatv = "markdown")
+kable(tidy.kat, format = "markdown")
 ```
 
 ## Building maps for manuscripts
@@ -103,7 +99,7 @@ These starting resources have come from `chapter-8` of the geocomp book. To make
 ```
 
 ```{r}
-source("./R/03-Work-In-Progress.R", echo = FALSE, include = FALSE)
+source("./R/03-Work-In-Progress.R", echo = FALSE)
 glimpse(nz)
 ```
 
@@ -177,12 +173,4 @@ tm_shape(nz) +
   tm_fill(col = "black", alpha = 0.3) + 
     tm_borders(lty = 2)
           
-```
-
-```{r}
-tm_shape(world) +
-  tm_polygons() +
-  tm_shape(urb_1970_2030) +
-  tm_symbols(col = "black", border.col = "white", size = "population_millions") +
-  tm_facets(by = "year", nrow = 2, free.coords = FALSE)
 ```

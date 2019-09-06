@@ -3,12 +3,13 @@ flexdashboard::flex_dashboard:
 runtime: shiny
 ---
   
-```{r libraries-info}
+
+```r
 library(leaflet)
 library(leaflet.extras)
 ```
 
-# Resources
+# Outputs {#outputs}
 
 Using and applying GIS techniques in R has become much easier since the additional functionality of Java-script libraries. One of these libraries in the `leaflet` library for mapping. Below are some examples of these mapping tools with examples.
 
@@ -16,35 +17,13 @@ I like the idea of know what to do in arcGIS so that it is easy to work with res
 
 - 'leaflet`
 
-## A single location on a map
+### A single location on a map
 
 Here is the birthplace of R plotted with `leaflet`, `addTiles` and the `addMarkers`...
 
-```{r, echo = FALSE}
-# my_data <- mpd.m
-p_list <- list()
 
-m <- leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
-# m  
-# save a ggplot
 
-# Print the map
-
-lm <- leaflet() %>% 
-  addTiles() %>%
-    setView(-93.65, 42.0285, zoom = 17) %>%
-      addPopups(
-    -93.65, 42.0285,
-    'Here is the <b>Department of Statistics</b>, ISU')
-# lm
-
-p_list[[1]] <- list(print(m), "Map option 1")
-p_list[[2]] <- list(print(lm), "Map option 2")
-```
-
-## Leaflet plots
+### Leaflet plot options
 
 *still coming*
 
@@ -52,11 +31,10 @@ p_list[[2]] <- list(print(lm), "Map option 2")
 
 I have sent the following to Matt to input into arcGIS and compare rendered maps.
 
-```{r}
+
+```r
 # grid.locations <- 
 # label
-
-
 ```
 
 *add hand drawn image here*
@@ -64,13 +42,5 @@ I have sent the following to Matt to input into arcGIS and compare rendered maps
 ### Extracting mymaps data
 
 This is for security reasons.
-
-```{r}
-
-```
-
-
-
-
 
 

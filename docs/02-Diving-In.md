@@ -1,24 +1,23 @@
 # Diving In {#divingin}
 
+There are plenty of github repositories explaining the different types of GIS and using R.
 
+Below is the public `google-my-maps` map that can be modified an worked on from within the window provided below.
 
-There are plenty of github repositories explaining the different types of GIS and using R. Below is the public `google-my-maps` map that can be modified an worked on from within the window provided below.
+<iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="640" height="480"></iframe>
+{: .box-note}
 
-## `kml` to `tidy` dataset
+**Note:** This can currently me modified and changed by anyone with the link. As it comes more important for the dataset to not be modified by others we will tighten this process up using the leaflet and shiny app process we are using for the mapping and analysis at the bottom of this post.
 
-<<<<<<< HEAD
+So far we have saved a `leaflet` `rmd` file as an html file and pasted it from the includes folder of the website. We will tighten this up too. :)
+
 ## Downloading
-=======
-Import data from downloaded `kml` file from the my-maps data.
->>>>>>> jekyll-testing
 
-1. Download the `kml` file from online (NOT the `kmz` file)
+To begin with check this is working in your local RStudio enviroment
 
-{.:Note} A `KMZ` file is just a zipped `KML` [file](https://en.wikipedia.org/wiki/Keyhole_Markup_Language), possibly with associated embedded images, icons, etc. 
+1. Install the required packages. You need a recent version of the GDAL, GEOS, Proj.4, and UDUNITS libraries installed for this to work on Mac and Linux. More information on that at https://github.com/r-spatial/sf#installling.
 
-So any program that supports `KMZ` files internally unzips them to access their KML files. That may be a reason why many open source programs do not bother supporting KMZ once KML support is implemented: you just need to use an additional unzipping library of your choice, to convert the KMZ to KML. The linked posts give some JavaScript-based solutions for unzipping.
 
-<<<<<<< HEAD
 ```r
 # devtools::install_github("robinlovelace/geocompr")
 ```
@@ -37,24 +36,6 @@ library(shiny)   # for web applications
 ```
 
 
-```r
-library(spData)
-library(dplyr)
-library(sf)
-library(bookdown)
-library(leaflet)
-library(leaflet.extras)
-library(geojsonio)
-```
-
-
-```r
-library(sf)
-library(raster)
-library(dplyr)
-library(spData)
-# library(spDataLarge)
-```
 
 3. Check it's all working, e.g. with this command:
 
@@ -68,27 +49,39 @@ world %>%
 
 And some blogging on the matter [here](http://zevross.com/blog/2014/09/30/use-the-amazing-d3-library-to-animate-a-path-on-a-leaflet-map/).
 
-=======
+There are plenty of github repositories explaining the different types of GIS and using R. Below is the public `google-my-maps` map that can be modified an worked on from within the window provided below.
+
+## `kml` to `tidy` dataset
+
+Import data from downloaded `kml` file from the my-maps data.
+
+1. Download the `kml` file from online (NOT the `kmz` file)
+
+{.:Note} A `KMZ` file is just a zipped `KML` [file](https://en.wikipedia.org/wiki/Keyhole_Markup_Language), possibly with associated embedded images, icons, etc. 
+
+So any program that supports `KMZ` files internally unzips them to access their KML files. That may be a reason why many open source programs do not bother supporting KMZ once KML support is implemented: you just need to use an additional unzipping library of your choice, to convert the KMZ to KML. The linked posts give some JavaScript-based solutions for unzipping.
+
 
 ```r
 source("./R/kml_to_tidy.R")
 ```
 
 ```
-## -- Attaching packages --------------------------------------------------------------------------- tidyverse 1.2.1 --
+## -- Attaching packages ----------------------------------------------- tidyverse 1.2.1 --
 ```
 
 ```
-## v ggplot2 3.2.1     v readr   1.3.1
 ## v tibble  2.1.3     v purrr   0.3.2
 ## v tidyr   0.8.3     v stringr 1.4.0
-## v ggplot2 3.2.1     v forcats 0.4.0
+## v readr   1.3.1     v forcats 0.4.0
 ```
 
 ```
-## -- Conflicts ------------------------------------------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
+## -- Conflicts -------------------------------------------------- tidyverse_conflicts() --
+## x tidyr::extract() masks raster::extract()
+## x dplyr::filter()  masks stats::filter()
+## x dplyr::lag()     masks stats::lag()
+## x raster::select() masks dplyr::select()
 ```
 
 ```
@@ -148,6 +141,4 @@ Save csv data for arcGIS work from here as:
 ```r
 write.csv(tidy.kat, "./data/kml_tidy_data.csv")
 ```
->>>>>>> jekyll-testing
-
 

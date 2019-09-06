@@ -1,12 +1,12 @@
 # Diving In {#divingin}
 
-<<<<<<< HEAD
 There are plenty of github repositories explaining the different types of GIS and using R.
 
 Below is the public `google-my-maps` map that can be modified an worked on from within the window provided below.
 
 <iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="640" height="480"></iframe>
 {: .box-note}
+
 **Note:** This can currently me modified and changed by anyone with the link. As it comes more important for the dataset to not be modified by others we will tighten this process up using the leaflet and shiny app process we are using for the mapping and analysis at the bottom of this post.
 
 So far we have saved a `leaflet` `rmd` file as an html file and pasted it from the includes folder of the website. We will tighten this up too. :)
@@ -33,10 +33,7 @@ library(ggplot2) # tidyverse data visualization package
 library(shiny)   # for web applications
 ```
 
-```{r message=FALSE, warning=FALSE}
-=======
 ```{r message=FALSE, warning=FALSE, include=FALSE}
->>>>>>> jekyll-testing
 library(spData)
 library(dplyr)
 library(sf)
@@ -44,10 +41,7 @@ library(bookdown)
 library(leaflet)
 library(leaflet.extras)
 library(geojsonio)
-```
 
-<<<<<<< HEAD
-```{r tttt, message=FALSE }
 library(sf)
 library(raster)
 library(dplyr)
@@ -64,8 +58,6 @@ world %>%
 
 And some blogging on the matter [here](http://zevross.com/blog/2014/09/30/use-the-amazing-d3-library-to-animate-a-path-on-a-leaflet-map/).
 
-
-=======
 There are plenty of github repositories explaining the different types of GIS and using R. Below is the public `google-my-maps` map that can be modified an worked on from within the window provided below.
 
 ## `kml` to `tidy` dataset
@@ -90,6 +82,4 @@ Save csv data for arcGIS work from here as:
 ```{r}
 write.csv(tidy.kat, "./data/kml_tidy_data.csv")
 ```
-
->>>>>>> jekyll-testing
 
