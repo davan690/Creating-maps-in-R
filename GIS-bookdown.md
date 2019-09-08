@@ -1,3 +1,37 @@
+---
+title: "Using GIS for invasive species research"
+author: "Anthony Davidson"
+date: "2019-09-05"
+knit: bookdown::render_book
+site: bookdown::bookdown_site
+documentclass: krantz
+monofont: "Source Code Pro"
+monofontoptions: "Scale=0.7"
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: davan690/Creating-maps-in-R
+url: 'https\://ssnhub.com/Creating-maps-in-R/'
+description: "Everything you need to start using GIS in RMarkdown/bookdown projects."
+cover-image: "images/cover.png"
+colorlinks: yes
+graphics: yes
+---
+
+# Overview {#overview}
+
+Placeholder
+
+
+## Project objectives
+### Objective one
+#### Datasets
+## My notes
+## Get started...
+### Packages
+
+<!--chapter:end:index.Rmd-->
+
 # Introduction {#intro}
 
 
@@ -110,4 +144,83 @@ tmap_arrange(ma1, ma2, ma3, ma4, ma5, ma6)
 ```
 
 <img src="01-Introduction_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
+
+<!--chapter:end:01-Introduction.Rmd-->
+
+
+# Diving In {#divingin}
+
+Placeholder
+
+
+## Downloading
+
+<!--chapter:end:02-Diving-In.Rmd-->
+
+
+# Outputs {#outputs}
+
+Placeholder
+
+
+### A single location on a map
+### Leaflet plot options
+## My Notes
+### Extracting mymaps data
+
+<!--chapter:end:outputs.Rmd-->
+
+
+# Resources {#resource}
+
+Placeholder
+
+
+## Downloading
+#### *Content below from leaflet github account*
+## Using Basemaps
+### Default (OpenStreetMap) Tiles
+### Third-Party Tiles
+### Custom Tile URL Template
+### WMS Tiles
+### Combining Tile Layers
+## Choropleths
+### Data source
+### Basic states map
+### Adding some color
+### Adding interaction
+### Custom info
+### Legend
+## Introduction
+## Static maps
+### tmap basics
+### Map objects {#map-obj}
+### Aesthetics
+### Color settings
+### Layouts
+### Faceted maps
+### Inset maps
+## Animated maps
+## Interactive maps
+## Mapping applications
+## Other mapping packages
+## Exercises
+## My Notes
+## A single location on a map
+## Leaflet plots
+## My Notes
+### Extracting mymaps data
+
+<!--chapter:end:resources.Rmd-->
+
+
+# Leaflet tabs {#tabs}
+
+Placeholder
+
+
+## Tests {.tabset}
+
+<!--chapter:end:leaflet-tabs.Rmd-->
 
