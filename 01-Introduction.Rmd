@@ -45,6 +45,7 @@ tm_shape(nz) +
   tm_fill() +
   tm_borders() 
 ```
+*thethere wae*
 
 #### Attributes
 
