@@ -1,7 +1,7 @@
 ---
 title: "Using GIS for invasive species research"
 author: "Anthony Davidson"
-date: "2019-09-06"
+date: "2019-09-10"
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: krantz
@@ -128,6 +128,12 @@ library(bookdown)
 library(leaflet)
 library(leaflet.extras)
 library(geojsonio)
+```
+
+```
+## Registered S3 method overwritten by 'geojsonio':
+##   method         from 
+##   print.location dplyr
 ```
 
 ```

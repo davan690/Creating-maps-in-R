@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> 4 Work in progress | Using GIS for invasive species research</title>
   <meta name="description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" 4 Work in progress | Using GIS for invasive species research" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Anthony Davidson" />
 
 
-<meta name="date" content="2019-09-06" />
+<meta name="date" content="2019-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="divingin.html">
-<link rel="next" href="contentadd.html">
+<link rel="prev" href="divingin.html"/>
+<link rel="next" href="contentadd.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -249,24 +249,24 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="wnp" class="section level1">
 <h1><span class="header-section-number"> 4</span> Work in progress</h1>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">library</span>(tmap)    <span class="co"># for static and interactive maps</span></a>
-<a class="sourceLine" id="cb32-2" title="2"><span class="kw">library</span>(leaflet) <span class="co"># for interactive maps</span></a>
-<a class="sourceLine" id="cb32-3" title="3"><span class="kw">library</span>(mapview) <span class="co"># for interactive maps</span></a>
-<a class="sourceLine" id="cb32-4" title="4"><span class="kw">library</span>(ggplot2) <span class="co"># tidyverse data visualization package</span></a>
-<a class="sourceLine" id="cb32-5" title="5"><span class="kw">library</span>(shiny)   <span class="co"># for web applications</span></a>
-<a class="sourceLine" id="cb32-6" title="6"><span class="kw">library</span>(spData)</a>
-<a class="sourceLine" id="cb32-7" title="7"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb32-8" title="8"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb32-9" title="9"><span class="kw">library</span>(bookdown)</a>
-<a class="sourceLine" id="cb32-10" title="10"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb32-11" title="11"><span class="kw">library</span>(leaflet.extras)</a>
-<a class="sourceLine" id="cb32-12" title="12"><span class="kw">library</span>(geojsonio)</a>
-<a class="sourceLine" id="cb32-13" title="13"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb32-14" title="14"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb32-15" title="15"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb32-16" title="16"><span class="kw">library</span>(spData)</a>
-<a class="sourceLine" id="cb32-17" title="17"></a>
-<a class="sourceLine" id="cb32-18" title="18"><span class="co"># library(spDataLarge)</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">library</span>(tmap)    <span class="co"># for static and interactive maps</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="kw">library</span>(leaflet) <span class="co"># for interactive maps</span></a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="kw">library</span>(mapview) <span class="co"># for interactive maps</span></a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="kw">library</span>(ggplot2) <span class="co"># tidyverse data visualization package</span></a>
+<a class="sourceLine" id="cb33-5" title="5"><span class="kw">library</span>(shiny)   <span class="co"># for web applications</span></a>
+<a class="sourceLine" id="cb33-6" title="6"><span class="kw">library</span>(spData)</a>
+<a class="sourceLine" id="cb33-7" title="7"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb33-8" title="8"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb33-9" title="9"><span class="kw">library</span>(bookdown)</a>
+<a class="sourceLine" id="cb33-10" title="10"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb33-11" title="11"><span class="kw">library</span>(leaflet.extras)</a>
+<a class="sourceLine" id="cb33-12" title="12"><span class="kw">library</span>(geojsonio)</a>
+<a class="sourceLine" id="cb33-13" title="13"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb33-14" title="14"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb33-15" title="15"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb33-16" title="16"><span class="kw">library</span>(spData)</a>
+<a class="sourceLine" id="cb33-17" title="17"></a>
+<a class="sourceLine" id="cb33-18" title="18"><span class="co"># library(spDataLarge)</span></a></code></pre></div>
 <p>As I work through the steps I will add code and notes to this section of the <code>gitbook</code>. The first step I have done is to convert the downloaded my-maps data. To conbvert a my-maps online map into a tidy format we can work in I have done the following.</p>
 <div id="static-maps" class="section level3">
 <h3><span class="header-section-number">4.0.1</span> <a href="https://geocompr.robinlovelace.net/adv-map.html">Static maps</a></h3>
@@ -278,47 +278,47 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>A <code>KMZ</code> file is just a zipped <code>KML</code> <a href="https://en.wikipedia.org/wiki/Keyhole_Markup_Language">file</a>, possibly with associated embedded images, icons, etc.</p>
 <p>So any program that supports <code>KMZ</code> files internally unzips them to access their KML files. That may be a reason why many open source programs do not bother supporting KMZ once KML support is implemented: you just need to use an additional unzipping library of your choice, to convert the KMZ to KML. The linked posts give some JavaScript-based solutions for unzipping.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">dat.loc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;C://Code/Creating-maps-in-R/data/invasive-species-location-research.kmz&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">  <span class="co"># kml.dat &lt;- xml2::download_xml</span></a>
-<a class="sourceLine" id="cb34-2" title="2">zipF&lt;-<span class="st"> &quot;C://Code/Creating-maps-in-R/data/invasive-species-location-research.kmz&quot;</span></a>
-<a class="sourceLine" id="cb34-3" title="3">outDir &lt;-<span class="st"> &quot;C://Code/Creating-maps-in-R/data/unzipped-files/&quot;</span></a>
-<a class="sourceLine" id="cb34-4" title="4"><span class="co"># unzip(zipF,exdir=&quot;C://Code/Creating-maps-in-R/data/unzipped-files/&quot;)</span></a>
-<a class="sourceLine" id="cb34-5" title="5"></a>
-<a class="sourceLine" id="cb34-6" title="6"><span class="co"># unzip(zipfile = &quot;C://Code/Creating-maps-in-R/data/Canberra-transit/images/invasive-species-location-research.kmz&quot;)</span></a>
-<a class="sourceLine" id="cb34-7" title="7"><span class="co"># xml.locations &lt;- XML::xmlToDataFrame(&quot;./doc.kml&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">dat.loc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;C://Code/Creating-maps-in-R/data/invasive-species-location-research.kmz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">  <span class="co"># kml.dat &lt;- xml2::download_xml</span></a>
+<a class="sourceLine" id="cb35-2" title="2">zipF&lt;-<span class="st"> &quot;C://Code/Creating-maps-in-R/data/invasive-species-location-research.kmz&quot;</span></a>
+<a class="sourceLine" id="cb35-3" title="3">outDir &lt;-<span class="st"> &quot;C://Code/Creating-maps-in-R/data/unzipped-files/&quot;</span></a>
+<a class="sourceLine" id="cb35-4" title="4"><span class="co"># unzip(zipF,exdir=&quot;C://Code/Creating-maps-in-R/data/unzipped-files/&quot;)</span></a>
+<a class="sourceLine" id="cb35-5" title="5"></a>
+<a class="sourceLine" id="cb35-6" title="6"><span class="co"># unzip(zipfile = &quot;C://Code/Creating-maps-in-R/data/Canberra-transit/images/invasive-species-location-research.kmz&quot;)</span></a>
+<a class="sourceLine" id="cb35-7" title="7"><span class="co"># xml.locations &lt;- XML::xmlToDataFrame(&quot;./doc.kml&quot;)</span></a></code></pre></div>
 <ul>
 <li><code>exdir</code> defines the directory to extract files to. It will be created if not already available. If you don’t set <code>exdir</code>, <code>unzip</code> will just unzip it to your current working directory.</li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="co"># glimpse(xml.locations)</span></a>
-<a class="sourceLine" id="cb35-2" title="2"><span class="co"># str(xml.locations)</span></a></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="co"># install dev version of ggmap</span></a>
-<a class="sourceLine" id="cb36-2" title="2"><span class="co"># devtools::install_github(&quot;dkahle/ggmap&quot;)</span></a>
-<a class="sourceLine" id="cb36-3" title="3"></a>
-<a class="sourceLine" id="cb36-4" title="4"><span class="kw">library</span>(ggmap)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="co"># glimpse(xml.locations)</span></a>
+<a class="sourceLine" id="cb36-2" title="2"><span class="co"># str(xml.locations)</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># install dev version of ggmap</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="co"># devtools::install_github(&quot;dkahle/ggmap&quot;)</span></a>
+<a class="sourceLine" id="cb37-3" title="3"></a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="kw">library</span>(ggmap)</a></code></pre></div>
 <pre><code>## Google&#39;s Terms of Service: https://cloud.google.com/maps-platform/terms/.</code></pre>
 <pre><code>## Please cite ggmap if you use it! See citation(&quot;ggmap&quot;) for details.</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="co">#&gt; Loading required package: ggplot2</span></a>
-<a class="sourceLine" id="cb39-2" title="2"><span class="co">#&gt; Google Maps API Terms of Service: http://developers.google.com/maps/terms.</span></a>
-<a class="sourceLine" id="cb39-3" title="3"><span class="co">#&gt; Please cite ggmap if you use it: see citation(&quot;ggmap&quot;) for details.</span></a>
-<a class="sourceLine" id="cb39-4" title="4"></a>
-<a class="sourceLine" id="cb39-5" title="5"><span class="co"># # save api key</span></a>
-<a class="sourceLine" id="cb39-6" title="6"><span class="co"># register_google(key = &quot;YOUR_API_KEY&quot;)</span></a>
-<a class="sourceLine" id="cb39-7" title="7"><span class="co"># </span></a>
-<a class="sourceLine" id="cb39-8" title="8"><span class="co"># # check if key is saved</span></a>
-<a class="sourceLine" id="cb39-9" title="9"><span class="co"># has_goog_key()</span></a>
-<a class="sourceLine" id="cb39-10" title="10"><span class="co"># #&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb39-11" title="11"><span class="co"># </span></a>
-<a class="sourceLine" id="cb39-12" title="12"><span class="co"># ggmap(</span></a>
-<a class="sourceLine" id="cb39-13" title="13"><span class="co">#   ggmap = get_map(</span></a>
-<a class="sourceLine" id="cb39-14" title="14"><span class="co">#     &quot;Dayton&quot;,</span></a>
-<a class="sourceLine" id="cb39-15" title="15"><span class="co">#      zoom = 13, scale = &quot;auto&quot;,</span></a>
-<a class="sourceLine" id="cb39-16" title="16"><span class="co">#      maptype = &quot;satellite&quot;,</span></a>
-<a class="sourceLine" id="cb39-17" title="17"><span class="co">#      source = &quot;google&quot;),</span></a>
-<a class="sourceLine" id="cb39-18" title="18"><span class="co">#   extent = &quot;device&quot;,</span></a>
-<a class="sourceLine" id="cb39-19" title="19"><span class="co">#   legend = &quot;topright&quot;</span></a>
-<a class="sourceLine" id="cb39-20" title="20"><span class="co">#   )</span></a>
-<a class="sourceLine" id="cb39-21" title="21"><span class="co">#&gt; Source : https://maps.googleapis.com/maps/api/staticmap?center=Dayton&amp;zoom=13&amp;size=640x640&amp;scale=2&amp;maptype=satellite&amp;language=en-EN&amp;key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU</span></a>
-<a class="sourceLine" id="cb39-22" title="22"><span class="co">#&gt; Source : https://maps.googleapis.com/maps/api/geocode/json?address=Dayton&amp;key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU</span></a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="co">#&gt; Loading required package: ggplot2</span></a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="co">#&gt; Google Maps API Terms of Service: http://developers.google.com/maps/terms.</span></a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="co">#&gt; Please cite ggmap if you use it: see citation(&quot;ggmap&quot;) for details.</span></a>
+<a class="sourceLine" id="cb40-4" title="4"></a>
+<a class="sourceLine" id="cb40-5" title="5"><span class="co"># # save api key</span></a>
+<a class="sourceLine" id="cb40-6" title="6"><span class="co"># register_google(key = &quot;YOUR_API_KEY&quot;)</span></a>
+<a class="sourceLine" id="cb40-7" title="7"><span class="co"># </span></a>
+<a class="sourceLine" id="cb40-8" title="8"><span class="co"># # check if key is saved</span></a>
+<a class="sourceLine" id="cb40-9" title="9"><span class="co"># has_goog_key()</span></a>
+<a class="sourceLine" id="cb40-10" title="10"><span class="co"># #&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb40-11" title="11"><span class="co"># </span></a>
+<a class="sourceLine" id="cb40-12" title="12"><span class="co"># ggmap(</span></a>
+<a class="sourceLine" id="cb40-13" title="13"><span class="co">#   ggmap = get_map(</span></a>
+<a class="sourceLine" id="cb40-14" title="14"><span class="co">#     &quot;Dayton&quot;,</span></a>
+<a class="sourceLine" id="cb40-15" title="15"><span class="co">#      zoom = 13, scale = &quot;auto&quot;,</span></a>
+<a class="sourceLine" id="cb40-16" title="16"><span class="co">#      maptype = &quot;satellite&quot;,</span></a>
+<a class="sourceLine" id="cb40-17" title="17"><span class="co">#      source = &quot;google&quot;),</span></a>
+<a class="sourceLine" id="cb40-18" title="18"><span class="co">#   extent = &quot;device&quot;,</span></a>
+<a class="sourceLine" id="cb40-19" title="19"><span class="co">#   legend = &quot;topright&quot;</span></a>
+<a class="sourceLine" id="cb40-20" title="20"><span class="co">#   )</span></a>
+<a class="sourceLine" id="cb40-21" title="21"><span class="co">#&gt; Source : https://maps.googleapis.com/maps/api/staticmap?center=Dayton&amp;zoom=13&amp;size=640x640&amp;scale=2&amp;maptype=satellite&amp;language=en-EN&amp;key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU</span></a>
+<a class="sourceLine" id="cb40-22" title="22"><span class="co">#&gt; Source : https://maps.googleapis.com/maps/api/geocode/json?address=Dayton&amp;key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU</span></a></code></pre></div>
 </div>
 <div id="my-notes" class="section level2">
 <h2><span class="header-section-number">4.1</span> My notes</h2>
@@ -326,23 +326,23 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Found in <a href="https://stackoverflow.com/questions/35867793/using-kmz-file-in-leaflet-map">stack comments here</a></li>
 </ul>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<pre><code>## -- Attaching packages -------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<pre><code>## -- Attaching packages ---------------------------------------------- tidyverse 1.2.1 --</code></pre>
 <pre><code>## v tibble  2.1.3     v purrr   0.3.2
 ## v tidyr   0.8.3     v stringr 1.4.0
 ## v readr   1.3.1     v forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts ----------------------------------------------- tidyverse_conflicts() --
+<pre><code>## -- Conflicts ------------------------------------------------- tidyverse_conflicts() --
 ## x tidyr::extract() masks raster::extract()
 ## x dplyr::filter()  masks stats::filter()
 ## x dplyr::lag()     masks stats::lag()
 ## x raster::select() masks dplyr::select()</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw">library</span>(kableExtra)</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw">library</span>(kableExtra)</a></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;kableExtra&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     group_rows</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/kml_to_tidy.R&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/kml_to_tidy.R&quot;</span>)</a></code></pre></div>
 <pre><code>## Multiple layers are present in data source C:\Code\Creating-maps-in-R\data\invasive-species-NAH-research.kml, reading layer `Hollyford&#39;.
 ## Use `st_layers&#39; to list all layer names and their type in a data source.
 ## Set the `layer&#39; argument in `st_read&#39; to read a particular layer.</code></pre>
@@ -361,7 +361,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## $ Name        &lt;fct&gt; Gunns Camp, Choqenout and Ruscoe 2000, Hollyford V...
 ## $ Description &lt;fct&gt; &quot;&quot;, &quot;Eglinton Valley&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,...
 ## $ geometry    &lt;GEOMETRY [°]&gt; POINT Z (168.1392 -44.76039 0), POINT Z (...</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="kw">kable</span>(tidy.kat, <span class="dt">format =</span> <span class="st">&quot;markdown&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="kw">kable</span>(tidy.kat, <span class="dt">format =</span> <span class="st">&quot;markdown&quot;</span>)</a></code></pre></div>
 <table>
 <colgroup>
 <col width="14%" />
@@ -498,9 +498,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="building-maps-for-manuscripts" class="section level2">
 <h2><span class="header-section-number">4.2</span> Building maps for manuscripts</h2>
 <p>These starting resources have come from <code>chapter-8</code> of the geocomp book. To make this quick I have used the <code>rmarkdown</code> function <code>render</code> to create a <code>r</code> file that can then be sourced here for building my data specific maps.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="co"># rmarkdown::render(&quot;./03-Work-In-Progress.Rmd&quot;)</span></a>
-<a class="sourceLine" id="cb52-2" title="2"><span class="co"># knitr::purl(&quot;./03-Work-In-Progress.Rmd&quot;, &quot;./R/03-Work-In-Progress.R&quot;, documentation = 2)</span></a></code></pre></div>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/03-Work-In-Progress.R&quot;</span>, <span class="dt">echo =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="co"># rmarkdown::render(&quot;./03-Work-In-Progress.Rmd&quot;)</span></a>
+<a class="sourceLine" id="cb53-2" title="2"><span class="co"># knitr::purl(&quot;./03-Work-In-Progress.Rmd&quot;, &quot;./R/03-Work-In-Progress.R&quot;, documentation = 2)</span></a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/03-Work-In-Progress.R&quot;</span>, <span class="dt">echo =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-1.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
 <pre><code>## Legend labels were too wide. The labels have been resized to 0.29, 0.29, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</code></pre>
 <pre><code>## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</code></pre>
@@ -526,7 +526,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
 ## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.</code></pre>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-9.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-10.png" width="672" /></p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw">glimpse</span>(nz)</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1"><span class="kw">glimpse</span>(nz)</a></code></pre></div>
 <pre><code>## Observations: 16
 ## Variables: 7
 ## $ Name          &lt;chr&gt; &quot;Northland&quot;, &quot;Auckland&quot;, &quot;Waikato&quot;, &quot;Bay of Plen...
@@ -538,81 +538,81 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## $ geom          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((1745493 600..., MUL...</code></pre>
 <div id="first-tmap-attempt" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> First <code>tmap</code> attempt</h3>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1">ma1 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb66-2" title="2">ma2 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a>
-<a class="sourceLine" id="cb66-3" title="3">ma3 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
-<a class="sourceLine" id="cb66-4" title="4">ma4 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">lwd =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb66-5" title="5">ma5 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb66-6" title="6">ma6 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb66-7" title="7"><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb66-8" title="8"><span class="kw">tmap_arrange</span>(ma1, ma2, ma3, ma4, ma5, ma6)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1">ma1 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb67-2" title="2">ma2 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a>
+<a class="sourceLine" id="cb67-3" title="3">ma3 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb67-4" title="4">ma4 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">lwd =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb67-5" title="5">ma5 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb67-6" title="6">ma6 =<span class="st"> </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb67-7" title="7"><span class="st">  </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb67-8" title="8"><span class="kw">tmap_arrange</span>(ma1, ma2, ma3, ma4, ma5, ma6)</a></code></pre></div>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <div id="grey-background" class="section level4">
 <h4><span class="header-section-number">4.2.1.1</span> Grey background</h4>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb67-2" title="2"><span class="st">        </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb68-2" title="2"><span class="st">        </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="boarders" class="section level4">
 <h4><span class="header-section-number">4.2.1.2</span> Boarders</h4>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb68-2" title="2"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb68-3" title="3"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-2" title="2"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb69-3" title="3"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <div id="title-and-legend" class="section level4">
 <h4><span class="header-section-number">4.2.1.3</span> Title and legend</h4>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">legend_title &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="st">&quot;Area (km&quot;</span><span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="st">&quot;)&quot;</span>)</a>
-<a class="sourceLine" id="cb69-2" title="2"></a>
-<a class="sourceLine" id="cb69-3" title="3"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-4" title="4"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb69-5" title="5"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-6" title="6"><span class="st">  </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-7" title="7"><span class="st">    </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;Land_area&quot;</span>, <span class="dt">title =</span> legend_title) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1">legend_title &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="st">&quot;Area (km&quot;</span><span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="st">&quot;)&quot;</span>)</a>
+<a class="sourceLine" id="cb70-2" title="2"></a>
+<a class="sourceLine" id="cb70-3" title="3"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-4" title="4"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb70-5" title="5"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-6" title="6"><span class="st">  </span><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-7" title="7"><span class="st">    </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;Land_area&quot;</span>, <span class="dt">title =</span> legend_title) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>()</a></code></pre></div>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div id="north-arrow" class="section level4">
 <h4><span class="header-section-number">4.2.1.4</span> North arrow</h4>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb70-2" title="2"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb70-3" title="3"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb70-4" title="4"><span class="st">    </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;8star&quot;</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb71-2" title="2"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb71-3" title="3"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb71-4" title="4"><span class="st">    </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;8star&quot;</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</a></code></pre></div>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 <div id="scale" class="section level4">
 <h4><span class="header-section-number">4.2.1.5</span> Scale</h4>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb71-2" title="2"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb71-3" title="3"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb71-4" title="4"><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;8star&quot;</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb71-5" title="5"><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">200</span>), <span class="dt">text.size =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb72-3" title="3"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb72-4" title="4"><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;8star&quot;</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb72-5" title="5"><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">200</span>), <span class="dt">text.size =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 <div id="black-and-white" class="section level4">
 <h4><span class="header-section-number">4.2.1.6</span> Black and white</h4>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb72-2" title="2"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb72-3" title="3"><span class="st">    </span><span class="kw">tm_borders</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">tm_shape</span>(nz) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb73-2" title="2"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb73-3" title="3"><span class="st">    </span><span class="kw">tm_borders</span>(<span class="dt">lty =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">library</span>(tmap)    <span class="co"># for static and interactive maps</span></a>
-<a class="sourceLine" id="cb73-2" title="2"><span class="kw">library</span>(leaflet) <span class="co"># for interactive maps</span></a>
-<a class="sourceLine" id="cb73-3" title="3"><span class="kw">library</span>(mapview) <span class="co"># for interactive maps</span></a>
-<a class="sourceLine" id="cb73-4" title="4"><span class="kw">library</span>(ggplot2) <span class="co"># tidyverse data visualization package</span></a>
-<a class="sourceLine" id="cb73-5" title="5"><span class="kw">library</span>(shiny)   <span class="co"># for web applications</span></a>
-<a class="sourceLine" id="cb73-6" title="6"><span class="kw">library</span>(spData)</a>
-<a class="sourceLine" id="cb73-7" title="7"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb73-8" title="8"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb73-9" title="9"><span class="kw">library</span>(bookdown)</a>
-<a class="sourceLine" id="cb73-10" title="10"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb73-11" title="11"><span class="kw">library</span>(leaflet.extras)</a>
-<a class="sourceLine" id="cb73-12" title="12"><span class="kw">library</span>(geojsonio)</a>
-<a class="sourceLine" id="cb73-13" title="13"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb73-14" title="14"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb73-15" title="15"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb73-16" title="16"><span class="kw">library</span>(spData)</a>
-<a class="sourceLine" id="cb73-17" title="17"><span class="kw">library</span>(kableExtra)</a>
-<a class="sourceLine" id="cb73-18" title="18"><span class="co"># library(spDataLarge)</span></a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1"><span class="kw">library</span>(tmap)    <span class="co"># for static and interactive maps</span></a>
+<a class="sourceLine" id="cb74-2" title="2"><span class="kw">library</span>(leaflet) <span class="co"># for interactive maps</span></a>
+<a class="sourceLine" id="cb74-3" title="3"><span class="kw">library</span>(mapview) <span class="co"># for interactive maps</span></a>
+<a class="sourceLine" id="cb74-4" title="4"><span class="kw">library</span>(ggplot2) <span class="co"># tidyverse data visualization package</span></a>
+<a class="sourceLine" id="cb74-5" title="5"><span class="kw">library</span>(shiny)   <span class="co"># for web applications</span></a>
+<a class="sourceLine" id="cb74-6" title="6"><span class="kw">library</span>(spData)</a>
+<a class="sourceLine" id="cb74-7" title="7"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb74-8" title="8"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb74-9" title="9"><span class="kw">library</span>(bookdown)</a>
+<a class="sourceLine" id="cb74-10" title="10"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb74-11" title="11"><span class="kw">library</span>(leaflet.extras)</a>
+<a class="sourceLine" id="cb74-12" title="12"><span class="kw">library</span>(geojsonio)</a>
+<a class="sourceLine" id="cb74-13" title="13"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb74-14" title="14"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb74-15" title="15"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb74-16" title="16"><span class="kw">library</span>(spData)</a>
+<a class="sourceLine" id="cb74-17" title="17"><span class="kw">library</span>(kableExtra)</a>
+<a class="sourceLine" id="cb74-18" title="18"><span class="co"># library(spDataLarge)</span></a></code></pre></div>
 </div>
 </div>
 </div>

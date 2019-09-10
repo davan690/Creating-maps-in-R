@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> 5 Adding additional information | Using GIS for invasive species research</title>
   <meta name="description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" 5 Adding additional information | Using GIS for invasive species research" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Anthony Davidson" />
 
 
-<meta name="date" content="2019-09-06" />
+<meta name="date" content="2019-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="wnp.html">
-<link rel="next" href="outputs.html">
+<link rel="prev" href="wnp.html"/>
+<link rel="next" href="outputs.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -266,12 +266,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="point-locations-nz-kml-data" class="section level4">
 <h4><span class="header-section-number">5.0.1.1</span> Point locations (<code>nz + kml data</code>)</h4>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/kml_to_tidy.R&quot;</span>)</a></code></pre></div>
-<pre><code>## -- Attaching packages -------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="kw">source</span>(<span class="st">&quot;./R/kml_to_tidy.R&quot;</span>)</a></code></pre></div>
+<pre><code>## -- Attaching packages ---------------------------------------------- tidyverse 1.2.1 --</code></pre>
 <pre><code>## v tibble  2.1.3     v purrr   0.3.2
 ## v tidyr   0.8.3     v stringr 1.4.0
 ## v readr   1.3.1     v forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts ----------------------------------------------- tidyverse_conflicts() --
+<pre><code>## -- Conflicts ------------------------------------------------- tidyverse_conflicts() --
 ## x tidyr::extract()         masks raster::extract()
 ## x dplyr::filter()          masks stats::filter()
 ## x kableExtra::group_rows() masks dplyr::group_rows()
@@ -295,7 +295,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## $ Name        &lt;fct&gt; Gunns Camp, Choqenout and Ruscoe 2000, Hollyford V...
 ## $ Description &lt;fct&gt; &quot;&quot;, &quot;Eglinton Valley&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,...
 ## $ geometry    &lt;GEOMETRY [°]&gt; POINT Z (168.1392 -44.76039 0), POINT Z (...</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">kable</span>(tidy.kat, <span class="dt">format =</span> <span class="st">&quot;markdown&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="kw">kable</span>(tidy.kat, <span class="dt">format =</span> <span class="st">&quot;markdown&quot;</span>)</a></code></pre></div>
 <table>
 <colgroup>
 <col width="14%" />
@@ -428,7 +428,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="kw">glimpse</span>(nz)</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="kw">glimpse</span>(nz)</a></code></pre></div>
 <pre><code>## Observations: 16
 ## Variables: 7
 ## $ Name          &lt;chr&gt; &quot;Northland&quot;, &quot;Auckland&quot;, &quot;Waikato&quot;, &quot;Bay of Plen...
@@ -438,7 +438,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## $ Median_income &lt;int&gt; 23400, 29600, 27900, 26200, 24400, 26100, 29100,...
 ## $ Sex_ratio     &lt;dbl&gt; 0.9424532, 0.9442858, 0.9520500, 0.9280391, 0.93...
 ## $ geom          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((1745493 600..., MUL...</code></pre>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1"><span class="kw">glimpse</span>(tidy.kat)</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1"><span class="kw">glimpse</span>(tidy.kat)</a></code></pre></div>
 <pre><code>## Observations: 12
 ## Variables: 7
 ## $ folder      &lt;chr&gt; &quot;Hollyford&quot;, &quot;Hollyford&quot;, &quot;Hollyford&quot;, &quot;Hollyford&quot;...
@@ -448,20 +448,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## $ longitude   &lt;dbl&gt; 168.1392, 167.9963, 168.1050, 168.1337, 168.1262, ...
 ## $ latitude    &lt;dbl&gt; -44.76039, -45.06019, -44.80905, -44.73744, -44.79...
 ## $ altitude    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</code></pre>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1">m.kat &lt;-<span class="st"> </span>tidy.kat <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb86-2" title="2"><span class="st">            </span><span class="kw">transmute</span>(<span class="dt">Name =</span> folder,</a>
-<a class="sourceLine" id="cb86-3" title="3">                   <span class="dt">Island =</span> <span class="st">&quot;South&quot;</span>,</a>
-<a class="sourceLine" id="cb86-4" title="4">                   <span class="dt">Land_area =</span> <span class="ot">NA</span>,</a>
-<a class="sourceLine" id="cb86-5" title="5">                   <span class="dt">Population =</span> <span class="ot">NA</span>,</a>
-<a class="sourceLine" id="cb86-6" title="6">                   <span class="dt">Sex_ratio =</span> <span class="ot">NA</span>,</a>
-<a class="sourceLine" id="cb86-7" title="7">                   <span class="co"># geom = NA,</span></a>
-<a class="sourceLine" id="cb86-8" title="8">                   <span class="dt">lat =</span> latitude,</a>
-<a class="sourceLine" id="cb86-9" title="9">                   <span class="dt">long =</span> longitude,</a>
-<a class="sourceLine" id="cb86-10" title="10">                   <span class="dt">alt =</span> altitude)</a>
-<a class="sourceLine" id="cb86-11" title="11"></a>
-<a class="sourceLine" id="cb86-12" title="12">plot.dat1 &lt;-<span class="st"> </span><span class="kw">full_join</span>(nz, m.kat)</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">m.kat &lt;-<span class="st"> </span>tidy.kat <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb87-2" title="2"><span class="st">            </span><span class="kw">transmute</span>(<span class="dt">Name =</span> folder,</a>
+<a class="sourceLine" id="cb87-3" title="3">                   <span class="dt">Island =</span> <span class="st">&quot;South&quot;</span>,</a>
+<a class="sourceLine" id="cb87-4" title="4">                   <span class="dt">Land_area =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb87-5" title="5">                   <span class="dt">Population =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb87-6" title="6">                   <span class="dt">Sex_ratio =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb87-7" title="7">                   <span class="co"># geom = NA,</span></a>
+<a class="sourceLine" id="cb87-8" title="8">                   <span class="dt">lat =</span> latitude,</a>
+<a class="sourceLine" id="cb87-9" title="9">                   <span class="dt">long =</span> longitude,</a>
+<a class="sourceLine" id="cb87-10" title="10">                   <span class="dt">alt =</span> altitude)</a>
+<a class="sourceLine" id="cb87-11" title="11"></a>
+<a class="sourceLine" id="cb87-12" title="12">plot.dat1 &lt;-<span class="st"> </span><span class="kw">full_join</span>(nz, m.kat)</a></code></pre></div>
 <pre><code>## Joining, by = c(&quot;Name&quot;, &quot;Island&quot;, &quot;Land_area&quot;, &quot;Population&quot;, &quot;Sex_ratio&quot;)</code></pre>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="kw">glimpse</span>(plot.dat1)</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">glimpse</span>(plot.dat1)</a></code></pre></div>
 <pre><code>## Observations: 28
 ## Variables: 10
 ## $ Name          &lt;chr&gt; &quot;Northland&quot;, &quot;Auckland&quot;, &quot;Waikato&quot;, &quot;Bay of Plen...
@@ -474,22 +474,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## $ long          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
 ## $ alt           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
 ## $ geom          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((1745493 600..., MUL...</code></pre>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="co"># nz %&gt;%</span></a>
-<a class="sourceLine" id="cb90-2" title="2"><span class="co">#   # mutate(grid = )</span></a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="co"># nz %&gt;%</span></a>
+<a class="sourceLine" id="cb91-2" title="2"><span class="co">#   # mutate(grid = )</span></a></code></pre></div>
 </div>
 </div>
 <div id="plots" class="section level3">
 <h3><span class="header-section-number">5.0.2</span> Plots</h3>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">library</span>(tmap)</a>
-<a class="sourceLine" id="cb91-2" title="2"><span class="kw">tm_shape</span>(plot.dat1) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb91-3" title="3"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb91-4" title="4"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb91-5" title="5"><span class="st">  </span><span class="co"># tm_compass(type = &quot;8star&quot;, position = c(&quot;left&quot;, &quot;top&quot;)) +</span></a>
-<a class="sourceLine" id="cb91-6" title="6"><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;arrow&quot;</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb91-7" title="7"><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">200</span>), <span class="dt">text.size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb91-8" title="8"><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">library</span>(tmap)</a>
+<a class="sourceLine" id="cb92-2" title="2"><span class="kw">tm_shape</span>(plot.dat1) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb92-3" title="3"><span class="st">  </span><span class="kw">tm_fill</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb92-4" title="4"><span class="st">   </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb92-5" title="5"><span class="st">  </span><span class="co"># tm_compass(type = &quot;8star&quot;, position = c(&quot;left&quot;, &quot;top&quot;)) +</span></a>
+<a class="sourceLine" id="cb92-6" title="6"><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">type =</span> <span class="st">&quot;arrow&quot;</span>, <span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb92-7" title="7"><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">200</span>), <span class="dt">text.size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb92-8" title="8"><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</a></code></pre></div>
 <p><img src="04-beech-data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1">?tm_dots</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1">?tm_dots</a></code></pre></div>
 <pre><code>## starting httpd help server ... done</code></pre>
 <p>Is it easier to work with polygons and centriod points as above??</p>
 </div>
@@ -497,7 +497,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> <em>coming</em></h2>
 <div id="abundance" class="section level4">
 <h4><span class="header-section-number">5.1.0.1</span> Abundance</h4>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">abund.dat5 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;../data/abundance5.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">abund.dat5 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;../data/abundance5.csv&quot;</span>)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_character(),
@@ -515,7 +515,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##   true.date = col_date(format = &quot;&quot;)
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">glimpse</span>(abund.dat5)</a></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="kw">glimpse</span>(abund.dat5)</a></code></pre></div>
 <pre><code>## Observations: 144
 ## Variables: 26
 ## $ N              &lt;dbl&gt; 85.185920, 141.346453, 125.542907, 23.769273, 8...
@@ -544,18 +544,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## $ grouping.4     &lt;chr&gt; &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;treat.highN&quot;, &quot;t...
 ## $ true.date      &lt;date&gt; 1999-05-01, 1999-08-01, 1999-11-01, 2000-02-01...
 ## $ treat.six      &lt;chr&gt; &quot;egl control rats.removed&quot;, &quot;egl control rats.r...</code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="co">### summarizing abundance data</span></a>
-<a class="sourceLine" id="cb99-2" title="2"></a>
-<a class="sourceLine" id="cb99-3" title="3"><span class="co"># sum.dat &lt;- abund.dat5 %&gt;%</span></a>
-<a class="sourceLine" id="cb99-4" title="4"><span class="co">#               group_by()</span></a>
-<a class="sourceLine" id="cb99-5" title="5"></a>
-<a class="sourceLine" id="cb99-6" title="6"><span class="co">### merge to datasets</span></a>
-<a class="sourceLine" id="cb99-7" title="7"></a>
-<a class="sourceLine" id="cb99-8" title="8"><span class="co"># dat.nz.add &lt;- nz %&gt;% </span></a>
-<a class="sourceLine" id="cb99-9" title="9"><span class="co">#                 mutate()</span></a></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1"><span class="co">### summarizing abundance data</span></a>
+<a class="sourceLine" id="cb100-2" title="2"></a>
+<a class="sourceLine" id="cb100-3" title="3"><span class="co"># sum.dat &lt;- abund.dat5 %&gt;%</span></a>
+<a class="sourceLine" id="cb100-4" title="4"><span class="co">#               group_by()</span></a>
+<a class="sourceLine" id="cb100-5" title="5"></a>
+<a class="sourceLine" id="cb100-6" title="6"><span class="co">### merge to datasets</span></a>
+<a class="sourceLine" id="cb100-7" title="7"></a>
+<a class="sourceLine" id="cb100-8" title="8"><span class="co"># dat.nz.add &lt;- nz %&gt;% </span></a>
+<a class="sourceLine" id="cb100-9" title="9"><span class="co">#                 mutate()</span></a></code></pre></div>
 
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb100-2" title="2"><span class="kw">library</span>(leaflet.extras)</a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb101-2" title="2"><span class="kw">library</span>(leaflet.extras)</a></code></pre></div>
 </div>
 </div>
 </div>

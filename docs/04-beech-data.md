@@ -52,7 +52,7 @@ source("./R/kml_to_tidy.R")
 ```
 
 ```
-## -- Attaching packages -------------------------------------------- tidyverse 1.2.1 --
+## -- Attaching packages ---------------------------------------------- tidyverse 1.2.1 --
 ```
 
 ```
@@ -62,7 +62,7 @@ source("./R/kml_to_tidy.R")
 ```
 
 ```
-## -- Conflicts ----------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------- tidyverse_conflicts() --
 ## x tidyr::extract()         masks raster::extract()
 ## x dplyr::filter()          masks stats::filter()
 ## x kableExtra::group_rows() masks dplyr::group_rows()
