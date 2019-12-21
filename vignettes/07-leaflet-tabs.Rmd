@@ -1,0 +1,123 @@
+---
+flexdashboard::flex_dashboard:
+runtime: shiny
+---
+
+```{r libraries-info}
+library(leaflet)
+library(leaflet.extras)
+```
+
+```{r nat2_map, echo = FALSE, message=FALSE, warning=FALSE, comment=NA, out.width='100%'}
+library(leaflet)
+library(leaflet.extras)
+library(htmlwidgets)
+library(dplyr)
+
+make_map <- function() {
+  leaflet() %>%
+    addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
+    setView(lng = 30.2189853, lat = 7.1751893, zoom = 7) %>%
+    setMaxBounds(
+      lng1 = 22.625227,
+      lat1 = 1.422041, 
+      lng2 = 36.978083,
+      lat2 = 13.528717 
+    ) %>% 
+    # addResetMapButton() %>%
+    addEasyButton(
+      easyButton(
+        icon = "ion-arrow-shrink", 
+        title = "Reset View", 
+        onClick = JS(
+          "function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"
+        )
+      )
+    ) %>% 
+    htmlwidgets::onRender(
+      JS(
+        "
+function(el, x){ 
+  var map = this; 
+  map.whenReady(function(){
+    map._initialCenter = map.getCenter(); 
+    map._initialZoom = map.getZoom();
+  });
+}"
+      )
+    ) %>%
+    force()
+  
+}
+make_map()
+```
+
+
+```{r results='asis', echo=FALSE}
+t.map <- make_map()
+
+shiny::tabsetPanel(id = 'tbSet1',
+shiny::tabPanel('Tab Name 1', t.map),
+                   shiny::tabPanel('Tab Name 2', t.map)
+)
+
+```
+
+# Leaflet tabs {#tabs}
+
+```{r natl_map, echo = FALSE, message=FALSE, warning=FALSE, comment=NA, out.width='100%'}
+library(leaflet)
+library(leaflet.extras)
+library(htmlwidgets)
+library(dplyr)
+
+make_map <- function() {
+  leaflet() %>%
+    addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
+    setView(lng = 30.2189853, lat = 7.1751893, zoom = 7) %>%
+    setMaxBounds(
+      lng1 = 22.625227,
+      lat1 = 1.422041, 
+      lng2 = 36.978083,
+      lat2 = 13.528717 
+    ) %>% 
+    # addResetMapButton() %>%
+    addEasyButton(
+      easyButton(
+        icon = "ion-arrow-shrink", 
+        title = "Reset View", 
+        onClick = JS(
+          "function(btn, map){ map.setView(map._initialCenter, map._initialZoom); }"
+        )
+      )
+    ) %>% 
+    htmlwidgets::onRender(
+      JS(
+        "
+function(el, x){ 
+  var map = this; 
+  map.whenReady(function(){
+    map._initialCenter = map.getCenter(); 
+    map._initialZoom = map.getZoom();
+  });
+}"
+      )
+    ) %>%
+    force()
+  
+}
+make_map()
+```
+## Tests {.tabset}
+
+*Still working on this...*
+
+Would  be nice if something like this would work. And the headings and tabs function is not working. (For coding reasons not yet known by me but should be basic)
+
+```{r east_map, echo = FALSE, message=FALSE, warning=FALSE, comment=NA, out.width='100%'}
+make_map()
+```
+
+```{r map4, echo = FALSE, message=FALSE, warning=FALSE, comment=NA, out.width='100%'}
+make_map()
+```

@@ -1,0 +1,251 @@
+# R for Spatial Data: Futureproof foundations
+
+- 6 October 2017
+
+This document provides a how for the course on 2017-10-06 in LIDA Leeds.
+
+It is primarily intended to provide a set of links for course participants but can also host code examples and notes from the workshop.
+
+
+## Course feedback
+
+Please fill-in this form to help us improve the course:
+ https://leeds.onlinesurveys.ac.uk/rspatial2017 
+
+## Slides
+
+- See the 'slides' folder in for the text: [github.com/Robinlovelace/geocompr](https://github.com/Robinlovelace/geocompr/blob/master/slides/)
+- For compiled slides on Spatial Data and the Tidyverse see [robinlovelace.net/presentations/spatial-tidyverse.html](http://robinlovelace.net/presentations/spatial-tidyverse.html#1)
+
+## Links
+
+- Agenda  and other course details on GitHub at [course-info/intro-info.Rmd](https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/course-info/intro-info.Rmd)
+- [Geocomputation with R](http://robinlovelace.net/geocompr/)
+
+- An introduction to geographic data in R
+    - Chapter 2 of [Geocomputation with R](http://robinlovelace.net/geocompr/spatial-class.html)
+- Geographic data I/O
+    - Chapter 5 of [Geocomputation with R](http://robinlovelace.net/geocompr/read-write.html)
+- Introduction to visualising spatial data with R
+    - [Creating-maps-in-R](https://github.com/Robinlovelace/Creating-maps-in-R) GitHub tutorial
+- Point pattern analysis and rasterization
+    - [Point Pattern analysis and spatial interpolation with R
+](https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/vignettes/point-pattern.md) from the previous tutorial
+
+## Demos
+
+```{r}
+1:9
+x = 1:9
+y = x^2
+plot(x, y)
+library(spData)
+library(sf)
+library(tidyverse)
+
+world
+data(world)
+world_df = as_data_frame(world)
+```
+
+Edit a file from the command line:
+
+```{r, eval=FALSE}
+file.edit("course-info/course-info.Rmd")
+```
+
+sp to sf translation
+
+```{r}
+library(sp)
+g = SpatialGrid(GridTopology(c(0, 0), c(1, 1), c(3, 3)))
+p = as(g, "SpatialPolygons")
+library(sf)
+p_sf = st_as_sf(p)
+```
+
+An intro to raster
+
+```{r}
+library(spDataLarge)
+library(raster)
+raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
+new_raster = raster(raster_filepath)
+new_raster
+class(new_raster)
+plot(new_raster)
+mapview::mapview(new_raster)
+extent(new_raster)
+library(spData)
+st_bbox(world)
+```
+
+
+
+```{r}
+library(sf)
+library(raster)
+library(tidyverse)
+library(spData)
+world_unite = world %>%
+  tidyr::unite("con_reg", continent:region_un, sep = ":", remove = TRUE)
+
+dplyr::select(world, continent)
+```
+
+Link to Craig's stuff:
+
+https://github.com/clmorton/HEV
+
+## Spatial operations
+
+Spatial subsetting.
+
+```{r}
+library(sf)
+library(tidyverse)
+library(spData)
+
+africa = world %>% 
+  filter(continent == "Africa")
+# %>% 
+#   filter(grepl("k", name_long))
+plot(africa)
+
+africa = filter(.data = world, continent == "Africa")
+
+africa = world[world$continent == "Africa", ]
+
+plot(africa)
+plot(africa$geom)
+bb = st_bbox(africa)
+set.seed(2017)
+lat_random = runif(n = 100, min = bb[1], max = bb[3])
+lon_random = runif(n = 100, min = bb[2], max = bb[4])
+mat_random = cbind(lat_random, lon_random)
+p = st_multipoint(x = mat_random) %>% 
+  st_sfc() %>% 
+  st_cast(to = "POINT") %>% 
+  st_sf()
+# without the pipe %>% %>% 
+# st_sf(st_cast(x = st_sfc(st_multipoint(x = mat_random)) , to = "POINT"))
+plot(africa$geom)
+plot(p, add = T)
+
+p_in_africa = p[africa, ] # error
+st_crs(p) = st_crs(africa)
+p_in_africa = p[africa, ]
+plot(p_in_africa, add = T, cex = 3)
+
+# worked question: how to do this in the tidyverse?
+# work on chapter 4: spatial operations
+
+
+
+center = st_sf(geometry = st_sfc(st_point(c(0, 0)), crs = 4326))
+buff = st_buffer(x = center, dist = 20)
+plot(buff)
+
+
+```
+
+## Spatial operations
+
+```{r}
+a_poly = st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
+a = st_sfc(a_poly)
+
+# l_line = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
+# l = st_sfc(l_line)
+
+p_matrix = matrix(c(0.5, 1, -1, 0, 0, 1, 0.5, 1), ncol = 2)
+p_multi = st_multipoint(x = p_matrix)
+p = st_sf(st_cast(st_sfc(p_multi), "POINT"))
+
+plot(a, border = "red", col = "grey", axes = TRUE)
+plot(l, add = TRUE)
+plot(p, add = TRUE, lab = 1:4)
+text(p_matrix[, 1] + 0.1, p_matrix[, 2] - 0.1, 1:4)
+
+st_intersects(p, a)
+
+st_intersects(p, a, sparse = FALSE)
+
+sel = st_intersects(p, a, sparse = FALSE)[, 1]
+p[sel, ]
+
+st_disjoint(p, a, sparse = FALSE)[, 1]
+
+st_within(p, a, sparse = FALSE)
+
+st_touches(p, a, sparse = FALSE)
+```
+
+
+## Getting development versions of pkgs
+ 
+Problem: no access to urban_agglomerations dataset
+ 
+Solution: install latest version of spData
+ 
+```{r}
+devtools::install_github("nowosad/spData")
+```
+
+## Data I/O
+
+- Online
+
+```{r}
+url = file.path("http://www.naturalearthdata.com/http//www.naturalearthdata.com",
+                "download/10m/cultural/ne_10m_parks_and_protected_lands.zip")
+download.file(url = url,
+              destfile = "USA_parks.zip")
+unzip(zipfile = "USA_parks.zip")
+usa_parks = st_read("ne_10m_parks_and_protected_lands_area.shp")
+files_to_remove = list.files(pattern = "ne_10m_parks")
+file.remove(files_to_remove)
+```
+
+- with osmdata
+
+```{r}
+install.packages("osmdata")
+library(osmdata)
+library(dplyr)
+q = opq(bbox = "leeds uk") %>% 
+  add_osm_feature(key = "leisure", value = "park")
+parks = osmdata_sf(q)
+parks_polygon = parks$osm_polygons
+plot(parks_polygon$geometry)
+mapview::mapview(parks_polygon)
+```
+
+
+ 
+## Advanced topological relations
+ 
+ Selecting 'rook' and 'queen' relations
+Source: 
+
+```{r}
+library(sp)
+g = SpatialGrid(GridTopology(c(0, 0), c(1, 1), c(3, 3)))
+p = as(g, "SpatialPolygons")
+library(sf)
+library(tidyverse)
+p_sf = st_as_sf(p)
+st_rook = function(a, b = a) st_relate(a, b, pattern = "F***1****")
+st_queen <- function(a, b = a) st_relate(a, b, pattern = "F***T****")
+p_queen = p_sf %>%
+  mutate(NB_ROOK = st_queen(., b = p_sf[5,])) %>%
+  filter(NB_ROOK == 1)
+nrow(p_queen)
+p_rook = p_sf %>%
+  mutate(NB_ROOK = st_rook(., b = p_sf[5,])) %>% 
+  filter(NB_ROOK == 1)
+nrow(p_rook)
+p_minDim2 = p_sf %>%
+  filter(st_within(., y = p_sf[5,], sparse = FALSE)) 
+nrow(p_minDim2)
+```

@@ -1,0 +1,15 @@
+---
+title: "Joining datasets in R"
+author: "Robin Lovelace"
+output: html_document
+---
+
+```{r}
+x <- data.frame(id = 1:4, v1 = c(letters[1:4]))
+y <- data.frame(id = c(1, 4), v2 = c("x", "y"))
+inner_join(x, y)
+left_join(x, y)
+
+xrep <- data.frame(id = 1:4, v1 = c(letters[1:4]))
+```
+
