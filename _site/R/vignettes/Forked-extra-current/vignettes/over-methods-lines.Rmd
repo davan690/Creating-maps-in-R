@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Creating maps in R</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Creating maps in R" />
+  
+
+   
+  <meta property="og:description" content="I had to remind myself what `gsection()` does despite packaging it up into **stplanr** (the orginal code was written by Barry Rowlingson). It is used primarily in my work as a helper function for `overline()` but I decided to export it in case it's of use/interest to others. Great to...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/Forked-extra-current/vignettes/over-methods-lines.Rmd" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/Forked-extra-current/vignettes/over-methods-lines.Rmd" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Creating maps in R" />
+  
+
+  
+  <meta name="twitter:description" content="I had to remind myself what `gsection()` does despite packaging it up into **stplanr** (the orginal code was written by Barry Rowlingson). It is used primarily in my work as a helper function for `overline()` but I decided to export it in case it's of use/interest to others. Great to...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+<div class="intro-header"></div>
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      I had to remind myself what `gsection()` does despite packaging it up into **stplanr** (the orginal code was written by Barry Rowlingson). It is used primarily in my work as a helper function for `overline()` but I decided to export it in case it's of use/interest to others. Great to see it is!
+
+The function does not return data for a reason: individual segments have different numbers of overlapping routes.
+
+However, it is useful to be able to query data from which the segments come, so let's work through some code, building on your reproducible example, to see what's going on:
+
+```{r}
+library(stplanr)
+length(routes_fast) # too many to visualise segments
+r = routes_fast[3:4,] # take 2 lines to see what's going on
+s = gsection(r) # split into overlapping sections
+class(r) # has data, as you say
+class(s) # does not have data!
+length(r) # 2 lines, as expected
+length(s) # 3 segments with same number of overlaps
+```
+
+As you can see from the output of the above code chunk, there are more segments than there are routes. So surely each segment can be allocated it's own route? No.
+
+This is illustrated below. The 3rd line from the resulting segments `s` (coloured grey) is the result of the overlap between both lines in `r`. So what data values would you expect it to have?
+
+```{r, warning=FALSE}
+library(tmap) # for awesome plotting abilities
+qtm(routes_fast[3:4,], line.lwd = 20, line.alpha = 0.3) +
+  qtm(routes_fast[3,], line.lwd = 5) +
+  qtm(s[1,], line.col = "white") +
+  qtm(s[2,], line.col = "black") +
+  qtm(s[3,], line.col = "grey", line.lwd = 2)
+```
+
+There are different ways to answer this question. The default way in `sp::over()` is to take the first overlap. But this is not what we want as `over()` returns a match even if the lines touch but do not have any shared distance (take a look inside the results to see what I mean):
+
+```{r}
+result_data = over(x = s, y = r)
+result_data
+result_list = over(x = s, y = r, returnList = T)
+```
+
+`result_data` returns the first matching row from data in lines touching each segment - in this case that's simply `routes_fast@data[3,]` repeated 3 times, not very useful!
+
+Assuming you're happy with *the first* match of lines that actually share lengths, you could use the (undocumented) `minDimension` argument of `over()`, described in `vignette("over")`:
+
+```{r}
+over(x = s, y = r, minDimension = 1)
+```
+
+I think adding an argument `return_data` to the function would useful and plan to do so before the next release of **stplanr**. It should probably say something about how many overlapping lines as an option output.
+
+Many thanks for your instigating these investigations in any case: very useful.
+
+
+
+
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

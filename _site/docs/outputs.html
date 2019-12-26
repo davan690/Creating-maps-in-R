@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 6 Outputs | Using GIS for invasive species research</title>
+  <meta name="description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 6 Outputs | Using GIS for invasive species research" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://ssnhub.com/Creating-maps-in-R/" />
+  <meta property="og:image" content="https://ssnhub.com/Creating-maps-in-R/images/cover.png" />
+  <meta property="og:description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
+  <meta name="github-repo" content="davan690/Creating-maps-in-R" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 6 Outputs | Using GIS for invasive species research" />
+  
+  <meta name="twitter:description" content="Everything you need to start using GIS in RMarkdown/bookdown projects." />
+  <meta name="twitter:image" content="https://ssnhub.com/Creating-maps-in-R/images/cover.png" />
+
+<meta name="author" content="Anthony Davidson" />
+
+
+<meta name="date" content="2019-09-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="contentadd.html"/>
+<link rel="next" href="resources.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.1.17/leaflet-providers.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
+<link href="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.css" rel="stylesheet" />
+<script src="libs/leaflet-minimap-3.3.1/Control.MiniMap.min.js"></script>
+<script src="libs/leaflet-minimap-3.3.1/Minimap-binding.js"></script>
+<link href="libs/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet" />
+<script src="libs/leaflet-easybutton-1.3.1/easy-button.js"></script>
+<script src="libs/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script>
+<link href="libs/ionicons-2.0.1/ionicons.min.css" rel="stylesheet" />
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">GIS in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-objectives"><i class="fa fa-check"></i><b>1.1</b> Project objectives</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#objective-one"><i class="fa fa-check"></i><b>1.1.1</b> Objective one</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#objective-one-1"><i class="fa fa-check"></i><b>1.1.2</b> Objective One</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#objective-two"><i class="fa fa-check"></i><b>1.1.3</b> Objective Two</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#objective-three"><i class="fa fa-check"></i><b>1.1.4</b> Objective Three</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#get-started"><i class="fa fa-check"></i><b>1.2</b> Get started…</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.2.1</b> Packages</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.0.1" data-path="intro.html"><a href="intro.html#nz-layers"><i class="fa fa-check"></i><b>2.0.1</b> NZ layers</a></li>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="divingin.html"><a href="divingin.html"><i class="fa fa-check"></i><b>3</b> Diving In</a><ul>
+<li class="chapter" data-level="3.1" data-path="divingin.html"><a href="divingin.html#downloading"><i class="fa fa-check"></i><b>3.1</b> Downloading</a></li>
+<li class="chapter" data-level="3.2" data-path="divingin.html"><a href="divingin.html#kml-to-tidy-dataset"><i class="fa fa-check"></i><b>3.2</b> <code>kml</code> to <code>tidy</code> dataset</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="divingin.html"><a href="divingin.html#save"><i class="fa fa-check"></i><b>3.2.1</b> Save</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="wnp.html"><a href="wnp.html"><i class="fa fa-check"></i><b>4</b> Work in progress</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="wnp.html"><a href="wnp.html#static-maps"><i class="fa fa-check"></i><b>4.0.1</b> <span>Static maps</span></a></li>
+<li class="chapter" data-level="4.1" data-path="wnp.html"><a href="wnp.html#my-notes"><i class="fa fa-check"></i><b>4.1</b> My notes</a></li>
+<li class="chapter" data-level="4.2" data-path="wnp.html"><a href="wnp.html#building-maps-for-manuscripts"><i class="fa fa-check"></i><b>4.2</b> Building maps for manuscripts</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="wnp.html"><a href="wnp.html#first-tmap-attempt"><i class="fa fa-check"></i><b>4.2.1</b> First <code>tmap</code> attempt</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="contentadd.html"><a href="contentadd.html"><i class="fa fa-check"></i><b>5</b> Adding additional information</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="contentadd.html"><a href="contentadd.html#adding-points"><i class="fa fa-check"></i><b>5.0.1</b> Adding points</a></li>
+<li class="chapter" data-level="5.0.2" data-path="contentadd.html"><a href="contentadd.html#plots"><i class="fa fa-check"></i><b>5.0.2</b> Plots</a></li>
+<li class="chapter" data-level="5.1" data-path="contentadd.html"><a href="contentadd.html#coming"><i class="fa fa-check"></i><b>5.1</b> <em>coming</em></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="outputs.html"><a href="outputs.html"><i class="fa fa-check"></i><b>6</b> Outputs</a><ul>
+<li class="chapter" data-level="6.0.1" data-path="outputs.html"><a href="outputs.html#a-single-location-on-a-map"><i class="fa fa-check"></i><b>6.0.1</b> A single location on a map</a></li>
+<li class="chapter" data-level="6.0.2" data-path="outputs.html"><a href="outputs.html#leaflet-plot-options"><i class="fa fa-check"></i><b>6.0.2</b> Leaflet plot options</a></li>
+<li class="chapter" data-level="6.1" data-path="outputs.html"><a href="outputs.html#my-notes-1"><i class="fa fa-check"></i><b>6.1</b> My Notes</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="outputs.html"><a href="outputs.html#extracting-mymaps-data"><i class="fa fa-check"></i><b>6.1.1</b> Extracting mymaps data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>7</b> Resources</a><ul>
+<li class="chapter" data-level="7.1" data-path="resources.html"><a href="resources.html#a-single-location-on-a-map-1"><i class="fa fa-check"></i><b>7.1</b> A single location on a map</a></li>
+<li class="chapter" data-level="7.2" data-path="resources.html"><a href="resources.html#leaflet-plots"><i class="fa fa-check"></i><b>7.2</b> Leaflet plots</a></li>
+<li class="chapter" data-level="7.3" data-path="resources.html"><a href="resources.html#my-notes-2"><i class="fa fa-check"></i><b>7.3</b> My Notes</a></li>
+<li class="chapter" data-level="7.4" data-path="resources.html"><a href="resources.html#downloading-1"><i class="fa fa-check"></i><b>7.4</b> Downloading</a></li>
+<li class="chapter" data-level="7.5" data-path="resources.html"><a href="resources.html#using-basemaps"><i class="fa fa-check"></i><b>7.5</b> Using Basemaps</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="resources.html"><a href="resources.html#default-openstreetmap-tiles"><i class="fa fa-check"></i><b>7.5.1</b> Default (OpenStreetMap) Tiles</a></li>
+<li class="chapter" data-level="7.5.2" data-path="resources.html"><a href="resources.html#third-party-tiles"><i class="fa fa-check"></i><b>7.5.2</b> Third-Party Tiles</a></li>
+<li class="chapter" data-level="7.5.3" data-path="resources.html"><a href="resources.html#custom-tile-url-template"><i class="fa fa-check"></i><b>7.5.3</b> Custom Tile URL Template</a></li>
+<li class="chapter" data-level="7.5.4" data-path="resources.html"><a href="resources.html#wms-tiles"><i class="fa fa-check"></i><b>7.5.4</b> WMS Tiles</a></li>
+<li class="chapter" data-level="7.5.5" data-path="resources.html"><a href="resources.html#combining-tile-layers"><i class="fa fa-check"></i><b>7.5.5</b> Combining Tile Layers</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="resources.html"><a href="resources.html#choropleths"><i class="fa fa-check"></i><b>7.6</b> Choropleths</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="resources.html"><a href="resources.html#data-source"><i class="fa fa-check"></i><b>7.6.1</b> Data source</a></li>
+<li class="chapter" data-level="7.6.2" data-path="resources.html"><a href="resources.html#basic-states-map"><i class="fa fa-check"></i><b>7.6.2</b> Basic states map</a></li>
+<li class="chapter" data-level="7.6.3" data-path="resources.html"><a href="resources.html#adding-some-color"><i class="fa fa-check"></i><b>7.6.3</b> Adding some color</a></li>
+<li class="chapter" data-level="7.6.4" data-path="resources.html"><a href="resources.html#adding-interaction"><i class="fa fa-check"></i><b>7.6.4</b> Adding interaction</a></li>
+<li class="chapter" data-level="7.6.5" data-path="resources.html"><a href="resources.html#custom-info"><i class="fa fa-check"></i><b>7.6.5</b> Custom info</a></li>
+<li class="chapter" data-level="7.6.6" data-path="resources.html"><a href="resources.html#legend"><i class="fa fa-check"></i><b>7.6.6</b> Legend</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="resources.html"><a href="resources.html#introduction"><i class="fa fa-check"></i><b>7.7</b> Introduction</a></li>
+<li class="chapter" data-level="7.8" data-path="resources.html"><a href="resources.html#static-maps-1"><i class="fa fa-check"></i><b>7.8</b> Static maps</a><ul>
+<li class="chapter" data-level="7.8.1" data-path="resources.html"><a href="resources.html#tmap-basics"><i class="fa fa-check"></i><b>7.8.1</b> tmap basics</a></li>
+<li class="chapter" data-level="7.8.2" data-path="resources.html"><a href="resources.html#map-obj"><i class="fa fa-check"></i><b>7.8.2</b> Map objects</a></li>
+<li class="chapter" data-level="7.8.3" data-path="resources.html"><a href="resources.html#aesthetics"><i class="fa fa-check"></i><b>7.8.3</b> Aesthetics</a></li>
+<li class="chapter" data-level="7.8.4" data-path="resources.html"><a href="resources.html#color-settings"><i class="fa fa-check"></i><b>7.8.4</b> Color settings</a></li>
+<li class="chapter" data-level="7.8.5" data-path="resources.html"><a href="resources.html#layouts"><i class="fa fa-check"></i><b>7.8.5</b> Layouts</a></li>
+<li class="chapter" data-level="7.8.6" data-path="resources.html"><a href="resources.html#faceted-maps"><i class="fa fa-check"></i><b>7.8.6</b> Faceted maps</a></li>
+<li class="chapter" data-level="7.8.7" data-path="resources.html"><a href="resources.html#inset-maps"><i class="fa fa-check"></i><b>7.8.7</b> Inset maps</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="resources.html"><a href="resources.html#animated-maps"><i class="fa fa-check"></i><b>7.9</b> Animated maps</a></li>
+<li class="chapter" data-level="7.10" data-path="resources.html"><a href="resources.html#interactive-maps"><i class="fa fa-check"></i><b>7.10</b> Interactive maps</a></li>
+<li class="chapter" data-level="7.11" data-path="resources.html"><a href="resources.html#mapping-applications"><i class="fa fa-check"></i><b>7.11</b> Mapping applications</a></li>
+<li class="chapter" data-level="7.12" data-path="resources.html"><a href="resources.html#other-mapping-packages"><i class="fa fa-check"></i><b>7.12</b> Other mapping packages</a></li>
+<li class="chapter" data-level="7.13" data-path="resources.html"><a href="resources.html#exercises"><i class="fa fa-check"></i><b>7.13</b> Exercises</a></li>
+<li class="chapter" data-level="7.14" data-path="resources.html"><a href="resources.html#my-notes-3"><i class="fa fa-check"></i><b>7.14</b> My Notes</a></li>
+<li class="chapter" data-level="7.15" data-path="resources.html"><a href="resources.html#a-single-location-on-a-map-2"><i class="fa fa-check"></i><b>7.15</b> A single location on a map</a></li>
+<li class="chapter" data-level="7.16" data-path="resources.html"><a href="resources.html#leaflet-plots-1"><i class="fa fa-check"></i><b>7.16</b> Leaflet plots</a></li>
+<li class="chapter" data-level="7.17" data-path="resources.html"><a href="resources.html#my-notes-4"><i class="fa fa-check"></i><b>7.17</b> My Notes</a><ul>
+<li class="chapter" data-level="7.17.1" data-path="resources.html"><a href="resources.html#extracting-mymaps-data-1"><i class="fa fa-check"></i><b>7.17.1</b> Extracting mymaps data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="tabs.html"><a href="tabs.html"><i class="fa fa-check"></i><b>8</b> Leaflet tabs</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/davan690/Creating-maps-in-R" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using GIS for invasive species research</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="outputs" class="section level1">
+<h1><span class="header-section-number"> 6</span> Outputs</h1>
+<p>Using and applying GIS techniques in R has become much easier since the additional functionality of Java-script libraries. One of these libraries in the <code>leaflet</code> library for mapping. Below are some examples of these mapping tools with examples.</p>
+<p>I like the idea of know what to do in arcGIS so that it is easy to work with researchers that use either R or arcGIS. For a GIS map there are two main options. Here are the resources for building interactive and static maps in R using a range of different packages:</p>
+<ul>
+<li>’leaflet`</li>
+</ul>
+<div id="a-single-location-on-a-map" class="section level3">
+<h3><span class="header-section-number">6.0.1</span> A single location on a map</h3>
+<p>Here is the birthplace of R plotted with <code>leaflet</code>, <code>addTiles</code> and the <code>addMarkers</code>…</p>
+</div>
+<div id="leaflet-plot-options" class="section level3">
+<h3><span class="header-section-number">6.0.2</span> Leaflet plot options</h3>
+<p><em>still coming</em></p>
+</div>
+<div id="my-notes-1" class="section level2">
+<h2><span class="header-section-number">6.1</span> My Notes</h2>
+<p>I have sent the following to Matt to input into arcGIS and compare rendered maps.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1"><span class="co"># grid.locations &lt;- </span></a>
+<a class="sourceLine" id="cb102-2" title="2"><span class="co"># label</span></a></code></pre></div>
+<p><em>add hand drawn image here</em></p>
+<div id="extracting-mymaps-data" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Extracting mymaps data</h3>
+<p>This is for security reasons.</p>
+
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb103-2" title="2"><span class="kw">library</span>(leaflet.extras)</a></code></pre></div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="contentadd.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["GIS-bookdown.pdf", "GIS-bookdown.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

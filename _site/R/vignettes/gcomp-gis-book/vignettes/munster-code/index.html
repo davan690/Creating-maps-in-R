@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Reproducible workflow for transport planning</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Reproducible workflow for transport planning" />
+  
+
+   
+  <meta property="og:description" content="# Reproducible workflow for transport planning ## Finding and reproducing this example See https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/vignettes/munster-code.md How I got here: http://rpubs.com/RobinLovelace/282944 Context - the propensity to cycle tool: http://rpubs.com/RobinLovelace/278921 Geographic data can save the world: http://rpubs.com/RobinLovelace/272796 ## Comment on 'tidy' dplyr pipes See https://csgillespie.github.io/efficientR/data-carpentry.html#chaining-operations ```r if(!grepl(pattern = &quot;vig&quot;, getwd())) old = setwd(&quot;vignettes&quot;)...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/gcomp-gis-book/vignettes/munster-code/" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/gcomp-gis-book/vignettes/munster-code/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Reproducible workflow for transport planning" />
+  
+
+  
+  <meta name="twitter:description" content="# Reproducible workflow for transport planning ## Finding and reproducing this example See https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/vignettes/munster-code.md How I got here: http://rpubs.com/RobinLovelace/282944 Context - the propensity to cycle tool: http://rpubs.com/RobinLovelace/278921 Geographic data can save the world: http://rpubs.com/RobinLovelace/272796 ## Comment on 'tidy' dplyr pipes See https://csgillespie.github.io/efficientR/data-carpentry.html#chaining-operations ```r if(!grepl(pattern = &quot;vig&quot;, getwd())) old = setwd(&quot;vignettes&quot;)...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Reproducible workflow for transport planning</h1>
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h1 id="reproducible-workflow-for-transport-planning">Reproducible workflow for transport planning</h1>
+
+<h2 id="finding-and-reproducing-this-example">Finding and reproducing this example</h2>
+
+<p>See https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/vignettes/munster-code.md
+How I got here: http://rpubs.com/RobinLovelace/282944</p>
+
+<p>Context - the propensity to cycle tool:
+http://rpubs.com/RobinLovelace/278921</p>
+
+<p>Geographic data can save the world: 
+http://rpubs.com/RobinLovelace/272796</p>
+
+<h2 id="comment-on-tidy-dplyr-pipes">Comment on ‘tidy’ dplyr pipes</h2>
+
+<p>See https://csgillespie.github.io/efficientR/data-carpentry.html#chaining-operations</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">grepl</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"vig"</span><span class="p">,</span><span class="w"> </span><span class="n">getwd</span><span class="p">()))</span><span class="w">
+  </span><span class="n">old</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">setwd</span><span class="p">(</span><span class="s2">"vignettes"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># How to represent movement on a map?</span><span class="w">
+</span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">51</span><span class="p">)</span><span class="w">
+</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="m">52</span><span class="p">)</span><span class="w">
+
+</span><span class="nf">sqrt</span><span class="p">((</span><span class="n">o</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="p">[</span><span class="m">2</span><span class="p">])</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># what does that mean?</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 3.162278
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">geosphere</span><span class="o">::</span><span class="n">distGeo</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 236143.5
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">rbind</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">))</span><span class="w">
+</span><span class="n">lines</span><span class="p">(</span><span class="n">rbind</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">stplanr</span><span class="p">)</span><span class="w">
+</span><span class="p">(</span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geo_code</span><span class="p">(</span><span class="s2">"Utrecht"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Error: is.data.frame(x) is not TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geo_code</span><span class="p">(</span><span class="s2">"Munster"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##       lon       lat 
+##  7.626135 51.960665
+</code></pre></div></div>
+
+<p>With OSRM</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># r_osrm = viaroute(startlat = o[2], startlng = o[1], endlat = d[2], endlng = d[1])</span><span class="w">
+</span><span class="c1"># r_sp = viaroute2sldf(r_osrm)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>With graphhopper</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># r_sp = route_graphhopper(from = o, to = d, vehicle = "bike")</span><span class="w">
+</span><span class="c1"># saveRDS(r_sp, "route-utrecht-munster.Rds")</span><span class="w">
+</span><span class="n">r_sp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"route-utrecht-munster.Rds"</span><span class="p">)</span><span class="w">
+</span><span class="n">r_sf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sf</span><span class="o">::</span><span class="n">st_as_sf</span><span class="p">(</span><span class="n">r_sp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="treatment-of-units">Treatment of units</h2>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rgeos</span><span class="o">::</span><span class="n">gLength</span><span class="p">(</span><span class="n">r_sp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning in RGEOSMiscFunc(spgeom, byid, "rgeos_length"): Spatial object is
+## not projected; GEOS expects planar coordinates
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 2.697298
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sf</span><span class="o">::</span><span class="n">st_length</span><span class="p">(</span><span class="n">r_sf</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## 200151.5 m
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">units</span><span class="o">::</span><span class="n">set_units</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">km</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## 200.1515 km
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">r_sp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">r_sf</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-2.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">devtools</span><span class="o">::</span><span class="n">install_github</span><span class="p">(</span><span class="s2">"tidyverse/ggplot2"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Skipping install of 'ggplot2' from a github remote, the SHA1 (f1bef79e) has not changed since last install.
+##   Use `force = TRUE` to force installation
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="n">r_fort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fortify</span><span class="p">(</span><span class="n">r_sp</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">r_fort</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_path</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-3.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">r_fort</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_path</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">coord_map</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-4.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># with the new sf method</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">r_sf</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_sf</span><span class="p">()</span><span class="w"> </span><span class="c1"># much easier!</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-5.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">
+</span><span class="n">r_bb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmaptools</span><span class="o">::</span><span class="n">bb</span><span class="p">(</span><span class="n">r_sp</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">data</span><span class="p">(</span><span class="s2">"Europe"</span><span class="p">)</span><span class="w">
+</span><span class="n">qtm</span><span class="p">(</span><span class="n">Europe</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">qtm</span><span class="p">(</span><span class="n">r_sp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-6.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># try with tmap_mode("view")</span><span class="w">
+
+</span><span class="c1"># Scaling up the solution to many trips with stplanr</span><span class="w">
+</span><span class="c1"># See the stplanr intro vignette:</span><span class="w">
+</span><span class="c1"># https://cran.r-project.org/web/packages/stplanr/vignettes/introducing-stplanr.html</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">cents</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## class       : SpatialPointsDataFrame 
+## features    : 6 
+## extent      : -1.550806, -1.511861, 53.8041, 53.82887  (xmin, xmax, ymin, ymax)
+## coord. ref. : +init=epsg:4326 +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## variables   : 4
+## names       :  geo_code,  MSOA11NM, percent_fem,  avslope 
+## min values  : E02002361, Leeds 032,    0.408759, 2.284782 
+## max values  : E02002393, Leeds 064,    0.591141, 5.091685
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##        Area.of.residence Area.of.workplace All Work.mainly.at.or.from.home
+## 920573         E02002361         E02002361 109                           0
+## 920575         E02002361         E02002363  38                           0
+## 920578         E02002361         E02002367  10                           0
+## 920582         E02002361         E02002371  44                           0
+## 920587         E02002361         E02002377  34                           0
+## 920591         E02002361         E02002382   7                           0
+##        Underground..metro..light.rail..tram Train Bus..minibus.or.coach
+## 920573                                    0     0                     4
+## 920575                                    0     1                     4
+## 920578                                    0     0                     1
+## 920582                                    0     0                     2
+## 920587                                    0     0                     0
+## 920591                                    0     0                     1
+##        Taxi Motorcycle..scooter.or.moped Driving.a.car.or.van
+## 920573    2                            0                   39
+## 920575    1                            0                   24
+## 920578    0                            0                    8
+## 920582    2                            0                   28
+## 920587    1                            2                   19
+## 920591    0                            0                    5
+##        Passenger.in.a.car.or.van Bicycle On.foot
+## 920573                         3       2      59
+## 920575                         4       0       4
+## 920578                         0       0       1
+## 920582                         3       3       6
+## 920587                         3       0       9
+## 920591                         1       0       0
+##        Other.method.of.travel.to.work                  id
+## 920573                              0 E02002361 E02002361
+## 920575                              0 E02002361 E02002363
+## 920578                              0 E02002361 E02002367
+## 920582                              0 E02002361 E02002371
+## 920587                              0 E02002361 E02002377
+## 920591                              0 E02002361 E02002382
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sum</span><span class="p">(</span><span class="n">flow</span><span class="o">$</span><span class="n">All</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 2816
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">od2line</span><span class="p">(</span><span class="n">flow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">,</span><span class="w"> </span><span class="n">zones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cents</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">rd</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-7.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># routes_fast = line2route(rd) # needs cyclestreets api key</span><span class="w">
+</span><span class="n">routes_fast</span><span class="o">$</span><span class="n">All</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rd</span><span class="o">$</span><span class="n">All</span><span class="w">
+</span><span class="n">rnet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">overline</span><span class="p">(</span><span class="n">routes_fast</span><span class="p">,</span><span class="w"> </span><span class="n">attrib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"All"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">rnet</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnet</span><span class="o">$</span><span class="n">All</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">flow</span><span class="o">$</span><span class="n">All</span><span class="p">))</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">routes_fast</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes_fast</span><span class="o">$</span><span class="n">All</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">flow</span><span class="o">$</span><span class="n">All</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-8.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># if this fails, navigate to the following link and download manually:</span><span class="w">
+</span><span class="c1"># https://github.com/npct/pct-data/raw/master/liverpool-city-region/l.Rds</span><span class="w">
+</span><span class="n">u_pct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://github.com/npct/pct-data/raw/master/liverpool-city-region/l.Rds"</span><span class="w">
+</span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">exists</span><span class="p">(</span><span class="s2">"l.Rds"</span><span class="p">))</span><span class="w">
+  </span><span class="n">download.file</span><span class="p">(</span><span class="n">u_pct</span><span class="p">,</span><span class="w"> </span><span class="s2">"l.Rds"</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">stplanr</span><span class="p">)</span><span class="w"> </span><span class="c1"># loads sp</span><span class="w">
+
+</span><span class="c1">## Loading required package: sp</span><span class="w">
+
+</span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"l.Rds"</span><span class="p">)</span><span class="w">
+</span><span class="n">tm_shape</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_lines</span><span class="p">(</span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"all"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/figure/unnamed-chunk-4-9.png" alt="plot of chunk unnamed-chunk-4" /></p>
+
+<p>Exercise
+Reproduce this code: http://rpubs.com/RobinLovelace/273513
+Output the result</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># knitr::spin("munster-code.R", format = "Rmd")</span><span class="w">
+</span><span class="c1"># setwd(old)</span><span class="w">
+</span></code></pre></div></div>
+
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

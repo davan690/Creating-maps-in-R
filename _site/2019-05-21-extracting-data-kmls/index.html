@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Creating maps in R - GIS and statistical support for researchers</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+  <meta name="description" content="...zipped KML files">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="KMZ files are just..." />
+  
+
+   
+  <meta property="og:description" content="...zipped KML files">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/2019-05-21-extracting-data-kmls/" />
+  <link rel="canonical" href="http://localhost:4000/2019-05-21-extracting-data-kmls/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="KMZ files are just..." />
+  
+
+  
+  <meta name="twitter:description" content="...zipped KML files">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/tools.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+  <div id="header-big-imgs" data-num-img=1
+    
+	  
+	  
+	    
+		  data-img-src-1="/Creating-maps-in-R/img/filing.jpg"
+		
+	  
+    
+  ></div>
+
+
+<header class="header-section has-img">
+
+<div class="big-img intro-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <h1>KMZ files are just...</h1>
+		  
+		    
+			<h2 class="post-subheading">...zipped KML files</h2>
+			
+		  
+		  
+		  
+		  <span class="post-meta">Posted on May 21, 2019</span>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class='img-desc'></span>
+</div>
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <h1>KMZ files are just...</h1>
+		  
+		    
+			<h2 class="post-subheading">...zipped KML files</h2>
+			
+		  
+		  
+		  
+		  <span class="post-meta">Posted on May 21, 2019</span>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+      
+
+      <p>A KMZ file is just a zipped KML file, possibly with associated embedded images, icons, etc. So any program that supports KMZ files internally unzips them to access their KML files. That may be a reason why many open source programs do not bother supporting KMZ once KML support is implemented: you just need to use an additional unzipping library of your choice, to convert the KMZ to KML. The linked posts give some JavaScript-based solutions for unzipping.</p>
+
+<h2 id="extracting-data-from-my-maps-data">Extracting data from my-maps data</h2>
+
+<p>I like the idea of sticking with this process so that “google” will manage the security of the data instead of any open-source tools with security issues.</p>
+
+<h2 id="resources">Resources</h2>
+
+<p>We need to convert the my-maps data from a zipped <code class="highlighter-rouge">kml</code> file that is stored as the <code class="highlighter-rouge">kmz</code> file downloaded from mymaps data.</p>
+
+<h3 id="kmz-conversion"><code class="highlighter-rouge">kmz</code> conversion</h3>
+
+<p>Follow these steps:</p>
+
+<ol>
+  <li>Download data</li>
+</ol>
+
+<p><img src="./img/kml-mymaps-download.png" alt="1563249969502" /></p>
+
+<ol>
+  <li>Add <code class="highlighter-rouge">.zip</code> to <code class="highlighter-rouge">.kml</code> file</li>
+  <li>Unzip renamed file (as per normal in windows)</li>
+  <li>Change the file extention to <code class="highlighter-rouge">kmz</code></li>
+  <li>Import correct file sections using the following code:</li>
+</ol>
+
+<pre><code class="language-{r}">##librares needed
+library(rgdal)
+library(tidyverse)
+library(ggplot2)
+</code></pre>
+
+<p>```{r kmz-kml}</p>
+
+<p>nc &lt;- st_read(system.file(“shape/nc.shp”, package=”sf”), quiet = TRUE)</p>
+<h1 id="limit-to-first-2-counties">limit to first 2 counties</h1>
+<p>nc &lt;- nc[1:2,]</p>
+<h1 id="convert-to-spatialpolygonsdataframe">convert to SpatialPolygonsDataFrame</h1>
+<p>nc_sp &lt;- as(nc, “Spatial”)</p>
+
+<p>file &lt;- “data/Canberra-Transit.kmz/doc.kml”</p>
+
+<p>?readOGR
+SST_start = readOGR(file)</p>
+<h1 id="ogr-data-source-with-driver-libkml">OGR data source with driver: LIBKML</h1>
+<h1 id="source-burrows_et_al_nature_traj_ocean_nh1kmz-layer-sst_start">Source: “Burrows_et_al_Nature_traj_ocean_NH1.kmz”, layer: “SST_start”</h1>
+<h1 id="with-42205-features">with 42205 features</h1>
+<h1 id="it-has-12-fields">It has 12 fields</h1>
+<p>SST_1 = readOGR(file,”SST_1”)
+OGR data source with driver: LIBKML
+Source: “Burrows_et_al_Nature_traj_ocean_NH1.kmz”, layer: “SST_1”
+with 7719 features
+It has 12 fields
+```</p>
+
+<h2 id="my-notes">My notes</h2>
+
+<p>Found in <a href="https://stackoverflow.com/questions/35867793/using-kmz-file-in-leaflet-map">stack comments here</a></p>
+
+      
+      
+        <div class="blog-tags">
+          Tags:
+          
+          
+            <a href="/Creating-maps-in-R/tags#website">website</a>
+          
+            <a href="/Creating-maps-in-R/tags#overview">overview</a>
+          
+            <a href="/Creating-maps-in-R/tags#general">general</a>
+          
+            <a href="/Creating-maps-in-R/tags#kmz">kmz</a>
+          
+          
+        </div>
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+  <!--- Share on Twitter -->
+    <a href="https://twitter.com/intent/tweet?text=KMZ+files+are+just...+http://localhost:4000/2019-05-21-extracting-data-kmls/"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fa fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+  <!--- Share on Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/2019-05-21-extracting-data-kmls/"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fa fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        <li class="previous">
+          <a href="/Creating-maps-in-R/2019-03-07-kml-kmz-files/" data-toggle="tooltip" data-placement="top" title="KMZ files are just...">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="next">
+          <a href="/Creating-maps-in-R/2019-06-11-compare-groups-amazing/" data-toggle="tooltip" data-placement="top" title="Using compareGroups function">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          <div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'ssnhub';
+        /* ensure that pages with query string get the same discussion */
+            var url_parts = window.location.href.split("?");
+            var disqus_url = url_parts[0];
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        </div>
+          
+        <div class="staticman-comments">
+          
+
+        </div>
+        <div class="justcomments-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

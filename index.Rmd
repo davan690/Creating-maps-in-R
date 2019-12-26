@@ -1,25 +1,12 @@
 ---
-title: "Using GIS for invasive species research"
+title: "index"
 author: "Anthony Davidson"
-date: "`r Sys.Date()`"
-knit: bookdown::render_book
-site: bookdown::bookdown_site
-documentclass: krantz
-monofont: "Source Code Pro"
-monofontoptions: "Scale=0.7"
-bibliography: [book.bib]
-biblio-style: apalike
-link-citations: yes
-github-repo: davan690/Creating-maps-in-R
-url: 'https\://ssnhub.com/Creating-maps-in-R/'
-description: "Everything you need to start using GIS in RMarkdown/bookdown projects."
-cover-image: "images/cover.png"
-colorlinks: yes
-graphics: yes
+type: page
+output: 
+  rmarkdown::html_document: default
 ---
 
 # Overview {#overview}
-
 
 This respository contains a collection of dynamic programming tools and introductory tutorials for dealing with maps and geo-spatical analysis using `rmarkdown and shiny`. This respository contains a collection of dynamic programming tools and introductory tutorials for GIS in R.
 
@@ -69,8 +56,6 @@ The overall objective is to create a landing page and collection of GIS work in 
 1. Fork this repo [here](www.github.com/davan690/Creating-maps-in-R/)
 
 2. Pull project into Rstudio using version control.
-
-![1567561101782](./img/fork.PNG)
 
 3. Ensure that your local RStudio packages are up to date.
 

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Background maps in R</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Background maps in R" />
+  
+
+   
+  <meta property="og:description" content="# Background maps in R In this tutorial we will see how basic tweaks can make maps more readable and attractive, focussing on the addition of basemaps using the ggmap package. We assume little background knowledge of graphics in R, so begin with a basic graph in R's basic graphics...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/gcomp-gis-book/backup-code/overviews/" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/gcomp-gis-book/backup-code/overviews/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Background maps in R" />
+  
+
+  
+  <meta name="twitter:description" content="# Background maps in R In this tutorial we will see how basic tweaks can make maps more readable and attractive, focussing on the addition of basemaps using the ggmap package. We assume little background knowledge of graphics in R, so begin with a basic graph in R's basic graphics...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Background maps in R</h1>
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h1 id="background-maps-in-r">Background maps in R</h1>
+<p>In this tutorial we will see how basic tweaks can make maps more readable and 
+attractive, focussing on the addition of basemaps using the ggmap package. 
+We assume little background knowledge of graphics in R, so begin with a basic graph
+in R’s basic graphics package. Then we will move on to the graphically superiour ggplot/ggmap
+approach, to show how maps can be built as layers.
+It is recommended that the excellent RStudio program is used to work through this 
+tutorial, although any will do. If you would like to improve this tutorial, 
+please see the project’s <a href="https://github.com/Robinlovelace/Creating-maps-in-R/">github page</a>.</p>
+
+<h2 id="introduction-tweaking-graphics-in-r">Introduction: tweaking graphics in R</h2>
+<p>R has very powerful graphical functionality, but a reputation for being fiddly if 
+you aim to create beautiful images, rather than the sparse yet functional base graphics
+such as:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="nb">pi</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pi</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
+</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1" /></p>
+
+<p>It is quite easy to tweak the base graphics, with a few extra lines of code:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">par</span><span class="p">(</span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"serif"</span><span class="p">,</span><span class="w"> </span><span class="n">font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"line"</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">cex.axis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.7</span><span class="p">,</span><span class="w"> </span><span class="c1"># make axis labels smaller</span><span class="w">
+     </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sin(x)"</span><span class="p">,</span><span class="w">
+     </span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="c1"># make the line dotted</span><span class="w">
+     </span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="c1"># make line thicker</span><span class="w">
+     </span><span class="n">bty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="c1"># remove the bounding box</span><span class="w">
+     </span><span class="n">asp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w">
+     </span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: plot type 'line' will be truncated to first character
+</code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dev.off</span><span class="p">()</span><span class="w"> </span><span class="c1"># this resets the plot options</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## null device 
+##           1
+</code></pre></div></div>
+
+<p>Although we will be using the more recent ggplot package, which works differently from R’s base graphics,
+the principles will be the same: you start with a basic representation of your data and add 
+further details and optional bells and whistles as you proceed.</p>
+
+<h2 id="downloading-and-unzipping-the-files">Downloading and unzipping the files</h2>
+<p>Before proceeding, we first need some geographical data, ready for plotting.
+R can handle almost any geographical data you through at it, provided the appropriate packages 
+are installed. You can load data that’s already on your computer; we assume you 
+have no geographical data and download directly from the internet.</p>
+
+<p>You can download the files outside of R using a browser or any other method.
+Because R has its own functions for downloading and unzipping files, 
+and it’s fun to see what else R can do beyond analysing and plotting data, 
+we will download the files directly from the R command line.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">download.file</span><span class="p">(</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"http://spatialanalysis.co.uk/wp-content/uploads/2010/09/London_Sport.zip"</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">destfile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"London_Sport.zip"</span><span class="p">)</span><span class="w">  </span><span class="c1"># download file from the internet</span><span class="w">
+
+</span><span class="n">list.files</span><span class="p">()</span><span class="w">  </span><span class="c1"># shows what's in your working director - should include zip file</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1] "figure"                         "ggmapTemp.png"                 
+##  [3] "Intro-2-R.Rproj"                "joining-clipping.html"         
+##  [5] "joining-clipping.md"            "joining-clipping.Rmd"          
+##  [7] "london_sport.dbf"               "london_sport.prj"              
+##  [9] "london_sport.sbn"               "london_sport.sbx"              
+## [11] "london_sport.shp"               "london_sport.shx"              
+## [13] "London_Sport.zip"               "mps-recordedcrime-borough.csv" 
+## [15] "mps-recordedcrime-borough.csve" "overviews.html"                
+## [17] "overviews.md"                   "overviews.Rmd"                 
+## [19] "README.md"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unzip</span><span class="p">(</span><span class="s2">"London_Sport.zip"</span><span class="p">)</span><span class="w">  </span><span class="c1"># unzip the zip file</span><span class="w">
+</span><span class="n">list.files</span><span class="p">()</span><span class="w">  </span><span class="c1"># should have .shp file added</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1] "figure"                         "ggmapTemp.png"                 
+##  [3] "Intro-2-R.Rproj"                "joining-clipping.html"         
+##  [5] "joining-clipping.md"            "joining-clipping.Rmd"          
+##  [7] "london_sport.dbf"               "london_sport.prj"              
+##  [9] "london_sport.sbn"               "london_sport.sbx"              
+## [11] "london_sport.shp"               "london_sport.shx"              
+## [13] "London_Sport.zip"               "mps-recordedcrime-borough.csv" 
+## [15] "mps-recordedcrime-borough.csve" "overviews.html"                
+## [17] "overviews.md"                   "overviews.Rmd"                 
+## [19] "README.md"
+</code></pre></div></div>
+
+<h2 id="installing-geographical-packages">Installing geographical packages</h2>
+<p>At present although we have the data files, there is very little we can do with 
+them because geographical functions are lacking from R’s base install.
+Therefore we need to install them. It is important to think carefully about 
+what packages will be needed in R for a given project and ensure they are 
+loaded at the right time.</p>
+
+<p>To see what is currently installed, type the following:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">search</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1] ".GlobalEnv"        "package:knitr"     "package:graphics" 
+##  [4] "package:grDevices" "package:utils"     "package:datasets" 
+##  [7] "package:ggplot2"   "package:foreign"   "package:stats"    
+## [10] "package:methods"   "Autoloads"         "package:base"
+</code></pre></div></div>
+
+<p>As you can see, there are already multiple packages in the base installation. 
+For plotting basemaps and geographical analysis more generally, however, 
+we need more:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SpatialPolygonsDataFrame</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Error: object 'SpatialPolygonsDataFrame' not found
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># install.packages('rgeos', 'sp') # uncomment this line if rgeos and sp are</span><span class="w">
+</span><span class="c1"># not already on your system</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w">  </span><span class="c1"># add the powerful rgdal package - note that it automatically loads the sp package also</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Loading required package: sp
+## rgdal: version: 0.8-10, (SVN revision 478)
+## Geospatial Data Abstraction Library extensions to R successfully loaded
+## Loaded GDAL runtime: GDAL 1.10.0, released 2013/04/24
+## Path to GDAL shared files: /usr/share/gdal/1.10
+## Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+## Path to PROJ.4 shared files: (autodetected)
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">search</span><span class="p">()</span><span class="w">  </span><span class="c1"># see the sp and rgeos packages has now been added </span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1] ".GlobalEnv"        "package:rgdal"     "package:sp"       
+##  [4] "package:knitr"     "package:graphics"  "package:grDevices"
+##  [7] "package:utils"     "package:datasets"  "package:ggplot2"  
+## [10] "package:foreign"   "package:stats"     "package:methods"  
+## [13] "Autoloads"         "package:base"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">`?`</span><span class="p">(</span><span class="n">`?`</span><span class="p">(</span><span class="n">rgdal</span><span class="w">  </span><span class="c1"># shows you what rgdal can do</span><span class="w">
+</span><span class="p">))</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">SpatialPolygonsDataFrame</span><span class="p">)</span><span class="w">  </span><span class="c1"># now you should see a load of code, telling you the command is available</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##                                                   
+## 1 function (Sr, data, match.ID = TRUE)            
+## 2 {                                               
+## 3     stopifnot(length(Sr@polygons) == nrow(data))
+## 4     if (is.character(match.ID)) {               
+## 5         row.names(data) = data[, match.ID[1]]   
+## 6         match.ID = TRUE
+</code></pre></div></div>
+
+<p>If you need multiple R packages, you can save time by creating an object of you favourite packages.
+Here some of my favourites (not run as we don’t need all of them):</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"ggplot2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rgeos"</span><span class="p">,</span><span class="w"> </span><span class="s2">"reshape2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"foreign"</span><span class="p">,</span><span class="w"> </span><span class="s2">"plyr"</span><span class="p">)</span><span class="w">
+</span><span class="n">lapply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">require</span><span class="p">,</span><span class="w"> </span><span class="n">character.only</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">  </span><span class="c1"># the R packages we'll be using</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Loading required package: rgeos
+## rgeos version: 0.2-19, (SVN revision 394)
+##  GEOS runtime version: 3.3.8-CAPI-1.7.8 
+##  Polygon checking: TRUE 
+## 
+## Loading required package: reshape2
+## Loading required package: plyr
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [[1]]
+## [1] TRUE
+## 
+## [[2]]
+## [1] TRUE
+## 
+## [[3]]
+## [1] TRUE
+## 
+## [[4]]
+## [1] TRUE
+## 
+## [[5]]
+## [1] TRUE
+</code></pre></div></div>
+
+<p>(Note: you may want to consider adding a line similar to this to your
+<a href="http://www.statmethods.net/interface/customizing.html">.Rprofile file</a>, 
+so they load when R initialises, if you use some packages frequently.
+Some people put a lot of time into 
+<a href="http://stackoverflow.com/questions/1189759/expert-r-users-whats-in-your-rprofile">their .Rprofiles!</a>.)</p>
+
+<p>Packages can be ‘unloaded’ using the following command:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># detach('package:rgdal', unload=TRUE) Do not run this, unless you want to</span><span class="w">
+</span><span class="c1"># remove rgdal functionality</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="basic-maps-with-the-sp-package">Basic maps with the sp package</h2>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"."</span><span class="p">,</span><span class="w"> </span><span class="s2">"london_sport"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## OGR data source with driver: ESRI Shapefile 
+## Source: ".", layer: "london_sport"
+## with 33 features and 4 fields
+## Feature type: wkbPolygon with 2 dimensions
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8" /></p>
+
+<p>Note that the plot is quite different from that displayed in the first plot:
+it has not axes for example. What is going on here? The sp package actually comes 
+with its own plotting command, which is called automatically if the plot is an S4 
+object. So the actual command that is called is <code class="highlighter-rouge">sp::plot</code> or “use the plot function from the 
+sp package” in plain English. The following code shows what’s going on:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># graphics::plot(lnd) # does not work</span><span class="w">
+</span><span class="n">sp</span><span class="o">::</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">  </span><span class="c1"># does work</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We can add a few bells and whistles to this plot, but for beautiful maps 
+harnessing the “grammar of graphics”, we need to now transition to the ggplot 
+approach.</p>
+
+<h2 id="basemaps-with-ggplot">Basemaps with ggplot</h2>
+<p>In order to plot basemaps in R, we need to ensure that the basemap and the 
+data are using the same coordinate system. Web maps use the 
+<a href="http://spatialreference.org/ref/sr-org/7483/">Web Merkator</a> system. The data
+comes in OSGB19636:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bbox</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">  </span><span class="c1"># this tells us that we are in lat/long </span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##      min    max
+## x 503571 561941
+## y 155851 200932
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="n">SpatialPolygonsDataFrame</span><span class="p">(</span><span class="n">Sr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spTransform</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">CRSobj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="s2">"+init=epsg:4326"</span><span class="p">)),</span><span class="w"> 
+    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd.f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fortify</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Regions defined for each Polygons
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##   ons_label                 name Partic_Per Pop_2001
+## 0      00AF              Bromley       21.7   295535
+## 1      00BD Richmond upon Thames       26.6   172330
+## 2      00AS           Hillingdon       21.5   243006
+## 3      00AR             Havering       17.9   224262
+## 4      00AX Kingston upon Thames       24.4   147271
+## 5      00BF               Sutton       19.3   179767
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">lnd.f</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##      long   lat order  hole piece group id
+## 1 0.03164 51.44     1 FALSE     1   0.1  0
+## 2 0.04153 51.44     2 FALSE     1   0.1  0
+## 3 0.06333 51.42     3 FALSE     1   0.1  0
+## 4 0.07695 51.43     4 FALSE     1   0.1  0
+## 5 0.10923 51.41     5 FALSE     1   0.1  0
+## 6 0.13119 51.41     6 FALSE     1   0.1  0
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd</span><span class="o">$</span><span class="n">id</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">row.names</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">  </span><span class="c1"># provide same column names for join</span><span class="w">
+
+</span><span class="n">lnd.f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">join</span><span class="p">(</span><span class="n">lnd.f</span><span class="p">,</span><span class="w"> </span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Joining by: id
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">lnd.f</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##      long   lat order  hole piece group id ons_label    name Partic_Per
+## 1 0.03164 51.44     1 FALSE     1   0.1  0      00AF Bromley       21.7
+## 2 0.04153 51.44     2 FALSE     1   0.1  0      00AF Bromley       21.7
+## 3 0.06333 51.42     3 FALSE     1   0.1  0      00AF Bromley       21.7
+## 4 0.07695 51.43     4 FALSE     1   0.1  0      00AF Bromley       21.7
+## 5 0.10923 51.41     5 FALSE     1   0.1  0      00AF Bromley       21.7
+## 6 0.13119 51.41     6 FALSE     1   0.1  0      00AF Bromley       21.7
+##   Pop_2001
+## 1   295535
+## 2   295535
+## 3   295535
+## 4   295535
+## 5   295535
+## 6   295535
+</code></pre></div></div>
+
+<h3 id="the-simplest-case">The simplest case</h3>
+<p>As with most things in R, there are many ways to create a ggplot graphic in R, and the 
+same applies to maps.  Below we see two identical ways of creating the same plot.
+(a third way would be to move the <code class="highlighter-rouge">data =</code> argument from geom_polygon and into ggplot).</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">qplot</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"polygon"</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd.f</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-121.png" alt="plot of chunk unnamed-chunk-12" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># this line of code saves the plot as an object (p) because it's enclosed by</span><span class="w">
+</span><span class="c1"># bracets, it also plots the results</span><span class="w">
+
+</span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd.f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">)))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-122.png" alt="plot of chunk unnamed-chunk-12" /></p>
+
+<p>The difference between the two ways of plotting becomes apparent when 
+trying to plot objects that do not share the same dimensions as the data frame <code class="highlighter-rouge">lnd.f</code> (33).</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># (p1 &lt;- p + geom_point(aes(x = coordinates(lnd)[,1], y =</span><span class="w">
+</span><span class="c1"># coordinates(lnd)[,2]))) the above code fails because the data frame is set</span><span class="w">
+</span><span class="c1"># for all layers in qplot - run only to test</span><span class="w">
+
+
+</span><span class="p">(</span><span class="n">q</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">)[,</span><span class="w"> </span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">)[,</span><span class="w"> 
+    </span><span class="m">2</span><span class="p">])))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-13.png" alt="plot of chunk unnamed-chunk-13" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># this line of code succeeds because each layer has its own data associated</span><span class="w">
+</span><span class="c1"># with it</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="basic-maps-in-ggplot2">Basic maps in ggplot2</h3>
+<p>The above images render fine, even with two layers, but it would be 
+generous to describe them as fully fledged maps at present. This is 
+because the coordinates are not correct and the background looks, well, 
+more the background of a graph. We also cannot distinguish between the 
+different polygons in these maps. These issues are resolved in the code below, 
+building on the <code class="highlighter-rouge">q1</code> plot we saved above.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">q</span><span class="m">2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">q</span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_path</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd.f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">coord_map</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># this line of code ensures the plot is to scale</span><span class="w">
+  </span><span class="n">theme_classic</span><span class="p">()</span><span class="w">  </span><span class="c1"># this line removes the distracting grey background</span><span class="w">
+ </span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-14.png" alt="plot of chunk unnamed-chunk-14" /></p>
+
+<h3 id="further-modifications">Further modifications</h3>
+<p>ggplot2 has customisable themes. To make a map in a new style, we can first 
+specify the theme that we want. Say you want a theme with no axes, just like 
+the <code class="highlighter-rouge">sp::plot</code> function:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">theme_spmap</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lightgreen"</span><span class="p">))</span><span class="w">
+</span><span class="n">theme_spmap</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">axis.ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> 
+    </span><span class="n">axis.title.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">axis.title.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> 
+    </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">axis.text.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> 
+    </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lightgreen"</span><span class="p">)</span><span class="w">  </span><span class="c1"># add a light green background, for fun</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="n">q</span><span class="m">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme_spmap</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-15.png" alt="plot of chunk unnamed-chunk-15" /></p>
+
+<h3 id="basemaps">Basemaps</h3>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggmap</span><span class="p">)</span><span class="w">  </span><span class="c1"># you may have to use install.packages to install it first</span><span class="w">
+</span><span class="n">b</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bbox</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">
+</span><span class="p">(</span><span class="n">lnd.b1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggmap</span><span class="p">(</span><span class="n">get_map</span><span class="p">(</span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">)))</span><span class="w">  </span><span class="c1"># download map data for the lnd data and plot</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: bounding box given to google - spatial extent only approximate.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## converting bounding box to center/zoom specification. (experimental)
+## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=51.488791,-0.086622&amp;zoom=10&amp;size=%20640x640&amp;scale=%202&amp;maptype=terrain&amp;sensor=false
+## Google Maps API Terms of Service : http://developers.google.com/maps/terms
+</code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-161.png" alt="plot of chunk unnamed-chunk-16" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd.b1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd.f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Partic_Per</span><span class="p">),</span><span class="w"> 
+    </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_fill_continuous</span><span class="p">(</span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"green"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w">  </span><span class="c1"># add interesting scale</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-162.png" alt="plot of chunk unnamed-chunk-16" /></p>
+
+<p>This is is getting better, but note that the map is square whilst the 
+data is more rectangular. To do more things with the base map, we need to 
+use a different source.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd.b2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggmap</span><span class="p">(</span><span class="n">get_map</span><span class="p">(</span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"stamen"</span><span class="p">,</span><span class="w"> </span><span class="n">maptype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"toner"</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">crop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">))</span><span class="w">
+</span><span class="n">lnd.b2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd.f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Partic_Per</span><span class="p">),</span><span class="w"> 
+    </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-17.png" alt="plot of chunk unnamed-chunk-17" /></p>
+
+<p>To increase the resolution of the map, we use the zoom command. The <code class="highlighter-rouge">stamen</code> source 
+can create multiple tiles; the standard Google maps source cannot</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd.b3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggmap</span><span class="p">(</span><span class="n">get_map</span><span class="p">(</span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"stamen"</span><span class="p">,</span><span class="w"> </span><span class="n">maptype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"toner"</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">crop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="p">))</span><span class="w">
+</span><span class="n">lnd.b3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd.f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Partic_Per</span><span class="p">),</span><span class="w"> 
+    </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="figure/unnamed-chunk-18.png" alt="plot of chunk unnamed-chunk-18" /></p>
+
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

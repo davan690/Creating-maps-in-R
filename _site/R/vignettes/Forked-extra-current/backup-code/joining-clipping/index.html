@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Joining and clipping</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Joining and clipping" />
+  
+
+   
+  <meta property="og:description" content="Joining and clipping ======================================================== This tutorial builds on the previous section on plotting and highlights some of R's more advanced spatial functions. We look at joining new datasets to our data - an attribute join - spatial joins, whereby data is added to the target layer depending on the location...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/Forked-extra-current/backup-code/joining-clipping/" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/Forked-extra-current/backup-code/joining-clipping/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Joining and clipping" />
+  
+
+  
+  <meta name="twitter:description" content="Joining and clipping ======================================================== This tutorial builds on the previous section on plotting and highlights some of R's more advanced spatial functions. We look at joining new datasets to our data - an attribute join - spatial joins, whereby data is added to the target layer depending on the location...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Joining and clipping</h1>
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h1 id="joining-and-clipping">Joining and clipping</h1>
+
+<p>This tutorial builds on the previous section on plotting and highlights 
+some of R’s more advanced spatial functions. We look at joining new 
+datasets to our data - an attribute join - spatial joins, whereby 
+data is added to the target layer depending on the location of the 
+origins and clipping.</p>
+
+<h2 id="joining-based-on-attributes">Joining based on attributes</h2>
+<p>To reaffirm our starting point, let’s re-plot the only 
+spatial dataset in our workspace, and count the number
+of polygons:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in library(rgdal): there is no package called 'rgdal'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"."</span><span class="p">,</span><span class="w"> </span><span class="s2">"london_sport"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in readOGR(dsn = ".", "london_sport"): could not find function "readOGR"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(lnd): object 'lnd' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">nrow</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in nrow(lnd): object 'lnd' not found</code></pre></figure>
+
+<h3 id="downloading-additional-data">Downloading additional data</h3>
+<p>Because we are using borough-level data, and boroughs are official administrative
+zones, there is much data available at this level. We will use the example 
+of crime data to illustrate this data availability, and join this with the current 
+spatial dataset. As before, we can download and import the data from within R:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># download.file("http://data.london.gov.uk/datafiles/crime-community-safety/mps-recordedcrime-borough.csv", destfile = "mps-recordedcrime-borough.csv")</span><span class="w">
+</span><span class="c1"># uncomment the above line of code to download the data</span><span class="w">
+
+</span><span class="n">crimeDat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"mps-recordedcrime-borough.csv"</span><span class="p">)</span><span class="w"> </span><span class="c1"># flags an error</span></code></pre></figure>
+
+<p>Initially, the <code class="highlighter-rouge">read.csv</code> command flags an error: open the raw .csv file in a 
+text editor such as Notepad, Notepad++ or GVIM, find the problem and correct it.
+Alternatively, you can work out what the file encoding is and use the correct 
+argument (this is not recommended - simpler just to edit the text file
+in most cases).</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">crimeDat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"mps-recordedcrime-borough.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">fileEncoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UCS-2LE"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning in file(file, "rt", encoding = fileEncoding): cannot open file
+## 'mps-recordedcrime-borough.csv': No such file or directory</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in file(file, "rt", encoding = fileEncoding): cannot open the connection</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">crimeDat</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in head(crimeDat): object 'crimeDat' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">summary</span><span class="p">(</span><span class="n">crimeDat</span><span class="o">$</span><span class="n">MajorText</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in summary(crimeDat$MajorText): object 'crimeDat' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">crimeTheft</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">crimeDat</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">crimeDat</span><span class="o">$</span><span class="n">MajorText</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Theft &amp; Handling"</span><span class="p">),</span><span class="w"> </span><span class="p">]</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'crimeDat' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">crimeTheft</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in head(crimeTheft): object 'crimeTheft' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">crimeAg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggregate</span><span class="p">(</span><span class="n">CrimeCount</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Spatial_DistrictName</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sum"</span><span class="p">,</span><span class="w"> 
+                     </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crimeTheft</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(m$data, parent.frame()): object 'crimeTheft' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">crimeAg</span><span class="p">)</span><span class="w"> </span><span class="c1"># show the aggregated crime data</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in head(crimeAg): object 'crimeAg' not found</code></pre></figure>
+
+<p>Now that we have crime data at the borough level, the challenge is to join it
+by name. This is not always straightforward. Let us see which names in the 
+crime data match the spatial data:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">crimeAg</span><span class="o">$</span><span class="n">Spatial_DistrictName</span><span class="w"> </span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in lnd$name %in% crimeAg$Spatial_DistrictName: object 'lnd' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="o">!</span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">crimeAg</span><span class="o">$</span><span class="n">Spatial_DistrictName</span><span class="p">)]</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'lnd' not found</code></pre></figure>
+
+<p>The first line of code above shows that all but one of the borough names matches;
+the second tells us that it is City of London that is named differently in the 
+crime data:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">levels</span><span class="p">(</span><span class="n">crimeAg</span><span class="o">$</span><span class="n">Spatial_DistrictName</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in levels(crimeAg$Spatial_DistrictName): object 'crimeAg' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">levels</span><span class="p">(</span><span class="n">crimeAg</span><span class="o">$</span><span class="n">Spatial_DistrictName</span><span class="p">)[</span><span class="m">25</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> 
+  </span><span class="nf">as.character</span><span class="p">(</span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="o">!</span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">crimeAg</span><span class="o">$</span><span class="n">Spatial_DistrictName</span><span class="p">)])</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'lnd' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">crimeAg</span><span class="o">$</span><span class="n">Spatial_DistrictName</span><span class="w"> </span><span class="c1"># now all columns match</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in lnd$name %in% crimeAg$Spatial_DistrictName: object 'lnd' not found</code></pre></figure>
+
+<p>The above code block first identified the row with the faulty name and 
+then renamed the level to match the <code class="highlighter-rouge">lnd</code> dataset. Note that we could not
+rename the variable directly, as it is stored as a factor.</p>
+
+<p>We are now ready to join the datasets. It is recommended to use 
+the <code class="highlighter-rouge">join</code> function in the <code class="highlighter-rouge">plyr</code> package but the <code class="highlighter-rouge">merge</code> function 
+could equally be used.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">?</span><span class="n">join</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## No documentation for 'join' in specified packages and libraries:
+## you could try '??join'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">plyr</span><span class="p">)</span><span class="w">
+</span><span class="o">?</span><span class="n">join</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## starting httpd help server ... done</code></pre></figure>
+
+<p>The documentation for join will be displayed if the plyr package is loaded (if not,
+load or install and load it!). It requires all joining variables to have the 
+same name, so we will rename the variable to make the join work:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in head(lnd$name): object 'lnd' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">crimeAg</span><span class="o">$</span><span class="n">Spatial_DistrictName</span><span class="p">)</span><span class="w"> </span><span class="c1"># the variables to join</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in head(crimeAg$Spatial_DistrictName): object 'crimeAg' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">crimeAg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rename</span><span class="p">(</span><span class="n">crimeAg</span><span class="p">,</span><span class="w"> </span><span class="n">replace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Spatial_DistrictName"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"name"</span><span class="p">))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in revalue(names(x), replace, warn_missing = warn_missing): object 'crimeAg' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">crimeAg</span><span class="p">))</span><span class="w"> </span><span class="c1"># test it works</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in as.vector(y): object 'crimeAg' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">join</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">crimeAg</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in as.vector(y): object 'crimeAg' not found</code></pre></figure>
+
+<h2 id="adding-point-data-for-clipping-and-spatial-join">Adding point data for clipping and spatial join</h2>
+<p>In addition to joing by zone name, it is also possible to do
+<a href="http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//00080000000q000000">spatial joins</a> in R. There are three main varieties: many-to-one - where
+the values of many intersecting objects contribute to a new variable in 
+the main table - one-to-many, or one-to-one. Because boroughs in London 
+are quite large, we will conduct a many-to-one spatial join.
+We will be using Tube Stations as the spatial data to join, 
+with the aim of finding out which and how many stations
+are found in each London borough.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">download.file</span><span class="p">(</span><span class="s2">"http://www.personal.leeds.ac.uk/~georl/egs/lnd-stns.zip"</span><span class="p">,</span><span class="w"> 
+              </span><span class="s2">"lnd-stns.zip"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning in download.file("http://www.personal.leeds.ac.uk/~georl/egs/
+## lnd-stns.zip", : cannot open URL 'http://www.personal.leeds.ac.uk/
+## ~georl/egs/lnd-stns.zip': HTTP status was '404 Not Found'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in download.file("http://www.personal.leeds.ac.uk/~georl/egs/lnd-stns.zip", : cannot open URL 'http://www.personal.leeds.ac.uk/~georl/egs/lnd-stns.zip'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">unzip</span><span class="p">(</span><span class="s2">"lnd-stns.zip"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning in unzip("lnd-stns.zip"): error 1 in extracting from zip file</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in library(rgdal): there is no package called 'rgdal'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">stations</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"."</span><span class="p">,</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lnd-stns"</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="m">4</span><span class="n">s</span><span class="o">=</span><span class="s2">"+init=epsg:27700"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in readOGR(dsn = ".", layer = "lnd-stns", p4s = "+init=epsg:27700"): could not find function "readOGR"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">proj4string</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span><span class="w"> </span><span class="c1"># this is the full geographical detail.</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in proj4string(stations): could not find function "proj4string"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">proj4string</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in proj4string(lnd): could not find function "proj4string"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">bbox</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in bbox(stations): could not find function "bbox"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">bbox</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in bbox(lnd): could not find function "bbox"</code></pre></figure>
+
+<p>The above code loads the data correctly, but also shows that 
+there are problems with it: the Coordinate Reference System (CRS)
+differs from that of our shapefile. 
+Although OSGB 1936 (or EPSG 27700) is the ‘correct’ CRS for the UK, 
+we will convert the stations dataset into lat-long coordinates, 
+as this is a more common CRS and enables easy basemap creation:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">stationsWGS</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">spTransform</span><span class="p">(</span><span class="n">stations</span><span class="p">,</span><span class="w"> </span><span class="n">CRSobj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="n">proj4string</span><span class="p">(</span><span class="n">lnd</span><span class="p">)))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in spTransform(stations, CRSobj = CRS(proj4string(lnd))): could not find function "spTransform"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">stations</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">stationsWGS</span><span class="p">;</span><span class="w"> </span><span class="n">rm</span><span class="p">(</span><span class="n">stationsWGS</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'stationsWGS' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning in rm(stationsWGS): object 'stationsWGS' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(lnd): object 'lnd' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">points</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">nrow</span><span class="p">(</span><span class="n">stations</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500</span><span class="p">),])</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in points(stations[sample(1:nrow(stations), size = 500), ]): object 'stations' not found</code></pre></figure>
+
+<p>Now we can clearly see that the stations overlay the boroughs.
+The problem is that the stations dataset is far more exentsive than
+London borough dataset; we need</p>
+
+<h2 id="clipping">Clipping</h2>
+<p>There are a number of functions that we can use to clip the points
+so that only those falling within London boroughs are retained:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">?</span><span class="n">overlay</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## No documentation for 'overlay' in specified packages and libraries:
+## you could try '??overlay'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">?</span><span class="n">sp</span><span class="o">::</span><span class="n">over</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in library(rgeos): there is no package called 'rgeos'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">?</span><span class="n">rgeos</span><span class="o">::</span><span class="n">gIntersects</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in find.package(if (is.null(package)) loadedNamespaces() else package, : there is no package called 'rgeos'</code></pre></figure>
+
+<p>We can write off the first one straight away as it is depreciated by the second. 
+It seems that <code class="highlighter-rouge">gIntersects</code> can produce the same output as <code class="highlighter-rouge">over</code>, based 
+on <a href="http://gis.stackexchange.com/questions/63793/how-to-overlay-a-polygon-over-spatialpointsdataframe-and-preserving-the-spdf-dat">discussion</a> 
+in the community,  so either 
+can be used. (See this 
+<a href="http://stackoverflow.com/questions/15881455/how-to-clip-worldmap-with-polygon-in-r">discussion</a>
+for further alternatives.) 
+In this tutorial we will use <code class="highlighter-rouge">gIntersects</code>,
+for clipping although we could equally use 
+<code class="highlighter-rouge">gContains</code>, <code class="highlighter-rouge">gWithin</code> and other <code class="highlighter-rouge">g...</code> functions -
+see rgeos help pages by typing <code class="highlighter-rouge">?gOverlaps</code> or other functions for more.
+<code class="highlighter-rouge">gIntersects</code> will output information for each point, telling us which 
+polygon it interacts with (i.e. the polygon it is in):</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">int</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gIntersects</span><span class="p">(</span><span class="n">stations</span><span class="p">,</span><span class="w"> </span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">byid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w"> </span><span class="c1"># find which stations intersect </span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in gIntersects(stations, lnd, byid = T): could not find function "gIntersects"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="nf">class</span><span class="p">(</span><span class="n">int</span><span class="p">)</span><span class="w"> </span><span class="c1"># it's outputed a matrix</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'int' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="nf">dim</span><span class="p">(</span><span class="n">int</span><span class="p">)</span><span class="w"> </span><span class="c1"># with 33 rows (one for each zone) and 2532 cols (the points)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'int' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">summary</span><span class="p">(</span><span class="n">int</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">200</span><span class="p">,</span><span class="m">500</span><span class="p">)])</span><span class="w"> </span><span class="c1"># not the output of this</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in summary(int[, c(200, 500)]): object 'int' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(lnd): object 'lnd' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">points</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="m">200</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w"> </span><span class="c1"># note point id 200 is outside the zones</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in points(stations[200, ], col = "red"): object 'stations' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">points</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="m">500</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"green"</span><span class="p">)</span><span class="w"> </span><span class="c1"># note point 500 is inside</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in points(stations[500, ], col = "green"): object 'stations' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">which</span><span class="p">(</span><span class="n">int</span><span class="p">[,</span><span class="m">500</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w"> </span><span class="c1"># this tells us that point 500 intersects with zone 32</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in which(int[, 500] == T): object 'int' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">points</span><span class="p">(</span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="m">32</span><span class="p">,]),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="c1"># test the previous statement</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in coordinates(lnd[32, ]): could not find function "coordinates"</code></pre></figure>
+
+<p>In the above code, only the first line actually ‘does’ anything
+in our workspace, by creating the object <code class="highlighter-rouge">int</code>. The proceeding 
+lines are dedicated to exploring this object and what it means. 
+Note that it is a matrix with columns corresponding to the points and 
+rows corresponding to boroughs. The borough in which a particular 
+point can be extracted from <code class="highlighter-rouge">int</code> as we shall see below.
+For the purposes of clipping, we are only interested in whether
+the point intersects with <em>any</em> of the boroughs. This is where the 
+function <code class="highlighter-rouge">apply</code>, which is unique to R, comes into play:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">clipped</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">int</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">MARGIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">all</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in apply(int == F, MARGIN = 2, all): object 'int' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">clipped</span><span class="p">),])</span><span class="w"> </span><span class="c1"># shows all stations we DO NOT want</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(stations[which(clipped), ]): object 'stations' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">stations.cl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">stations</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="o">!</span><span class="n">clipped</span><span class="p">),]</span><span class="w"> </span><span class="c1"># use ! to select the invers</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'stations' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">points</span><span class="p">(</span><span class="n">stations.cl</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"green"</span><span class="p">)</span><span class="w"> </span><span class="c1"># check that it's worked</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in points(stations.cl, col = "green"): object 'stations.cl' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">stations</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">stations.cl</span><span class="p">;</span><span class="w"> </span><span class="n">rm</span><span class="p">(</span><span class="n">stations.cl</span><span class="p">)</span><span class="w"> </span><span class="c1"># tidy up: we're only interested in clipped ones</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'stations.cl' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning in rm(stations.cl): object 'stations.cl' not found</code></pre></figure>
+
+<p>The first line instructs R to look at each column (<code class="highlighter-rouge">MARGIN = 2</code>, we would use
+<code class="highlighter-rouge">MARGIN = 1</code> for row-by-row analysis) and report back whether <code class="highlighter-rouge">all</code> of the values are
+false. This creates the inverse selection that we want, hence the use of <code class="highlighter-rouge">!</code> to invert it.
+We test that the function works on a new object (often a good idea, to avoid overwriting 
+useful data) with plots and, once content that the clip has worked, save the sample of 
+points to our main <code class="highlighter-rouge">stations</code> object and remove the now duplicated <code class="highlighter-rouge">stations.cl</code> object.</p>
+
+<h2 id="aggregating-the-data-to-complete-the-spatial-join">Aggregating the data to complete the spatial join</h2>
+
+<p>Now that we know how <code class="highlighter-rouge">gIntersects</code> works in general terms and for clipping, 
+let’s use it to 
+allocate a borrough to each of our station points, which we will then 
+aggregate up. Data from these points (e.g. counts, averages in each area etc.)
+can then be transferred to the main polygons table: the essence of a spatial 
+join. Again, <code class="highlighter-rouge">apply</code> is our friend in this instance, meaning we can avoid <code class="highlighter-rouge">for</code> loops:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">int</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gIntersects</span><span class="p">(</span><span class="n">stations</span><span class="p">,</span><span class="w"> </span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">byid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w"> </span><span class="c1"># re-run the intersection query </span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in gIntersects(stations, lnd, byid = T): could not find function "gIntersects"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">apply</span><span class="p">(</span><span class="n">int</span><span class="p">,</span><span class="w"> </span><span class="n">MARGIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">which</span><span class="p">))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in apply(int, MARGIN = 2, FUN = which): object 'int' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">b.indexes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">int</span><span class="p">,</span><span class="w"> </span><span class="n">arr.ind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in which(int, arr.ind = T): object 'int' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">summary</span><span class="p">(</span><span class="n">b.indexes</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in summary(b.indexes): object 'b.indexes' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">b.names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="p">[</span><span class="n">b.indexes</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="p">]]</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'lnd' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">b.count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggregate</span><span class="p">(</span><span class="n">b.indexes</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">b.names</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(predvars, data, env): object 'b.indexes' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">b.count</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in head(b.count): object 'b.count' not found</code></pre></figure>
+
+<p>The above code first extracts the index of the row (borough) for 
+which the corresponding column is true and then converts this into 
+names. The final object created, <code class="highlighter-rouge">b.count</code> contains the number of station 
+points in each zone. According to this, Barking and Dagenham should contain
+30 station points. It is important to check the output makes sense at 
+every stage with R, so let’s check to see this is indeed the case with a quick plot:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">grepl</span><span class="p">(</span><span class="s2">"Barking"</span><span class="p">,</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="p">)),])</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(lnd[which(grepl("Barking", lnd$name)), ]): object 'lnd' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">points</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in points(stations): object 'stations' not found</code></pre></figure>
+
+<p>Now the fun part: count the points in the polygon and report back how many there are!</p>
+
+<p>The final stage is to transfer the data on station counts back into the 
+polygon data frame. We have used <code class="highlighter-rouge">merge</code> to join two datasets before.
+In R there is often more than one way to acheive the same result.
+It’s good to experiment with different functions, so we will use
+<code class="highlighter-rouge">join</code> from the <code class="highlighter-rouge">plyr</code> package. <code class="highlighter-rouge">join</code> requires identical joining 
+names in both data frames, so first we will rename them (type 
+<code class="highlighter-rouge">?rename</code> for more details).</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">b.count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rename</span><span class="p">(</span><span class="n">b.count</span><span class="p">,</span><span class="w"> </span><span class="n">replace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"b.names"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"name"</span><span class="p">))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in revalue(names(x), replace, warn_missing = warn_missing): object 'b.count' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">b.count.tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">join</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">b.count</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in as.vector(y): object 'b.count' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">head</span><span class="p">(</span><span class="n">b.count.tmp</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in head(b.count.tmp): object 'b.count.tmp' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lnd</span><span class="o">$</span><span class="n">station.count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">b.count.tmp</span><span class="p">[,</span><span class="w"> </span><span class="m">7</span><span class="p">]</span><span class="w"> </span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'b.count.tmp' not found</code></pre></figure>
+
+<p>We have now seen how to join and clip data. Next, for a stronger grounding 
+in how ggplot works, we will look at plotting non-spatial data.</p>
+
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

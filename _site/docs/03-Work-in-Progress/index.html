@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Work in progress {#wnp}</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Work in progress {#wnp}" />
+  
+
+   
+  <meta property="og:description" content="# Work in progress {#wnp} ```r library(tmap) # for static and interactive maps library(leaflet) # for interactive maps library(mapview) # for interactive maps library(ggplot2) # tidyverse data visualization package library(shiny) # for web applications library(spData) library(dplyr) library(sf) library(bookdown) library(leaflet) library(leaflet.extras) library(geojsonio) library(sf) library(raster) library(dplyr) library(spData) # library(spDataLarge) ``` As I...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/docs/03-Work-in-Progress/" />
+  <link rel="canonical" href="http://localhost:4000/docs/03-Work-in-Progress/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Work in progress {#wnp}" />
+  
+
+  
+  <meta name="twitter:description" content="# Work in progress {#wnp} ```r library(tmap) # for static and interactive maps library(leaflet) # for interactive maps library(mapview) # for interactive maps library(ggplot2) # tidyverse data visualization package library(shiny) # for web applications library(spData) library(dplyr) library(sf) library(bookdown) library(leaflet) library(leaflet.extras) library(geojsonio) library(sf) library(raster) library(dplyr) library(spData) # library(spDataLarge) ``` As I...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Work in progress {#wnp}</h1>
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h1 id="wnp">Work in progress</h1>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">    </span><span class="c1"># for static and interactive maps</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w"> </span><span class="c1"># for interactive maps</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">mapview</span><span class="p">)</span><span class="w"> </span><span class="c1"># for interactive maps</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w"> </span><span class="c1"># tidyverse data visualization package</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span><span class="w">   </span><span class="c1"># for web applications</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">spData</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">bookdown</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">leaflet.extras</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">geojsonio</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">spData</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># library(spDataLarge)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>As I work through the steps I will add code and notes to this section of the <code class="highlighter-rouge">gitbook</code>. The first step I have done is to convert the downloaded my-maps data. To conbvert a my-maps online map into a tidy format we can work in I have done the following.</p>
+
+<h3 id="static-maps"><a href="https://geocompr.robinlovelace.net/adv-map.html">Static maps</a></h3>
+
+<p>Static maps are the most common type of visual output from geocomputation. Standard formats include .png and .pdf for raster and vector outputs respectively. Initially, static maps were the only type of maps that R could produce. Things advanced with the release of sp (see Pebesma and Bivand 2005) and many techniques for map making have been developed since then. However, despite the innovation of interactive mapping, static plotting was still the emphasis of geographic data visualisation in R a decade later (Cheshire and Lovelace 2015).</p>
+
+<p>The generic plot() function is often the fastest way to create static maps from vector and raster spatial objects (see sections 2.2.3 and 2.3.2). Sometimes, simplicity and speed are priorities, especially during the development phase of a project, and this is where plot() excels. The base R approach is also extensible, with plot() offering dozens of arguments. Another approach is the grid package which allows low level control of static maps, as illustrated in Chapter 14 of Murrell (2016). This section focuses on tmap and emphasizes the important aesthetic and layout options.</p>
+
+<p>tmap is a powerful and flexible map-making package with sensible defaults. It has a concise syntax that allows for the creation of attractive maps with minimal code which will be familiar to ggplot2 users. It also has the unique capability to generate static and interactive maps using the same code via tmap_mode(). Finally, it accepts a wider range of spatial classes (including raster objects) than alternatives such as ggplot2 (see the vignettes tmap-getstarted and tmap-changes-v2, as well as Tennekes (2018), for further documentation).</p>
+
+<ol>
+  <li>Download the <code class="highlighter-rouge">kmz</code> file from online.</li>
+</ol>
+
+<p>A <code class="highlighter-rouge">KMZ</code> file is just a zipped <code class="highlighter-rouge">KML</code> <a href="https://en.wikipedia.org/wiki/Keyhole_Markup_Language">file</a>, possibly with associated embedded images, icons, etc.</p>
+
+<p>So any program that supports <code class="highlighter-rouge">KMZ</code> files internally unzips them to access their KML files. That may be a reason why many open source programs do not bother supporting KMZ once KML support is implemented: you just need to use an additional unzipping library of your choice, to convert the KMZ to KML. The linked posts give some JavaScript-based solutions for unzipping.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat.loc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"C://Code/Creating-maps-in-R/data/invasive-species-location-research.kmz"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">  </span><span class="c1"># kml.dat &lt;- xml2::download_xml</span><span class="w">
+</span><span class="n">zipF</span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"C://Code/Creating-maps-in-R/data/invasive-species-location-research.kmz"</span><span class="w">
+</span><span class="n">outDir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"C://Code/Creating-maps-in-R/data/unzipped-files/"</span><span class="w">
+</span><span class="c1"># unzip(zipF,exdir="C://Code/Creating-maps-in-R/data/unzipped-files/")</span><span class="w">
+
+</span><span class="c1"># unzip(zipfile = "C://Code/Creating-maps-in-R/data/Canberra-transit/images/invasive-species-location-research.kmz")</span><span class="w">
+</span><span class="c1"># xml.locations &lt;- XML::xmlToDataFrame("./doc.kml")</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">exdir</code> defines the directory to extract files to. It will be created if not already available. If you don’t set <code class="highlighter-rouge">exdir</code>, <code class="highlighter-rouge">unzip</code> will just unzip it to your current working directory.</li>
+</ul>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># glimpse(xml.locations)</span><span class="w">
+</span><span class="c1"># str(xml.locations)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># install dev version of ggmap</span><span class="w">
+</span><span class="c1"># devtools::install_github("dkahle/ggmap")</span><span class="w">
+
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggmap</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Please cite ggmap if you use it! See citation("ggmap") for details.
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#&gt; Loading required package: ggplot2</span><span class="w">
+</span><span class="c1">#&gt; Google Maps API Terms of Service: http://developers.google.com/maps/terms.</span><span class="w">
+</span><span class="c1">#&gt; Please cite ggmap if you use it: see citation("ggmap") for details.</span><span class="w">
+
+</span><span class="c1"># # save api key</span><span class="w">
+</span><span class="c1"># register_google(key = "YOUR_API_KEY")</span><span class="w">
+</span><span class="c1"># </span><span class="w">
+</span><span class="c1"># # check if key is saved</span><span class="w">
+</span><span class="c1"># has_goog_key()</span><span class="w">
+</span><span class="c1"># #&gt; [1] TRUE</span><span class="w">
+</span><span class="c1"># </span><span class="w">
+</span><span class="c1"># ggmap(</span><span class="w">
+</span><span class="c1">#   ggmap = get_map(</span><span class="w">
+</span><span class="c1">#     "Dayton",</span><span class="w">
+</span><span class="c1">#      zoom = 13, scale = "auto",</span><span class="w">
+</span><span class="c1">#      maptype = "satellite",</span><span class="w">
+</span><span class="c1">#      source = "google"),</span><span class="w">
+</span><span class="c1">#   extent = "device",</span><span class="w">
+</span><span class="c1">#   legend = "topright"</span><span class="w">
+</span><span class="c1">#   )</span><span class="w">
+</span><span class="c1">#&gt; Source : https://maps.googleapis.com/maps/api/staticmap?center=Dayton&amp;zoom=13&amp;size=640x640&amp;scale=2&amp;maptype=satellite&amp;language=en-EN&amp;key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU</span><span class="w">
+</span><span class="c1">#&gt; Source : https://maps.googleapis.com/maps/api/geocode/json?address=Dayton&amp;key=AIzaSyBmXB5S5_NIqo6lAGH-_U-TbhrQjhOsplU</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="my-notes">My notes</h2>
+
+<p>These resources are very basic but they may be helpful for me later.</p>
+
+<ul>
+  <li>Found in <a href="https://stackoverflow.com/questions/35867793/using-kmz-file-in-leaflet-map">stack comments here</a></li>
+</ul>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -- Attaching packages ---------------------------------------------- tidyverse 1.2.1 --
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## v tibble  2.1.3     v purrr   0.3.2
+## v tidyr   0.8.3     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -- Conflicts ------------------------------------------------- tidyverse_conflicts() --
+## x tidyr::extract() masks raster::extract()
+## x dplyr::filter()  masks stats::filter()
+## x dplyr::lag()     masks stats::lag()
+## x raster::select() masks dplyr::select()
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">kableExtra</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## 
+## Attaching package: 'kableExtra'
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## The following object is masked from 'package:dplyr':
+## 
+##     group_rows
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s2">"./R/kml_to_tidy.R"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Multiple layers are present in data source C:\Code\Creating-maps-in-R\data\invasive-species-NAH-research.kml, reading layer `Hollyford'.
+## Use `st_layers' to list all layer names and their type in a data source.
+## Set the `layer' argument in `st_read' to read a particular layer.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning in evalq((function (..., call. = TRUE, immediate. = FALSE,
+## noBreaks. = FALSE, : automatically selected the first layer in a data
+## source containing more than one.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Reading layer `Hollyford' from data source `C:\Code\Creating-maps-in-R\data\invasive-species-NAH-research.kml' using driver `KML'
+## Simple feature collection with 10 features and 2 fields
+## geometry type:  GEOMETRY
+## dimension:      XYZ
+## bbox:           xmin: 167.9963 ymin: -45.06019 xmax: 168.1392 ymax: -44.70935
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## Observations: 10
+## Variables: 3
+## $ Name        &lt;fct&gt; Gunns Camp, Choqenout and Ruscoe 2000, Hollyford V...
+## $ Description &lt;fct&gt; "", "Eglinton Valley", "", "", "", "", "", "", "",...
+## $ geometry    &lt;GEOMETRY [°]&gt; POINT Z (168.1392 -44.76039 0), POINT Z (...
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kable</span><span class="p">(</span><span class="n">tidy.kat</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">folder</th>
+      <th style="text-align: left">name</th>
+      <th style="text-align: left">description</th>
+      <th style="text-align: left">styleUrl</th>
+      <th style="text-align: right">longitude</th>
+      <th style="text-align: right">latitude</th>
+      <th style="text-align: right">altitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Gunns Camp</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-0288D1-nodesc</td>
+      <td style="text-align: right">168.1392</td>
+      <td style="text-align: right">-44.76039</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Choqenout and Ruscoe 2000</td>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">#icon-1899-0288D1</td>
+      <td style="text-align: right">167.9963</td>
+      <td style="text-align: right">-45.06019</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Hollyford Valley Lookout</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-0288D1-nodesc</td>
+      <td style="text-align: right">168.1050</td>
+      <td style="text-align: right">-44.80905</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Hollyford Airstrip</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-0288D1-nodesc</td>
+      <td style="text-align: right">168.1337</td>
+      <td style="text-align: right">-44.73744</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Point 9</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-0288D1-nodesc</td>
+      <td style="text-align: right">168.1262</td>
+      <td style="text-align: right">-44.79766</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Point 10</td>
+      <td style="text-align: left">x = 10, y = 250</td>
+      <td style="text-align: left">#icon-1899-0288D1</td>
+      <td style="text-align: right">168.0794</td>
+      <td style="text-align: right">-44.90247</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">MR1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-F9A825-nodesc</td>
+      <td style="text-align: right">168.0776</td>
+      <td style="text-align: right">-44.89081</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">M1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-FBC02D-nodesc</td>
+      <td style="text-align: right">168.1005</td>
+      <td style="text-align: right">-44.85371</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">M1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-FBC02D-nodesc</td>
+      <td style="text-align: right">168.0748</td>
+      <td style="text-align: right">-44.89257</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">R1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-000000-nodesc</td>
+      <td style="text-align: right">168.0968</td>
+      <td style="text-align: right">-44.85569</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">MR1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-FBC02D-nodesc</td>
+      <td style="text-align: right">168.0995</td>
+      <td style="text-align: right">-44.85768</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">R1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-000000-nodesc</td>
+      <td style="text-align: right">168.0789</td>
+      <td style="text-align: right">-44.89277</td>
+      <td style="text-align: right">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="building-maps-for-manuscripts">Building maps for manuscripts</h2>
+
+<p>These starting resources have come from <code class="highlighter-rouge">chapter-8</code> of the geocomp book. To make this quick I have used the <code class="highlighter-rouge">rmarkdown</code> function <code class="highlighter-rouge">render</code> to create a <code class="highlighter-rouge">r</code> file that can then be sourced here for building my data specific maps.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># rmarkdown::render("./03-Work-In-Progress.Rmd")</span><span class="w">
+</span><span class="c1"># knitr::purl("./03-Work-In-Progress.Rmd", "./R/03-Work-In-Progress.R", documentation = 2)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s2">"./R/03-Work-In-Progress.R"</span><span class="p">,</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-1.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.29, 0.29, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.29, 0.29, 0.29, 0.29, 0.29, 0.29, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.29, 0.29, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-3.png" width="672" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.47, 0.47, 0.47, 0.47, 0.47, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.47, 0.47, 0.47, 0.47, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.47, 0.47, 0.47, 0.47, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.47, 0.47, 0.47, 0.47, 0.47. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-4.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-5.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-6.png" width="672" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-7.png" width="672" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-8.png" width="672" /></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+## Legend labels were too wide. The labels have been resized to 0.44, 0.29, 0.29, 0.29, 0.29. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+</code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-9.png" width="672" /><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-8-10.png" width="672" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glimpse</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Observations: 16
+## Variables: 7
+## $ Name          &lt;chr&gt; "Northland", "Auckland", "Waikato", "Bay of Plen...
+## $ Island        &lt;chr&gt; "North", "North", "North", "North", "North", "No...
+## $ Land_area     &lt;dbl&gt; 12500.5611, 4941.5726, 23900.0364, 12071.1447, 8...
+## $ Population    &lt;dbl&gt; 175500, 1657200, 460100, 299900, 48500, 164000, ...
+## $ Median_income &lt;int&gt; 23400, 29600, 27900, 26200, 24400, 26100, 29100,...
+## $ Sex_ratio     &lt;dbl&gt; 0.9424532, 0.9442858, 0.9520500, 0.9280391, 0.93...
+## $ geom          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((1745493 600..., MUL...
+</code></pre></div></div>
+
+<h3 id="first-tmap-attempt">First <code class="highlighter-rouge">tmap</code> attempt</h3>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ma1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w">
+</span><span class="n">ma2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w">
+</span><span class="n">ma3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w">
+</span><span class="n">ma4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="n">ma5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">ma6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">tmap_arrange</span><span class="p">(</span><span class="n">ma1</span><span class="p">,</span><span class="w"> </span><span class="n">ma2</span><span class="p">,</span><span class="w"> </span><span class="n">ma3</span><span class="p">,</span><span class="w"> </span><span class="n">ma4</span><span class="p">,</span><span class="w"> </span><span class="n">ma5</span><span class="p">,</span><span class="w"> </span><span class="n">ma6</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+
+<h4 id="grey-background">Grey background</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+        </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+
+<h4 id="boarders">Boarders</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+   </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+
+<h4 id="title-and-legend">Title and legend</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">legend_title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">expression</span><span class="p">(</span><span class="s2">"Area (km"</span><span class="o">^</span><span class="m">2</span><span class="o">*</span><span class="s2">")"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+   </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Land_area"</span><span class="p">,</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">legend_title</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+
+<h4 id="north-arrow">North arrow</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+   </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">tm_compass</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"8star"</span><span class="p">,</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"top"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+
+<h4 id="scale">Scale</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+   </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_compass</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"8star"</span><span class="p">,</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"top"</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_scale_bar</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">),</span><span class="w"> </span><span class="n">text.size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+
+<h4 id="black-and-white">Black and white</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tm_shape</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="03-Work-in-Progress_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

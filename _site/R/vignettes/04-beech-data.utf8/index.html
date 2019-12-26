@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Creating maps in R</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Creating maps in R" />
+  
+
+   
+  <meta property="og:description" content="```r library(tmap) # for static and interactive maps library(leaflet) # for interactive maps library(mapview) # for interactive maps library(ggplot2) # tidyverse data visualization package library(shiny) # for web applications library(spData) library(dplyr) library(sf) library(bookdown) library(leaflet) library(leaflet.extras) library(geojsonio) library(sf) library(raster) library(dplyr) library(spData) library(kableExtra) # library(spDataLarge) ``` # Adding additional information {#contentadd} Using...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/04-beech-data.utf8/" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/04-beech-data.utf8/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Creating maps in R" />
+  
+
+  
+  <meta name="twitter:description" content="```r library(tmap) # for static and interactive maps library(leaflet) # for interactive maps library(mapview) # for interactive maps library(ggplot2) # tidyverse data visualization package library(shiny) # for web applications library(spData) library(dplyr) library(sf) library(bookdown) library(leaflet) library(leaflet.extras) library(geojsonio) library(sf) library(raster) library(dplyr) library(spData) library(kableExtra) # library(spDataLarge) ``` # Adding additional information {#contentadd} Using...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+<div class="intro-header"></div>
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">    </span><span class="c1"># for static and interactive maps</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w"> </span><span class="c1"># for interactive maps</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">mapview</span><span class="p">)</span><span class="w"> </span><span class="c1"># for interactive maps</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w"> </span><span class="c1"># tidyverse data visualization package</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span><span class="w">   </span><span class="c1"># for web applications</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">spData</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">bookdown</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">leaflet.extras</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">geojsonio</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">spData</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">kableExtra</span><span class="p">)</span><span class="w">
+</span><span class="c1"># library(spDataLarge)</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="contentadd">Adding additional information</h1>
+
+<p>Using and applying GIS techniques in R has become much easier since the additional functionality of Java-script libraries. One of these libraries in the <code class="highlighter-rouge">leaflet</code> library for mapping. Below are some examples of these mapping tools with examples.</p>
+
+<p>I like the idea of know what to do in arcGIS so that it is easy to work with researchers that use either R or arcGIS. For a GIS map there are two main options. Here are the resources for building interactive and static maps in R using a range of different packages:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">leaflet</code></li>
+  <li><code class="highlighter-rouge">tmap</code></li>
+</ul>
+
+<h3 id="adding-points">Adding points</h3>
+
+<p>THere are quite a few datasets to combine here but the key aspect here is that we can do all of this semlessly with the data in a <code class="highlighter-rouge">tidy</code> format.</p>
+
+<p>The datasets we are going to merge here are:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">nz</code></li>
+  <li><code class="highlighter-rouge">kml data</code></li>
+  <li><code class="highlighter-rouge">abunance data</code></li>
+</ul>
+
+<h4 id="point-locations-nz--kml-data">Point locations (<code class="highlighter-rouge">nz + kml data</code>)</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s2">"./R/kml_to_tidy.R"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -- Attaching packages ------------------------- tidyverse 1.2.1 --
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## v tibble  2.1.3     v purrr   0.3.2
+## v tidyr   1.0.0     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## -- Conflicts ---------------------------- tidyverse_conflicts() --
+## x tidyr::extract()         masks raster::extract()
+## x dplyr::filter()          masks stats::filter()
+## x kableExtra::group_rows() masks dplyr::group_rows()
+## x dplyr::lag()             masks stats::lag()
+## x raster::select()         masks dplyr::select()
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Multiple layers are present in data source C:\Code\Creating-maps-in-R\data\invasive-species-NAH-research.kml, reading layer `Hollyford'.
+## Use `st_layers' to list all layer names and their type in a data source.
+## Set the `layer' argument in `st_read' to read a particular layer.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning in evalq((function (..., call. = TRUE, immediate. = FALSE,
+## noBreaks. = FALSE, : automatically selected the first layer in a data
+## source containing more than one.
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Reading layer `Hollyford' from data source `C:\Code\Creating-maps-in-R\data\invasive-species-NAH-research.kml' using driver `KML'
+## Simple feature collection with 10 features and 2 fields
+## geometry type:  GEOMETRY
+## dimension:      XYZ
+## bbox:           xmin: 167.9963 ymin: -45.06019 xmax: 168.1392 ymax: -44.70935
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## Observations: 10
+## Variables: 3
+## $ Name        &lt;fct&gt; Gunns Camp, Choqenout and Ruscoe 2000, Hollyford V...
+## $ Description &lt;fct&gt; "", "Eglinton Valley", "", "", "", "", "", "", "",...
+## $ geometry    &lt;GEOMETRY [°]&gt; POINT Z (168.1392 -44.76039 0), POINT Z (...
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kable</span><span class="p">(</span><span class="n">tidy.kat</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">folder</th>
+      <th style="text-align: left">name</th>
+      <th style="text-align: left">description</th>
+      <th style="text-align: left">styleUrl</th>
+      <th style="text-align: right">longitude</th>
+      <th style="text-align: right">latitude</th>
+      <th style="text-align: right">altitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Gunns Camp</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-0288D1-nodesc</td>
+      <td style="text-align: right">168.1392</td>
+      <td style="text-align: right">-44.76039</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Choqenout and Ruscoe 2000</td>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">#icon-1899-0288D1</td>
+      <td style="text-align: right">167.9963</td>
+      <td style="text-align: right">-45.06019</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Hollyford Valley Lookout</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-0288D1-nodesc</td>
+      <td style="text-align: right">168.1050</td>
+      <td style="text-align: right">-44.80905</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Hollyford Airstrip</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-0288D1-nodesc</td>
+      <td style="text-align: right">168.1337</td>
+      <td style="text-align: right">-44.73744</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Point 9</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-0288D1-nodesc</td>
+      <td style="text-align: right">168.1262</td>
+      <td style="text-align: right">-44.79766</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hollyford</td>
+      <td style="text-align: left">Point 10</td>
+      <td style="text-align: left">x = 10, y = 250</td>
+      <td style="text-align: left">#icon-1899-0288D1</td>
+      <td style="text-align: right">168.0794</td>
+      <td style="text-align: right">-44.90247</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">MR1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-F9A825-nodesc</td>
+      <td style="text-align: right">168.0776</td>
+      <td style="text-align: right">-44.89081</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">M1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-FBC02D-nodesc</td>
+      <td style="text-align: right">168.1005</td>
+      <td style="text-align: right">-44.85371</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">M1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-FBC02D-nodesc</td>
+      <td style="text-align: right">168.0748</td>
+      <td style="text-align: right">-44.89257</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">R1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-000000-nodesc</td>
+      <td style="text-align: right">168.0968</td>
+      <td style="text-align: right">-44.85569</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">MR1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-FBC02D-nodesc</td>
+      <td style="text-align: right">168.0995</td>
+      <td style="text-align: right">-44.85768</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eglinton Valley</td>
+      <td style="text-align: left">R1</td>
+      <td style="text-align: left">NA</td>
+      <td style="text-align: left">#icon-1899-000000-nodesc</td>
+      <td style="text-align: right">168.0789</td>
+      <td style="text-align: right">-44.89277</td>
+      <td style="text-align: right">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glimpse</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Observations: 16
+## Variables: 7
+## $ Name          &lt;chr&gt; "Northland", "Auckland", "Waikato", "Bay of Plen...
+## $ Island        &lt;chr&gt; "North", "North", "North", "North", "North", "No...
+## $ Land_area     &lt;dbl&gt; 12500.5611, 4941.5726, 23900.0364, 12071.1447, 8...
+## $ Population    &lt;dbl&gt; 175500, 1657200, 460100, 299900, 48500, 164000, ...
+## $ Median_income &lt;int&gt; 23400, 29600, 27900, 26200, 24400, 26100, 29100,...
+## $ Sex_ratio     &lt;dbl&gt; 0.9424532, 0.9442858, 0.9520500, 0.9280391, 0.93...
+## $ geom          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((1745493 600..., MUL...
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glimpse</span><span class="p">(</span><span class="n">tidy.kat</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Observations: 12
+## Variables: 7
+## $ folder      &lt;chr&gt; "Hollyford", "Hollyford", "Hollyford", "Hollyford"...
+## $ name        &lt;chr&gt; "Gunns Camp", "Choqenout and Ruscoe 2000", "Hollyf...
+## $ description &lt;chr&gt; NA, "Eglinton Valley", NA, NA, NA, "x = 10, y = 25...
+## $ styleUrl    &lt;chr&gt; "#icon-1899-0288D1-nodesc", "#icon-1899-0288D1", "...
+## $ longitude   &lt;dbl&gt; 168.1392, 167.9963, 168.1050, 168.1337, 168.1262, ...
+## $ latitude    &lt;dbl&gt; -44.76039, -45.06019, -44.80905, -44.73744, -44.79...
+## $ altitude    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m.kat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tidy.kat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+            </span><span class="n">transmute</span><span class="p">(</span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">folder</span><span class="p">,</span><span class="w">
+                   </span><span class="n">Island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"South"</span><span class="p">,</span><span class="w">
+                   </span><span class="n">Land_area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w">
+                   </span><span class="n">Population</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w">
+                   </span><span class="n">Sex_ratio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w">
+                   </span><span class="c1"># geom = NA,</span><span class="w">
+                   </span><span class="n">lat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">latitude</span><span class="p">,</span><span class="w">
+                   </span><span class="n">long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">longitude</span><span class="p">,</span><span class="w">
+                   </span><span class="n">alt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">altitude</span><span class="p">)</span><span class="w">
+
+</span><span class="n">plot.dat1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">full_join</span><span class="p">(</span><span class="n">nz</span><span class="p">,</span><span class="w"> </span><span class="n">m.kat</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Joining, by = c("Name", "Island", "Land_area", "Population", "Sex_ratio")
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glimpse</span><span class="p">(</span><span class="n">plot.dat1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Observations: 28
+## Variables: 10
+## $ Name          &lt;chr&gt; "Northland", "Auckland", "Waikato", "Bay of Plen...
+## $ Island        &lt;chr&gt; "North", "North", "North", "North", "North", "No...
+## $ Land_area     &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ Population    &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ Median_income &lt;int&gt; 23400, 29600, 27900, 26200, 24400, 26100, 29100,...
+## $ Sex_ratio     &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ lat           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+## $ long          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+## $ alt           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+## $ geom          &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((1745493 600..., MUL...
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># nz %&gt;%</span><span class="w">
+</span><span class="c1">#   # mutate(grid = )</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="plots">Plots</h3>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">
+</span><span class="n">tm_shape</span><span class="p">(</span><span class="n">plot.dat1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">tm_fill</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+   </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="c1"># tm_compass(type = "8star", position = c("left", "top")) +</span><span class="w">
+  </span><span class="n">tm_compass</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"arrow"</span><span class="p">,</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="w"> </span><span class="s2">"top"</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_scale_bar</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">),</span><span class="w"> </span><span class="n">text.size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_dots</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: The shape plot.dat1 contains empty units.
+</code></pre></div></div>
+
+<p><img src="04-beech-data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">tm_dots</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## starting httpd help server ... done
+</code></pre></div></div>
+
+<p>Is it easier to work with polygons and centriod points as above??</p>
+
+<h2 id="coming"><em>coming</em></h2>
+
+<h4 id="abundance">Abundance</h4>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">abund.dat5</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/abundance5.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   N = col_double(),
+##   se.N = col_double(),
+##   lcl.N = col_double(),
+##   ucl.N = col_double(),
+##   trip = col_double(),
+##   grid.n = col_double(),
+##   trip.no = col_double(),
+##   year = col_double(),
+##   cum.seed = col_double(),
+##   seed.account.N = col_double(),
+##   log.seed = col_double(),
+##   true.date = col_date(format = "")
+## )
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## See spec(...) for full column specifications.
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">glimpse</span><span class="p">(</span><span class="n">abund.dat5</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Observations: 144
+## Variables: 26
+## $ N              &lt;dbl&gt; 85.185920, 141.346453, 125.542907, 23.769273, 8...
+## $ se.N           &lt;dbl&gt; 17.258336, 24.813696, 15.717429, 1.661358, 18.5...
+## $ lcl.N          &lt;dbl&gt; 53, 103, 100, 22, 57, 88, 93, 25, 13, 0, 1, 1, ...
+## $ ucl.N          &lt;dbl&gt; 114, 200, 162, 28, 125, 179, 164, 43, 26, 5, 5,...
+## $ var            &lt;chr&gt; "N[1,1]", "N[2,1]", "N[3,1]", "N[4,1]", "N[5,1]...
+## $ grid           &lt;chr&gt; "egl M1", "egl M1", "egl M1", "egl M1", "egl M1...
+## $ trip           &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ...
+## $ grid.n         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
+## $ trip.no        &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, ...
+## $ valley         &lt;chr&gt; "egl", "egl", "egl", "egl", "egl", "egl", "egl"...
+## $ control        &lt;chr&gt; "control", "control", "control", "control", "co...
+## $ Valley         &lt;chr&gt; "egl", "egl", "egl", "egl", "egl", "egl", "egl"...
+## $ year           &lt;dbl&gt; 1999, 1999, 1999, 2000, 2000, 2000, 2000, 2001,...
+## $ month          &lt;chr&gt; "May", "Aug", "Nov", "Feb", "May", "Aug", "Nov"...
+## $ cum.seed       &lt;dbl&gt; 590.781767, 621.339445, 631.525337, 20.371785, ...
+## $ seed.account.N &lt;dbl&gt; 6.9352044, 4.3958616, 5.0303546, 0.8570639, 14....
+## $ log.seed       &lt;dbl&gt; 2.7714271, 2.7933289, 2.8003908, 1.3090291, 3.1...
+## $ valley.rep     &lt;chr&gt; "egl", "egl", "egl", "egl", "egl", "egl", "egl"...
+## $ grid.rats      &lt;chr&gt; "M1", "M1", "M1", "M1", "M1", "M1", "M1", "M1",...
+## $ Conditions     &lt;chr&gt; "rats.removed", "rats.removed", "rats.removed",...
+## $ grouping.1     &lt;chr&gt; "treat.highN", "treat.highN", "treat.highN", "t...
+## $ grouping.2     &lt;chr&gt; "treat.highN", "treat.highN", "treat.highN", "t...
+## $ grouping.3     &lt;chr&gt; "treat.highN", "treat.highN", "treat.highN", "t...
+## $ grouping.4     &lt;chr&gt; "treat.highN", "treat.highN", "treat.highN", "t...
+## $ true.date      &lt;date&gt; 1999-05-01, 1999-08-01, 1999-11-01, 2000-02-01...
+## $ treat.six      &lt;chr&gt; "egl control rats.removed", "egl control rats.r...
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### summarizing abundance data</span><span class="w">
+
+</span><span class="c1"># sum.dat &lt;- abund.dat5 %&gt;%</span><span class="w">
+</span><span class="c1">#               group_by()</span><span class="w">
+
+</span><span class="c1">### merge to datasets</span><span class="w">
+
+</span><span class="c1"># dat.nz.add &lt;- nz %&gt;% </span><span class="w">
+</span><span class="c1">#                 mutate()</span><span class="w">
+</span></code></pre></div></div>
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

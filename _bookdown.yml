@@ -1,7 +1,0 @@
-book_filename: "GIS-bookdown"
-chapter_name: " "
-repo: https://github.com/davan690/beech-publication-wr
-output_dir: docs
-rmd_files: ["index.Rmd", "01-Introduction.Rmd", "02-Diving-In.Rmd", "03-Work-in-Progress.Rmd","04-beech-data.Rmd", "05-outputs.Rmd","06-resources.Rmd", "07-leaflet-tabs.Rmd"]
-clean: [packages.bib, bookdown.bbl]
-new_session: yes

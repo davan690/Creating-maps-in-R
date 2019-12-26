@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Introduction to visualising spatial data in R</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Introduction to visualising spatial data in R" />
+  
+
+   
+  <meta property="og:description" content="Introduction to visualising spatial data in R ================ ## Preface This tutorial is an introduction to visualising and analysing spatial data in R using a package called “sp”. This is based on the **sp** class system however there is a newer package avaliable for analysis of spatical data. For a...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/Forked-extra-current/" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/Forked-extra-current/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Introduction to visualising spatial data in R" />
+  
+
+  
+  <meta name="twitter:description" content="Introduction to visualising spatial data in R ================ ## Preface This tutorial is an introduction to visualising and analysing spatial data in R using a package called “sp”. This is based on the **sp** class system however there is a newer package avaliable for analysis of spatical data. For a...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Introduction to visualising spatial data in R</h1>
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h1 id="introduction-to-visualising-spatial-data-in-r">Introduction to visualising spatial data in R</h1>
+
+<h2 id="preface">Preface</h2>
+
+<p>This tutorial is an introduction to visualising and analysing spatial
+data in R using a package called “sp”. This is based on the <strong>sp</strong> class
+system however there is a newer package avaliable for analysis of
+spatical data. For a guide to the more recent <strong>sf</strong> package check out
+<a href="http://robinlovelace.net/geocompr/spatial-class.html">Chapter 2</a> of the
+in-development book <a href="https://github.com/Robinlovelace/geocompr">Geocomputation with
+R</a>, the source code of which
+can be found at
+<a href="https://github.com/Robinlovelace/geocompr">github.com/Robinlovelace/geocompr</a>.</p>
+
+<p>Although <strong>sf</strong> supersedes <strong>sp</strong> in many ways, there is still merit in
+learning the content in this tutorial, which teaches principles that
+will be useful regardless of software. Specifically this tutorial
+focusses on map-making with R’s ‘base’ graphics and various dedicated
+map-making packages for R including <strong>tmap</strong> and <strong>leaflet</strong>. It aims to
+teach the basics of using R as a fast, user-friendly and extremely
+powerful command-line Geographic Information System (GIS).</p>
+
+<!-- I have extended this a bit to include my uses of the tidyverse approach. [Anthony Davidson] -->
+
+<p>By the end of the tutorial you should have the confidence and skills
+needed to convert a diverse range of geographical and non-geographical
+datasets into meaningful analyses and visualisations. Using data and
+code provided in this repository all of the results are reproducible,
+culminating in publication-quality maps such as the faceted map of
+London’s population below:</p>
+
+<p><img src="https://raw.githubusercontent.com/Robinlovelace/Creating-maps-in-R/master/figure/facet_london.png" alt="image-lnd" /></p>
+
+<p>The course will even show you how to make your maps animated:</p>
+
+<p><img src="https://raw.githubusercontent.com/Robinlovelace/Creating-maps-in-R/master/figure/lnd-animated.gif" alt="" /></p>
+
+<p>An up-to-date pdf version of this tutorial is maintained for teaching
+purposes in the file
+<a href="https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/intro-spatial-rl.pdf">intro-spatial-rl.pdf</a>.</p>
+
+<p>If you have any feedback on this tutorial please let us know via email
+or via this repository. Contibutions to the <code class="highlighter-rouge">.Rmd</code> file
+(<a href="https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/README.Rmd">README.Rmd</a>)
+are welcome. Happy mapping!</p>
+
+<p>The tutorial is practical in nature: you will load-in, visualise and
+manipulate spatial data. We assume no prior knowledge of spatial data
+analysis but some experience with R will help. This tutorial is
+organised as follows:</p>
+
+<ol>
+  <li>
+    <p>Introduction: provides a guide to R’s syntax and preparing for the
+tutorial</p>
+  </li>
+  <li>
+    <p>Spatial data in R: describes basic spatial functions in R</p>
+  </li>
+  <li>
+    <p>Creating and manipulating spatial data: includes changing
+projection, clipping and spatial joins</p>
+  </li>
+  <li>
+    <p>Map making with <strong>tmap</strong>, <strong>ggplot2</strong> and <strong>leaflet</strong>: this section
+demonstrates map making with more advanced visualisation tools</p>
+  </li>
+  <li>
+    <p>Taking spatial analysis in R further: a compilation of resources for
+furthering your skills</p>
+  </li>
+</ol>
+
+<p>To distinguish between prose and code, please be aware of the following
+typographic conventions used in this document:</p>
+
+<p>R code (e.g. <code class="highlighter-rouge">plot(x, y)</code>) is written in a <code class="highlighter-rouge">monospace</code> font and package
+names (e.g. <strong>rgdal</strong>) are written in <strong>bold</strong>.</p>
+
+<p>A double hash (<code class="highlighter-rouge">##</code>) at the start of a line of code indicates that this
+is output from R.</p>
+
+<p>Lengthy outputs have been omitted from the document to save space, so do
+not be alarmed if R produces additional messages: you can always look up
+them up on-line.</p>
+
+<p>As with any programming language, there are often many ways to produce
+the same output in R. The code presented in this document is not the
+only way to do things. We encourage you to play with the code to gain a
+deeper understanding of R. Do not worry, you cannot ‘break’ anything
+using R and all the input data can be re-loaded if things do go wrong.
+As with learning to skateboard, you learn by falling and getting an
+<code class="highlighter-rouge">Error:</code> message in R is much less painful than falling onto concrete!
+We encourage <code class="highlighter-rouge">Error:</code>s — it means you are trying new things.</p>
+
+<h1 id="part-i-introduction">Part I: Introduction</h1>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>For this tutorial you need a copy of R. The latest version can be
+downloaded from <a href="http://cran.r-project.org/">http://cran.r-project.org/</a>.</p>
+
+<p>We also suggest that you use an R editor, such as
+<a href="http://www.rstudio.com/">RStudio</a>, as this will improve the
+user-experience and help with the learning process. This can be
+downloaded from <a href="http://www.rstudio.com">http://www.rstudio.com</a>. The R Studio interface is
+comprised of a number of windows, the most important being the console
+window and the script window. Anything you type directly into the
+console window will not be saved, so use the script window to create
+scripts which you can save for later use. There is also a Data
+Environment window which lists the dataframes and objects being used.
+Familiarise yourself with the R Studio interface before getting started
+on the tutorial.</p>
+
+<p>When writing code in any language, it is good practice to use consistent
+and clear conventions, and R is no exception. Adding comments to your
+code is also useful; make these meaningful so you remember what the code
+is doing when you revisit it at a later date. You can add a comment by
+using the <code class="highlighter-rouge">#</code> symbol before or after a line of code, as illustrated in
+the block of code below. This code should create Figure 1 if typed
+correctly into the Console window:</p>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-2-1.png" alt="Basic plot of x and y (right) and code used to generate the plot
+(right)." /></p>
+
+<p>This first line in this block of code creates a new <em>object</em> called <code class="highlighter-rouge">x</code>
+and assigns it to a range of integers between 1 and 400. The second line
+creates another object called <code class="highlighter-rouge">y</code> which is assigned to a mathematical
+formula, and the third line plots the two together to create the plot
+shown.</p>
+
+<p>Note <code class="highlighter-rouge">&lt;-</code>, the directional “arrow” assignment symbol which creates a new
+object and assigns it to the value you have given.[1]</p>
+
+<p>If you require help on any function, use the <code class="highlighter-rouge">help</code> command,
+e.g. <code class="highlighter-rouge">help(plot)</code>. Because R users love being concise, this can also be
+written as <code class="highlighter-rouge">?plot</code>. Feel free to use it at any point you would like more
+detail on a specific function (although R’s help files are famously
+cryptic for the un-initiated). Help on more general terms can be found
+using the <code class="highlighter-rouge">??</code> symbol. To test this, try typing <code class="highlighter-rouge">??regression</code>. For the
+most part, <em>learning by doing</em> is a good motto, so let’s crack on and
+download some packages and data.</p>
+
+<h2 id="r-packages">R Packages</h2>
+
+<p>R has a huge and growing number of spatial data packages. We recommend
+taking a quick browse on R’s main website to see the spatial packages
+available: <a href="http://cran.r-project.org/web/views/Spatial.html">http://cran.r-project.org/web/views/Spatial.html</a>.</p>
+
+<p>In this tutorial we will use the packages from the ‘<strong>sp</strong>verse’, that
+use the <strong>sp</strong> package:</p>
+
+<ul>
+  <li><strong>ggmap</strong>: extends the plotting package <strong>ggplot2</strong> for maps</li>
+  <li><strong>rgdal</strong>: R’s interface to the popular C/C++ spatial data
+processing library <a href="http://www.gdal.org/">gdal</a></li>
+  <li><strong>rgeos</strong>: R’s interface to the powerful vector processing library
+<a href="http://trac.osgeo.org/geos/">geos</a></li>
+  <li><strong>maptools</strong>: provides various mapping functions</li>
+  <li><a href="http://cran.r-project.org/web/packages/dplyr/index.html"><strong>dplyr</strong></a>
+and
+<a href="http://blog.rstudio.org/2014/07/22/introducing-tidyr/"><strong>tidyr</strong></a>:
+fast and concise data manipulation packages</li>
+  <li><strong>tmap</strong>: a new packages for rapidly creating beautiful maps</li>
+</ul>
+
+<p>For a tutorial based on the recent
+<a href="https://github.com/edzer/sfr"><strong>sf</strong></a> package you will have to look
+elsewhere, like the
+<a href="https://bookdown.org/robinlovelace/geocompr/">geocompr</a> website, the
+online home of the forthcoming book <em>Geocomputation with R</em>.</p>
+
+<p>Some packages may already be installed on your computer. To test if a
+package is installed, try to load it using the <code class="highlighter-rouge">library</code> function; for
+example, to test if <strong>ggplot2</strong> is installed, type <code class="highlighter-rouge">library(ggplot2)</code>
+into the console window. If there is no output from R, this is good
+news: it means that the library has already been installed on your
+computer.</p>
+
+<p>If you get an error message,you will need to install the package using
+<code class="highlighter-rouge">install.packages("ggplot2")</code>. The package will download from the
+Comprehensive R Archive Network (CRAN); if you are prompted to select a
+‘mirror’, select one that is close to current location. If you have
+not done so already, install these packages on your computer now. A
+<a href="http://stackoverflow.com/questions/8175912/load-multiple-packages-at-once">quick
+way</a>
+to do this in one go is to enter the following lines of code:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"ggmap"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rgdal"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rgeos"</span><span class="p">,</span><span class="w"> </span><span class="s2">"maptools"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dplyr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tidyr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tmap"</span><span class="p">)</span><span class="w">
+ </span><span class="c1"># install.packages(x) # warning: uncommenting this may take a number of minutes</span><span class="w">
+</span><span class="n">lapply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">library</span><span class="p">,</span><span class="w"> </span><span class="n">character.only</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="c1"># load the required packages</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="part-ii-spatial-data-in-r">Part II: Spatial data in R</h1>
+
+<h2 id="starting-the-tutorial-and-downloading-the-data">Starting the tutorial and downloading the data</h2>
+
+<p>Now that we have looked at R’s basic syntax and installed the necessary
+packages,let’s load some real spatial data. The next part of the
+tutorial will focus on plotting and interrogating spatial objects.</p>
+
+<p>The data used for this tutorial can be downloaded from:
+<a href="https://github.com/Robinlovelace/Creating-maps-in-R">https://github.com/Robinlovelace/Creating-maps-in-R</a>. Click on the
+“Download ZIP” button on the right hand side of the screen and once
+downloaded, unzip this to a new folder on your computer.</p>
+
+<p>Open the existing ‘Creating-maps-in-R’ project using <code class="highlighter-rouge">File -&gt; Open
+File...</code> on the top menu.</p>
+
+<p>Alternatively, use the <em>project menu</em> to open the project or create a
+new one. It is <em>highly recommended</em> that you use RStudio’s projects to
+organise your R work and that you organise your files into sub-folders
+(e.g. <code class="highlighter-rouge">code</code>, <code class="highlighter-rouge">input-data</code>, <code class="highlighter-rouge">figures</code>) to avoid digital clutter (Figure
+2). The RStudio website contains an overview of the software:
+<a href="http://www.rstudio.com/products/rstudio/">rstudio.com/products/rstudio/</a>.</p>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-5-1.png" alt="The RStudio environment with the project tab poised to open the
+Creating-maps-in-R
+project." /></p>
+
+<p>Opening a project sets the current working directory to the project’s
+parent folder, the <code class="highlighter-rouge">Creating-maps-in-R</code> folder in this case. If you ever
+need to change your working directory, you can use the ‘Session’ menu at
+the top of the page or use the <a href="http://www.statmethods.net/interface/workspace.html"><code class="highlighter-rouge">setwd</code>
+command</a>.</p>
+
+<p>The first file we are going to load into R Studio is the “london_sport”
+<a href="http://en.wikipedia.org/wiki/Shapefile">shapefile</a> located in the
+‘data’ folder of the project. It is worth looking at this input
+dataset in your file browser before opening it in R. You will notice
+that there are several files named “london_sport”, all with different
+file extensions. This is because a shapefile is actually made up of a
+number of different files, such as .prj, .dbf and .shp.</p>
+
+<p>You could also try opening the file “london_sport.shp” file in a
+conventional GIS such as QGIS to see what a shapefile contains.</p>
+
+<p>You should also open “london_sport.dbf” in a spreadsheet program such
+as LibreOffice Calc. to see what this file contains. Once you think you
+understand the input data, it’s time to open it in R. There are a number
+of ways to do this, the most commonly used and versatile of which is
+<code class="highlighter-rouge">readOGR</code>. This function, from the <strong>rgdal</strong> package, automatically
+extracts the information regarding the data.</p>
+
+<p><strong>rgdal</strong> is R’s interface to the “Geospatial Abstraction Library
+(GDAL)” which is used by other open source GIS packages such as QGIS
+and enables R to handle a broader range of spatial data formats. If
+you’ve not already <em>installed</em> and loaded the <strong>rgdal</strong> package (see
+the ‘prerequisites and packages’ section) do so now:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: package 'rgdal' was built under R version 3.5.3
+
+## Warning: package 'sp' was built under R version 3.5.3
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data/london_sport.shp"</span><span class="p">)</span><span class="w">
+</span><span class="c1"># lnd &lt;- readOGR(dsn = "data", layer = "london_sport")</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In the second line of code above the <code class="highlighter-rouge">readOGR</code> function is used to load
+a shapefile and assign it to a new spatial object called <code class="highlighter-rouge">lnd</code>, short
+for London.</p>
+
+<p><code class="highlighter-rouge">readOGR</code> is a <em>function</em> of the <strong>rgdal</strong> package, the first <em>argument</em>
+of which <code class="highlighter-rouge">dsn</code>: “data source name”, the file or directory of the
+geographic data to be loaded. Thanks to recent developments in
+<strong>rgdal</strong>, the layer no longer has to be specified (as it is in the 3
+line of code which has been <em>commented out</em>).[2]</p>
+
+<p><code class="highlighter-rouge">lnd</code> is now an object representing the population of London Boroughs in
+2001 and the percentage of the population participating in sporting
+activities according to the <a href="http://data.london.gov.uk/datastore/package/active-people-survey-kpi-data-borough">Active People
+Survey</a>.
+The boundary data is from the <a href="http://www.ordnancesurvey.co.uk/oswebsite/opendata/">Ordnance
+Survey</a>.</p>
+
+<p>For information about how to load different types of spatial data, see
+the help documentation for <code class="highlighter-rouge">readOGR</code>. This can be accessed by typing
+<code class="highlighter-rouge">?readOGR</code>. For another worked example, in which a GPS trace is loaded,
+please see Cheshire and Lovelace (2014).</p>
+
+<h2 id="the-structure-of-spatial-data-in-r">The structure of spatial data in R</h2>
+
+<p>Spatial objects like the <code class="highlighter-rouge">lnd</code> object are made up of a number of
+different <em>slots</em>, the key <em>slots</em> being <code class="highlighter-rouge">@data</code> (non geographic
+<em>attribute data</em>) and <code class="highlighter-rouge">@polygons</code> (or <code class="highlighter-rouge">@lines</code> for line data). The data
+<em>slot</em> can be thought of as an attribute table and the geometry <em>slot</em>
+is the polygons that make up the physcial boundaries. Specific <em>slots</em>
+are accessed using the <code class="highlighter-rouge">@</code> symbol. Let’s now analyse the sport object
+with some basic commands:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##   ons_label                 name Partic_Per Pop_2001
+## 0      00AF              Bromley       21.7   295535
+## 1      00BD Richmond upon Thames       26.6   172330
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mean</span><span class="p">(</span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="p">)</span><span class="w"> </span><span class="c1"># short for mean(lnd@data$Partic_Per) </span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 20.05455
+</code></pre></div></div>
+
+<p>Take a look at the output created (note the table format of the data and
+the column names). There are two important symbols at work in the above
+block of code: the <code class="highlighter-rouge">@</code> symbol in the first line of code is used to refer
+to the data <em>slot</em> of the <code class="highlighter-rouge">lnd</code> object. The <code class="highlighter-rouge">$</code> symbol refers to the
+<code class="highlighter-rouge">Partic_Per</code> column (a variable within the table) in the <code class="highlighter-rouge">data</code> <em>slot</em>,
+which was identified from the result of running the first line of code.</p>
+
+<p>The <code class="highlighter-rouge">head</code> function in the first line of the code above simply means
+“show the first few lines of data” (try entering <code class="highlighter-rouge">head(lnd@data)</code>, see
+<code class="highlighter-rouge">?head</code> for more details). The second line calculates finds the mean
+sports participation per 100 people for zones in London. The results
+works because we are dealing with numeric data. To check the classes of
+all the variables in a spatial dataset, you can use the following
+command:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sapply</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  ons_label       name Partic_Per   Pop_2001 
+##   "factor"   "factor"  "numeric"   "factor"
+</code></pre></div></div>
+
+<p>This shows that, unexpectedly, <code class="highlighter-rouge">Pop_2001</code> is a factor. We can <em>coerce</em>
+the variable into the correct, numeric, format with the following
+command:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd</span><span class="o">$</span><span class="n">Pop_2001</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">lnd</span><span class="o">$</span><span class="n">Pop_2001</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Type the function again but this time hit <code class="highlighter-rouge">tab</code> before completing the
+command. RStudio has auto-complete functionality which can save you a
+lot of time in the long run (see Figure 3).</p>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-11-1.png" alt="Tab-autocompletion in action: display from RStudio after typing `lnd@`
+then `tab` to see which slots are in
+`lnd`" /></p>
+
+<p>To explore <code class="highlighter-rouge">lnd</code> object further, try typing <code class="highlighter-rouge">nrow(lnd)</code> (display number
+of rows) and record how many zones the dataset contains. You can also
+try <code class="highlighter-rouge">ncol(lnd)</code>.</p>
+
+<p>One issue with the data that we have loaded is that it has no coordinate
+reference system (CRS):</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd</span><span class="o">@</span><span class="n">proj4string</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## CRS arguments:
+##  +proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000
+## +y_0=-100000 +ellps=airy +units=m +no_defs
+</code></pre></div></div>
+
+<h2 id="basic-plotting">Basic plotting</h2>
+
+<p>Now we have seen something of the structure of spatial objects in R, let
+us look at plotting them. Note, that plots use the <em>geometry</em> data,
+contained primarily in the <code class="highlighter-rouge">@polygons</code> slot.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="c1"># not shown in tutorial - try it on your computer</span><span class="w">
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">plot</code> is one of the most useful functions in R, as it changes its
+behaviour depending on the input data (this is called <em>polymorphism</em> by
+computer scientists). Inputting another object such as <code class="highlighter-rouge">plot(lnd@data)</code>
+will generate an entirely different type of plot. Thus R is intelligent
+at guessing what you want to do with the data you provide it with.</p>
+
+<p>R has powerful subsetting capabilities that can be accessed very
+concisely using square brackets,as shown in the following example:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># select rows of lnd@data where sports participation is less than 13</span><span class="w">
+</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">[</span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">13</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##    ons_label           name Partic_Per
+## 32      00AA City of London        9.1
+</code></pre></div></div>
+
+<p>The above line of code asked R to select only the rows from the <code class="highlighter-rouge">lnd</code>
+object, where sports participation is lower than 13, in this case rows
+17, 21 and 32, which are Harrow, Newham and the city centre
+respectively. The square brackets work as follows: anything before the
+comma refers to the rows that will be selected, anything after the comma
+refers to the number of columns that should be returned. For example if
+the data frame had 1000 columns and you were only interested in the
+first two columns you could specify <code class="highlighter-rouge">1:2</code> after the comma. The “:”
+symbol simply means “to”, i.e. columns 1 to 2. Try experimenting with
+the square brackets notation (e.g. guess the result of
+<code class="highlighter-rouge">lnd@data[1:2, 1:3]</code> and test it).</p>
+
+<p>So far we have been interrogating only the attribute data <em>slot</em>
+(<code class="highlighter-rouge">@data</code>) of the <code class="highlighter-rouge">lnd</code> object, but the square brackets can also be used
+to subset spatial objects, i.e. the geometry <em>slot</em>. Using the same
+logic as before try to plot a subset of zones with high sports
+participation.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Select zones where sports participation is between 20 and 25%</span><span class="w">
+</span><span class="n">sel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">25</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="n">sel</span><span class="p">,</span><span class="w"> </span><span class="p">])</span><span class="w"> </span><span class="c1"># output not shown here</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">sel</span><span class="p">)</span><span class="w"> </span><span class="c1"># test output of previous selection (not shown)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This plot is quite useful, but it only displays the areas which meet the
+criteria. To see the sporty areas in context with the other areas of the
+map simply use the <code class="highlighter-rouge">add = TRUE</code> argument after the initial plot. (<code class="highlighter-rouge">add =
+T</code> would also work, but we like to spell things out in this tutorial for
+clarity). What do you think the <code class="highlighter-rouge">col</code> argument refers to in the below
+block? (see Figure 5).</p>
+
+<p>If you wish to experiment with multiple criteria queries, use <code class="highlighter-rouge">&amp;</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"lightgrey"</span><span class="p">)</span><span class="w"> </span><span class="c1"># plot the london_sport object</span><span class="w">
+</span><span class="n">sel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lnd</span><span class="o">$</span><span class="n">Partic_Per</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">25</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">[</span><span class="w"> </span><span class="n">sel</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"turquoise"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="c1"># add selected zones to map</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-16-1.png" alt="Simple plot of London with areas of high sports participation
+highlighted in blue" /></p>
+
+<p>Congratulations! You have just interrogated and visualised a spatial
+object: where are areas with high levels of sports participation in
+London? The map tells us. Do not worry for now about the intricacies of
+how this was achieved: you have learned vital basics of how R works as a
+language; we will cover this in more detail in subsequent sections.</p>
+
+<p>As a bonus stage, select and plot only zones that are close to the
+centre of London (see Figure 5). Programming encourages rigorous
+thinking and it helps to define the problem more specifically:</p>
+
+<blockquote>
+  <p><strong>Challenge</strong>: Select all zones whose geographic centroid lies within
+10 km of the geographic centroid of inner London.[3]</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: package 'rgeos' was built under R version 3.5.3
+</code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-17-1.png" alt="Zones in London whose centroid lie within 10 km of the geographic
+centroid of the City of London. Note the distinction between zones which
+only touch or ‘intersect’ with the buffer (light blue) and zones whose
+centroid is within the buffer (darker
+blue)." /></p>
+
+<h2 id="selecting-quadrants">Selecting quadrants</h2>
+
+<!-- In this example we will now interrogate the shapefile for London and split it into quadrants using lines of latitude and longitude. This will work in a similar way to the previous example. Once we have the centre point we will then use this create the lines of latitude and longitude on which the centre of the wards will be tested against. -->
+
+<p>The code below should help understand the way spatial data work in R.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Find the centre of the london area</span><span class="w">
+</span><span class="n">easting_lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">gCentroid</span><span class="p">(</span><span class="n">lnd</span><span class="p">))[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span><span class="n">northing_lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">gCentroid</span><span class="p">(</span><span class="n">lnd</span><span class="p">))[[</span><span class="m">2</span><span class="p">]]</span><span class="w">
+
+</span><span class="c1"># arguments to test whether or not a coordinate is east or north of the centre</span><span class="w">
+</span><span class="n">east</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">)[,</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">easting_lnd</span><span class="p">)</span><span class="w">
+</span><span class="n">north</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd</span><span class="p">)[,</span><span class="m">2</span><span class="p">],</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">northing_lnd</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># test if the coordinate is east and north of the centre</span><span class="w">
+</span><span class="n">lnd</span><span class="o">$</span><span class="n">quadrant</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"unknown"</span><span class="w"> </span><span class="c1"># prevent NAs in result</span><span class="w">
+</span><span class="n">lnd</span><span class="o">$</span><span class="n">quadrant</span><span class="p">[</span><span class="n">east</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">north</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"northeast"</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p><strong>Challenge</strong>: Based on the the above code as refrence try and find
+the remaining 3 quadrants and colour them as per Figure 6. Hint - you
+can use the <strong>llgridlines</strong> function in order to overlay the long-lat
+lines. For bonus points try to desolve the quadrants so the map is
+left with only 4 polygons.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: package 'tmap' was built under R version 3.5.3
+</code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-19-1.png" title="The 4 quadrants of London and dissolved borders. Challenge: recreate a plot that looks like this." alt="The 4 quadrants of London and dissolved borders. Challenge: recreate a plot that looks like this." height="5cm" /><img src="README_files/figure-gfm/unnamed-chunk-19-2.png" title="The 4 quadrants of London and dissolved borders. Challenge: recreate a plot that looks like this." alt="The 4 quadrants of London and dissolved borders. Challenge: recreate a plot that looks like this." height="5cm" /></p>
+
+<!-- ## Attribute data -->
+
+<!-- As we discovered in the previous section, shapefiles contain both attribute data and geometry data, both of which are automatically loaded into R when the  -->
+
+<!-- `readOGR` function is used. Let's look again at the attribute data of the `lnd` object by looking at the headings contained within it: `names(lnd)` -->
+
+<!-- Remember, the attribute data is contained in the `data` *slot* that can be accessed using the `@` symbol: `lnd@data`. This is useful if you do not wish to work with the spatial components of the data at all times. -->
+
+<!-- Type `summary(lnd)` to get some additional information about the -->
+
+<!-- data object. Spatial objects in R contain -->
+
+<!-- much additional information: -->
+
+<!-- ``` -->
+
+<!-- summary(lnd) -->
+
+<!-- ## Object of class SpatialPolygonsDataFrame -->
+
+<!-- ## Coordinates: -->
+
+<!-- ## min max -->
+
+<!-- ## x 503571.2 561941.1 -->
+
+<!-- ## y 155850.8 200932.5 -->
+
+<!-- ## Is projected: TRUE -->
+
+<!-- ## proj4string : -->
+
+<!-- ## [+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 ....] -->
+
+<!-- ... -->
+
+<!-- ``` -->
+
+<!-- The first line of the above output tells us that `lnd` is a special spatial class: a `SpatialPolygonsDataFrame`. -->
+
+<!-- This means it is composed of -->
+
+<!-- various polygons, each of which has a number of attributes. -->
+
+<!-- (Summaries of the attribute data are also provided, but are not printed above.) This is the ideal -->
+
+<!-- class of data to represent administrative zones. The coordinates tell -->
+
+<!-- us what the maximum and minimum x and y values are (the spatial extent of the data - useful for plotting). -->
+
+<!-- Finally, we are told something of the coordinate reference system -->
+
+<!-- with the `Is projected` and `proj4string` lines. -->
+
+<!-- In this case, we have a projected system, which means the data is relative to some point on the Earth's surface. -->
+
+<!-- We will cover reprojecting data in the next part of the tutorial. -->
+
+<h1 id="part-iii-creating-and-manipulating-spatial-data">Part III: Creating and manipulating spatial data</h1>
+
+<p>Alongside visualisation and interrogation, a GIS must also be able to
+create and modify spatial data. R’s spatial packages provide a very wide
+and powerful suite of functionality for processing and creating spatial
+data.</p>
+
+<p><em>Reprojecting</em> and <em>joining/clipping</em> are fundamental GIS operations, so
+in this section we will explore how these operations can be undertaken
+in R. Firstly We will join non-spatial data to spatial data so it can be
+mapped. Finally we will cover spatial joins, whereby information from
+two spatial objects is combined based on spatial location.</p>
+
+<h2 id="creating-new-spatial-data">Creating new spatial data</h2>
+
+<p>R objects can be created by entering the name of the class we want to
+make. <code class="highlighter-rouge">vector</code> and <code class="highlighter-rouge">data.frame</code> objects for example, can be created as
+follows:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vec</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"numeric"</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="o">/</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="o">/</span><span class="m">4</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We can check the class of these new objects using <code class="highlighter-rouge">class()</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "numeric"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "data.frame"
+</code></pre></div></div>
+
+<p>The same logic applies to spatial data. The input must be a numeric
+matrix or data.frame:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sp1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SpatialPoints</span><span class="p">(</span><span class="n">coords</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We have just created a spatial points object, one of the fundamental
+data types for spatial data. (The others are lines, polygons and pixels,
+which can be created by <code class="highlighter-rouge">SpatialLines</code>, <code class="highlighter-rouge">SpatialPolygons</code> and
+<code class="highlighter-rouge">SpatialPixels</code>, respectively.) Each type of spatial data has a
+corollary that can accepts non-spatial data, created by adding
+<code class="highlighter-rouge">DataFrame</code>. <code class="highlighter-rouge">SpatialPointsDataFrame()</code>, for example, creates points
+with an associated <code class="highlighter-rouge">data.frame</code>. The number of rows in this dataset must
+equal the number of features in the spatial object, which in the case of
+<code class="highlighter-rouge">sp1</code> is 3.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">sp1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "SpatialPoints"
+## attr(,"package")
+## [1] "sp"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spdf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SpatialPointsDataFrame</span><span class="p">(</span><span class="n">sp1</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">)</span><span class="w">
+</span><span class="nf">class</span><span class="p">(</span><span class="n">spdf</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "SpatialPointsDataFrame"
+## attr(,"package")
+## [1] "sp"
+</code></pre></div></div>
+
+<p>The above code extends the pre-existing object <code class="highlighter-rouge">sp1</code> by adding data from
+<code class="highlighter-rouge">df</code>. To see how strict spatial classes are, try replacing <code class="highlighter-rouge">df</code> with
+<code class="highlighter-rouge">mat</code> in the above code: it causes an error. All spatial data classes
+can be created in a similar way, although <code class="highlighter-rouge">SpatialLines</code> and
+<code class="highlighter-rouge">SpatialPolygons</code> are much more complicated (Bivand et al. 2013). More
+frequently your spatial data will be read-in from an externally-created
+file, e.g. using <code class="highlighter-rouge">readOGR()</code>. Unlike the spatial objects we created
+above, most spatial data comes with an associate ‘CRS’.</p>
+
+<h2 id="projections-setting-and-transforming-crs-in-r">Projections: setting and transforming CRS in R</h2>
+
+<p>The <em>Coordinate Reference System</em> (CRS) of spatial objects defines where
+they are placed on the Earth’s surface. You may have noticed
+’<code class="highlighter-rouge">proj4string</code> ’in the summary of <code class="highlighter-rouge">lnd</code> above: the information that
+follows represents its CRS. Spatial data should always have a CRS. If no
+CRS information is provided, and the correct CRS is known, it can be set
+as follow:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">proj4string</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA_character_</span><span class="w"> </span><span class="c1"># remove CRS information from lnd</span><span class="w">
+</span><span class="n">proj4string</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="s2">"+init=epsg:27700"</span><span class="p">)</span><span class="w"> </span><span class="c1"># assign a new CRS</span><span class="w">
+</span></code></pre></div></div>
+
+<p>R issues a warning when the CRS is changed. This is so the user knows
+that they are simply changing the CRS, not <em>reprojecting</em> the data. An
+easy way to refer to different projections is via <a href="http://www.epsg-registry.org/">EPSG
+codes</a>.</p>
+
+<p>Under this system <code class="highlighter-rouge">27700</code> represents the British National Grid. ‘WGS84’
+(<code class="highlighter-rouge">epsg:4326</code>) is a very commonly used CRS worldwide. The following code
+shows how to search the list of available EPSG codes and create a new
+version of <code class="highlighter-rouge">lnd</code> in WGS84:[4]</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EPSG</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">make_EPSG</span><span class="p">()</span><span class="w"> </span><span class="c1"># create data frame of available EPSG codes</span><span class="w">
+</span><span class="n">EPSG</span><span class="p">[</span><span class="n">grepl</span><span class="p">(</span><span class="s2">"WGS 84$"</span><span class="p">,</span><span class="w"> </span><span class="n">EPSG</span><span class="o">$</span><span class="n">note</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="c1"># search for WGS 84 code </span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##      code     note                                         prj4
+## 249  4326 # WGS 84          +proj=longlat +datum=WGS84 +no_defs
+## 5311 4978 # WGS 84 +proj=geocent +datum=WGS84 +units=m +no_defs
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd84</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">spTransform</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="s2">"+init=epsg:4326"</span><span class="p">))</span><span class="w"> </span><span class="c1"># reproject</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Above, <code class="highlighter-rouge">spTransform</code> converts the coordinates of <code class="highlighter-rouge">lnd</code> into the widely
+used WGS84 CRS. Now we’ve transformed <code class="highlighter-rouge">lnd</code> into a more widely used CRS,
+it is worth saving it. R stores data efficiently in <code class="highlighter-rouge">.RData</code> or <code class="highlighter-rouge">.Rds</code>
+formats. The former is more restrictive and maintains the object’s name,
+so we use the latter.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Save lnd84 object (we will use it in Part IV)</span><span class="w">
+</span><span class="n">saveRDS</span><span class="p">(</span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd84</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data/lnd84.Rds"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now we can remove the <code class="highlighter-rouge">lnd84</code> object with the <code class="highlighter-rouge">rm</code> command. It will be
+useful later. (In RStudio, notice it also disappears from the
+Environment in the top right panel.)</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rm</span><span class="p">(</span><span class="n">lnd84</span><span class="p">)</span><span class="w"> </span><span class="c1"># remove the lnd object</span><span class="w">
+</span><span class="c1"># we will load it back in later with readRDS(file = "data/lnd84.Rds")</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="attribute-joins">Attribute joins</h2>
+
+<p>Attribute joins are used to link additional pieces of information to our
+polygons. In the <code class="highlighter-rouge">lnd</code> object, for example, we have 4 attribute
+variables — that can be found by typing <code class="highlighter-rouge">names(lnd)</code>. But what happens
+when we want to add more variables from an external source? We will use
+the example of recorded crimes by London boroughs to demonstrate this.</p>
+
+<p>To reaffirm our starting point, let’s re-load the “london_sport”
+shapefile as a new object and plot it:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w"> </span><span class="c1"># ensure rgdal is loaded</span><span class="w">
+</span><span class="c1"># Create new object called "lnd" from "london_sport" shapefile</span><span class="w">
+</span><span class="n">lnd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="s2">"data/london_sport.shp"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="c1"># plot the lnd object (not shown)</span><span class="w">
+</span><span class="n">nrow</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="c1"># return the number of rows (not shown)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The non-spatial data we are going to join to the <code class="highlighter-rouge">lnd</code> object contains
+records of crimes in London. This is stored in a comma separated values
+<a href="https://raw.githubusercontent.com/Robinlovelace/Creating-maps-in-R/master/data/mps-recordedcrime-borough.csv">(<code class="highlighter-rouge">.csv</code>)</a>
+file called “mps-recordedcrime-borough”. If you open the
+<a href="https://raw.githubusercontent.com/Robinlovelace/Creating-maps-in-R/master/data/mps-recordedcrime-borough.csv">file</a>
+in a separate spreadsheet application first, we can see each row
+represents a single reported crime. We are going to use a function
+called <code class="highlighter-rouge">aggregate</code> to aggregate the crimes at the borough level, ready
+to join to our spatial <code class="highlighter-rouge">lnd</code> dataset. A new object called <code class="highlighter-rouge">crime_data</code>
+is created to store this data.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create and look at new crime_data object</span><span class="w">
+</span><span class="n">crime_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/mps-recordedcrime-borough.csv"</span><span class="p">,</span><span class="w">
+  </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+
+</span><span class="n">head</span><span class="p">(</span><span class="n">crime_data</span><span class="o">$</span><span class="n">CrimeType</span><span class="p">)</span><span class="w"> </span><span class="c1"># information about crime type</span><span class="w">
+
+</span><span class="c1"># Extract "Theft &amp; Handling" crimes and save</span><span class="w">
+</span><span class="n">crime_theft</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">crime_data</span><span class="p">[</span><span class="n">crime_data</span><span class="o">$</span><span class="n">CrimeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Theft &amp; Handling"</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">crime_theft</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># take a look at the result (replace 2 with 10 to see more rows)</span><span class="w">
+
+</span><span class="c1"># Calculate the sum of the crime count for each district, save result</span><span class="w">
+</span><span class="n">crime_ag</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggregate</span><span class="p">(</span><span class="n">CrimeCount</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Borough</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">crime_theft</span><span class="p">)</span><span class="w">
+</span><span class="c1"># Show the first two rows of the aggregated crime data</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">crime_ag</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>You should not expect to understand all of this upon first try: simply
+typing the commands and thinking briefly about the outputs is all that
+is needed at this stage. Here are a few things that you may not have
+seen before that will likely be useful in the future:</p>
+
+<ul>
+  <li>In the first line of code when we read in the file we specify its
+location (check in your file browser to be sure).</li>
+  <li>The <code class="highlighter-rouge">==</code> function is used to select only those observations that
+meet a specific condition i.e. where it is equal to, in this case
+all crimes involving “Theft and Handling”.</li>
+  <li>The <code class="highlighter-rouge">~</code> symbol means “by”: we aggregated the <code class="highlighter-rouge">CrimeCount</code> variable
+by the district name.</li>
+</ul>
+
+<p>Now that we have crime data at the borough level, the challenge is to
+join it to the <code class="highlighter-rouge">lnd</code> object. We will base our join on the <code class="highlighter-rouge">Borough</code>
+variable from the <code class="highlighter-rouge">crime_ag</code> object and the <code class="highlighter-rouge">name</code> variable from the
+<code class="highlighter-rouge">lnd</code> object. It is not always straight-forward to join objects based on
+names as the names do not always match. Let’s see which names in the
+<code class="highlighter-rouge">crime_ag</code> object match the spatial data object, <code class="highlighter-rouge">lnd</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Compare the name column in lnd to Borough column in crime_ag to see which rows match.</span><span class="w">
+</span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">crime_ag</span><span class="o">$</span><span class="n">Borough</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Return rows which do not match</span><span class="w">
+</span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="p">[</span><span class="o">!</span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">crime_ag</span><span class="o">$</span><span class="n">Borough</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] City of London
+## 33 Levels: Barking and Dagenham Barnet Bexley Brent Bromley ... Westminster
+</code></pre></div></div>
+
+<p>The first line of code above uses the <code class="highlighter-rouge">%in%</code> command to identify which
+values in <code class="highlighter-rouge">lnd$name</code> are also contained in the Borough names of the
+aggregated crime data. The results indicate that all but one of the
+borough names matches. The second line of code tells us that it is ‘City
+of London’. This does not exist in the crime data. This may be because
+the City of London has it’s own Police Force.[5] (The borough name in
+the crime data does not match <code class="highlighter-rouge">lnd$name</code> is ‘NULL’. Check this by typing
+<code class="highlighter-rouge">crime_ag$Borough[!crime_ag$Borough %in% lnd$name]</code>.)</p>
+
+<blockquote>
+  <p><strong>Challenge:</strong> identify the number of crimes taking place in borough
+‘NULL’, less than 4,000.</p>
+</blockquote>
+
+<p>Having checked the data found that one borough does not match, we are
+now ready to join the spatial and non-spatial datasets. It is
+recommended to use the <code class="highlighter-rouge">left_join</code> function from the <strong>dplyr</strong> package
+but the <code class="highlighter-rouge">merge</code> function could equally be used. Note that when we ask
+for help for a function that is not loaded, nothing happens, indicating
+we need to load it:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w"> </span><span class="c1"># load dplyr </span><span class="w">
+</span></code></pre></div></div>
+
+<p>We use <code class="highlighter-rouge">left_join</code> because we want the length of the data frame to
+remain unchanged, with variables from new data appended in new columns
+(see <code class="highlighter-rouge">?left_join</code>). The <code class="highlighter-rouge">*join</code> commands (including <code class="highlighter-rouge">inner_join</code> and
+<code class="highlighter-rouge">anti_join</code>) assume, by default, that matching variables have the same
+name. Here we will specify the association between variables in the two
+data sets:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">$</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="c1"># dataset to add to (results not shown)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">crime_ag</span><span class="o">$</span><span class="n">Borough</span><span class="p">)</span><span class="w"> </span><span class="c1"># the variables to join</span><span class="w">
+
+</span><span class="c1"># head(left_join(lnd@data, crime_ag)) # test it works</span><span class="w">
+</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">crime_ag</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'name'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Borough'</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: Column `name`/`Borough` joining factor and character vector,
+## coercing into character vector
+</code></pre></div></div>
+
+<p>Take a look at the new <code class="highlighter-rouge">lnd@data</code> object. You should see new variables
+added, meaning the attribute join was successful. Congratulations! You
+can now plot the rate of theft crimes in London by borough (see Fig 8).</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w"> </span><span class="c1"># load tmap package (see Section IV)</span><span class="w">
+</span><span class="n">qtm</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="s2">"CrimeCount"</span><span class="p">)</span><span class="w"> </span><span class="c1"># plot the basic map</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-39-1.png" title="Number of thefts per borough." alt="Number of thefts per borough." width="48%" style="display: block; margin: auto;" /></p>
+
+<blockquote>
+  <p><strong>Optional challenge:</strong> create a map of additional variables in London</p>
+</blockquote>
+
+<p>With the attribute joining skills you have learned in this section, you
+should now be able to take datasets from many sources,
+e.g. <a href="http://data.london.gov.uk/dataset/london-borough-profiles">data.london.gov.uk</a>,
+and join them to your geographical data.</p>
+
+<!-- Using this dataset and the methods developed above, Figure 8 was -->
+
+<!-- created: the proportion of council seats won by the Conservatives -->
+
+<!-- in the 2014 local elections. The **challenge** is to create  -->
+
+<!-- a similar map of a different variable (you may need to skip to -->
+
+<!-- Part IV to plot continuous variables).^[Hint: the solution relies on the -->
+
+<!-- **rgeos** function `gCentroid()`. To -->
+
+<!-- see how this map was created, see the code -->
+
+<!-- in README.Rmd at [github.com/Robinlovelace/Creating-maps-in-R/blob/master/README.Rmd](https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/README.Rmd).] -->
+
+<!-- ```{r, echo=FALSE, results='hide', message=FALSE, warning=FALSE, fig.cap="Proportion of council seats won by Conservatives in the 2014 local elections using data from data.london.gov and joined using the methods presented in this section", , out.width="48%", fig.align="center"} -->
+
+<!-- # install.packages("ggmap") -->
+
+<!-- library(maptools) -->
+
+<!-- library(ggmap) -->
+
+<!-- borough_dat <- read.csv("data/london-borough-profiles-2014.csv") -->
+
+<!-- names(borough_dat) -->
+
+<!-- borough_dat <- dplyr::rename(borough_dat, conservative = Proportion.of.seats.won.by.Conservatives.in.2014.election) -->
+
+<!-- borough_dat$conservative <- as.numeric(as.character(borough_dat$conservative)) -->
+
+<!-- summary(borough_dat$conservative) -->
+
+<!-- head(lnd$ons_label) -->
+
+<!-- head(borough_dat$Code) -->
+
+<!-- # check the joining variables work -->
+
+<!-- summary(borough_dat$Code %in% lnd$ons_label) -->
+
+<!-- # select the data to join -->
+
+<!-- to_join <- select(borough_dat, Code, conservative) -->
+
+<!-- lnd@data <- left_join(lnd@data, to_join, by = c('ons_label' = 'Code')) -->
+
+<!-- lnd_f <- fortify(lnd, region = "ons_label") -->
+
+<!-- lnd_f <- left_join(lnd_f, to_join, by = c('id' = 'Code')) -->
+
+<!-- map <- ggplot(lnd_f, aes(long, lat, group = group, fill = conservative)) + -->
+
+<!--   geom_polygon() + -->
+
+<!--   coord_equal() + -->
+
+<!--   labs(x = "Easting (m)", y = "Northing (m)", fill = "% Tory") + -->
+
+<!--   scale_fill_continuous(low = "grey", high = "blue") + -->
+
+<!--   theme_nothing(legend = T) -->
+
+<!-- map -->
+
+<!-- ``` -->
+
+<h2 id="clipping-and-spatial-joins">Clipping and spatial joins</h2>
+
+<p>In addition to joining by attribute (e.g. Borough name), it is also
+possible to do <a href="http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//00080000000q000000">spatial
+joins</a>
+in R. We use transport infrastructure points as the spatial data to
+join, with the aim of finding out about how many are found in each
+London borough.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w">
+</span><span class="c1"># create new stations object using the "lnd-stns" shapefile.</span><span class="w">
+</span><span class="n">stations</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data/lnd-stns.shp"</span><span class="p">)</span><span class="w">
+</span><span class="c1"># stations = read_shape("data/lnd-stns.shp") # from tmap</span><span class="w">
+</span><span class="n">proj4string</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span><span class="w"> </span><span class="c1"># this is the full geographical detail.</span><span class="w">
+</span><span class="n">proj4string</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="c1"># what's the coordinate reference system (CRS)</span><span class="w">
+</span><span class="n">bbox</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span><span class="w"> </span><span class="c1"># the extent, 'bounding box' of stations</span><span class="w">
+</span><span class="n">bbox</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="c1"># return the bounding box of the lnd object</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">proj4string()</code> function shows that the Coordinate Reference System
+(CRS) of <code class="highlighter-rouge">stations</code> differs from that of our <code class="highlighter-rouge">lnd</code> object. OSGB 1936 (or
+<a href="http://spatialreference.org/ref/epsg/27700/">EPSG 27700</a>) is the
+official CRS for the UK, so we will convert the ‘stations’ object to
+this:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create reprojected stations object</span><span class="w">
+</span><span class="n">stations</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">spTransform</span><span class="p">(</span><span class="n">stations</span><span class="p">,</span><span class="w"> </span><span class="n">CRSobj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="n">proj4string</span><span class="p">(</span><span class="n">lnd</span><span class="p">)))</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="c1"># plot London </span><span class="w">
+</span><span class="n">points</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span><span class="w"> </span><span class="c1"># overlay the station points</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-41-1.png" alt="Sampling and plotting
+stations" /></p>
+
+<p>Note the <code class="highlighter-rouge">stations</code> points now overlay the boroughs but that the spatial
+extent of <code class="highlighter-rouge">stations</code> is greater than that of <code class="highlighter-rouge">lnd</code>.</p>
+
+<p>To clip the <code class="highlighter-rouge">stations</code> so that only those falling within London boroughs
+are retained we can use <code class="highlighter-rouge">sp::over</code>, or simply the square bracket
+notation for subsetting tabular data (enter <code class="highlighter-rouge">?gIntersects</code> to find out
+another way to do this):</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stations</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">stations</span><span class="p">[</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w"> 
+</span><span class="n">plot</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span><span class="w"> </span><span class="c1"># test the clip succeeded</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-42-1.png" alt="The clipped stations
+dataset" /></p>
+
+<!-- The above line of code says: "output all `stations` within -->
+
+<!-- the `lnd` object bounds", a concise way -->
+
+<!-- of clipping that is consistent -->
+
+<!-- with R's syntax for non-spatial clipping. -->
+
+<!-- To prove it worked, only stations within the London boroughs appear in the plot. -->
+
+<p><code class="highlighter-rouge">gIntersects</code> can achieve the same result, but with more lines of code
+(see
+<a href="http://www.rpubs.com/RobinLovelace/11796">www.rpubs.com/RobinLovelace</a>
+for more on this) .</p>
+
+<!-- It may seem confusing that two different functions -->
+
+<!-- can be used to generate the same result. However, -->
+
+<!-- this is a common issue in R; the question -->
+
+<!-- is finding the most appropriate solution. -->
+
+<!-- In its less concise form (without use of square brackets), -->
+
+<!-- `over` takes two main input arguments: -->
+
+<!-- the target layer (the layer to be altered) and the -->
+
+<!-- source layer by which the target layer is to be clipped. -->
+
+<!-- The output of `over` is a data frame of the same -->
+
+<!-- dimensions as the original object (in this case `stations`), -->
+
+<!-- except that the points which fall outside the zone of interest are set to a value of `NA` ("no answer"). -->
+
+<!-- We can use this to make a subset of the original polygons, -->
+
+<!-- remembering the square bracket notation described in the first section. -->
+
+<!-- We create a new object, `sel` (short for "selection"), -->
+
+<!-- containing the indices of all relevant polygons: -->
+
+<!-- ```{r, eval=FALSE} -->
+
+<!-- sel <- over(stations_backup, lnd) -->
+
+<!-- stations2 <- stations_backup[!is.na(sel[,1]),] -->
+
+<!-- ``` -->
+
+<!-- Typing `summary(sel)` should provide insight into how this -->
+
+<!-- worked: it is a data frame with 1801 NA values, representing -->
+
+<!-- zones outside of the London polygon. -->
+
+<!-- Note that the preceding two lines of code is equivalent to the -->
+
+<!-- single line of code, `stations <- stations[lnd, ]`. -->
+
+<!-- The next section demonstrates -->
+
+<!-- spatial aggregation, a more advanced version of spatial subsetting. -->
+
+<!-- ## Spatial aggregation -->
+
+<!-- As with R's very terse code for spatial subsetting, the base function -->
+
+<!-- `aggregate` (which provides summaries of variables based on some grouping variable) -->
+
+<!-- also behaves differently when the inputs are spatial objects. -->
+
+<!-- ```{r} -->
+
+<!-- stations_agg <- aggregate(x = stations["CODE"], by = lnd, FUN = length) -->
+
+<!-- head(stations_agg@data) -->
+
+<!-- ``` -->
+
+<!-- The above code performs a number of steps in just one line: -->
+
+<!-- - `aggregate` identifies which `lnd` polygon (borough) each `station` is located in and groups them accordingly. The use of the syntax `stations["CODE"]` tells R that we are -->
+
+<!-- interested in the spatial data from `stations` and its `CODE` variable (any variable -->
+
+<!-- could have been used here as we are merely counting how many points exist). -->
+
+<!-- - It counts the number of `stations` points in each borough, using the function `length`. -->
+
+<!-- - A new spatial object is created, with the same geometry as `lnd`, and assigned the name `stations_agg`, the count of stations. -->
+
+<!-- It may seem confusing that the result of the aggregated function is a new shape, -->
+
+<!-- not a list of numbers --- this is because values are assigned to the elements within -->
+
+<!-- the `lnd` object. To extract the raw count data, one could enter `stations_agg$CODE`. -->
+
+<!-- This variable could be added to the original `lnd` object as a new field, as follows: -->
+
+<!-- ```{r} -->
+
+<!-- lnd$n_points <- stations_agg$CODE -->
+
+<!-- ``` -->
+
+<!-- As shown below, the spatial implementation of -->
+
+<!-- `aggregate` can provide summary statistics of variables, as well as simple counts. -->
+
+<!-- In this case we take the variable `NUMBER` -->
+
+<!-- and find its mean value for the stations in each ward.^[See the  -->
+
+<!-- miniature Vignette 'Clipping and aggregating spatial data with -->
+
+<!-- gIntersects' for more information on this: http://rpubs.com/RobinLovelace/83834 .] -->
+
+<!-- ```{r} -->
+
+<!-- lnd_n <- aggregate(stations["NUMBER"], by = lnd, FUN = mean) -->
+
+<!-- ``` -->
+
+<!-- For an optional advanced task, let us analyse and plot the result. -->
+
+<!-- ```{r fig.cap="Choropleth map of mean values of stations in each borough"} -->
+
+<!-- q <- cut_number(lnd_n$NUMBER,4) # a nice little function from ggplot2 -->
+
+<!-- q <- factor(q, labels = grey.colors(n = 4)) -->
+
+<!-- summary(q) # check what we've created -->
+
+<!-- qc <- as.character(q) # convert to character class to plot -->
+
+<!-- plot(lnd_n, col = qc) # plot (not shown in printed tutorial) -->
+
+<!-- legend(legend = paste0("Q", 1:4), fill = levels(q), "topright") -->
+
+<!-- areas <- sapply(lnd_n@polygons, function(x) x@area) -->
+
+<!-- ``` -->
+
+<!-- This results in a simple choropleth map and a new vector containing the area of each -->
+
+<!-- borough (the basis for Figure 11). As an additional step, try comparing the mean -->
+
+<!-- area of each borough with the -->
+
+<!-- mean value of `stations` points within it: `plot(lnd_n$NUMBER, areas)`. -->
+
+<!-- *Adding different symbols for tube stations and train stations* -->
+
+<!-- Imagine now that we want to display all tube and train stations -->
+
+<!-- on top of the previously created choropleth map. How would we do this? -->
+
+<!-- The shape of points in R is determined by the `pch` argument, as demonstrated by the -->
+
+<!-- result of entering the following code: `plot(1:10, pch=1:10)`. -->
+
+<!-- To apply this knowledge to our map, try adding the following -->
+
+<!-- code to the chunk above (output not shown): -->
+
+<!-- ```{r, eval=F} -->
+
+<!-- levels(stations$LEGEND) # see A roads and rapid transit stations (RTS) (not shown) -->
+
+<!-- sel <- grepl("A Road Sing|Rapid", stations$LEGEND) # selection for plotting  -->
+
+<!-- sym <- as.integer(stations$LEGEND[sel]) # symbols -->
+
+<!-- points(stations[sel,], pch = sym) -->
+
+<!-- legend(legend = c("A Road", "RTS"), "bottomright", pch = unique(sym)) -->
+
+<!-- ``` -->
+
+<!-- ```{r , echo=FALSE, eval=FALSE} -->
+
+<!-- # , fig.cap="Symbol levels for train station types in London" -->
+
+<!-- q <- cut(lnd_n$NUMBER, breaks= c(quantile(lnd_n$NUMBER)), include.lowest=T) -->
+
+<!-- clr <- as.character(factor(q, labels = paste0("grey", seq(20, 80, 20)))) -->
+
+<!-- plot(lnd_n, col = clr) -->
+
+<!-- legend(legend = paste0("q", 1:4), fill = paste0("grey", seq(20, 80, 20)), "topright") -->
+
+<!-- sel <- grepl("A Road Sing|Rapid", stations$LEGEND) # selection for plotting  -->
+
+<!-- sym <- as.integer(stations$LEGEND[sel]) # symbols -->
+
+<!-- points(stations[sel,], pch = sym) -->
+
+<!-- legend(legend = c("A Road", "RTS"), "bottomright", pch = unique(sym)) -->
+
+<!-- ``` -->
+
+<!-- The above block of code first identifies which types of transport -->
+
+<!-- points are present in the map with `levels` (this command only works on -->
+
+<!-- factor data). Next we select a subset of `stations` using a new command, `grepl`, to -->
+
+<!-- determine which points we want to plot. Note that `grepl`'s first argument -->
+
+<!-- is a text string (hence the quote marks) and the second is a factor -->
+
+<!-- (try typing `class(stations$LEGEND)` to test this). -->
+
+<!-- `grepl` uses *regular expressions* to match whether each element in a vector -->
+
+<!-- of text or factor names match the text pattern we want. In this case, -->
+
+<!-- because we are only interested in roundabouts that are A roads and -->
+
+<!-- Rapid Transit systems (RTS). Note the use of the vertical separator `|` to -->
+
+<!-- indicate that we want to match `LEGEND` names that contain either "A Road" -->
+
+<!-- *or* "Rapid". Based on the positive matches (saved as `sel`, a vector of -->
+
+<!-- `TRUE` and `FALSE` values), we subset the stations. Finally we plot these as points, -->
+
+<!-- using the integer of their name to decide the symbol and add a legend. -->
+
+<!-- (See the documentation of `?legend` for detail on the complexities of -->
+
+<!-- legend creation in R's base graphics.) -->
+
+<!-- This may seem a frustrating and unintuitive way of altering -->
+
+<!-- map graphics compared with something like QGIS. That's because it is! -->
+
+<!-- It may not be worth stressing too -->
+
+<!-- much about base graphics because there are intuitive alternatives -->
+
+<!-- for quickly creating beautiful maps in R, including -->
+
+<!-- **tmap**, **ggplot** and **leaflet**.  -->
+
+<h1 id="part-iv-making-maps-with-tmap-ggplot2-and-leaflet">Part IV: Making maps with tmap, ggplot2 and leaflet</h1>
+
+<!-- This section introduces -->
+
+<!-- alternative methods for creating maps with R that overcome -->
+
+<!-- some of the limitations and clunkiness of R's base graphics.  -->
+
+<!-- Having worked hard to manipulate the spatial data, -->
+
+<!-- it is now time to display the results clearly, beautifully -->
+
+<!-- and, in the case of **leaflet**, interactively. -->
+
+<!-- We try the newest of the three packages, **tmap**, first -->
+
+<!-- as it is the easiest to use. Then we progress to explore the -->
+
+<!-- powerful **ggplot2** paradigm before outlining **leaflet**. -->
+
+<h2 id="tmap"><strong>tmap</strong></h2>
+
+<p><a href="https://github.com/mtennekes/tmap"><strong>tmap</strong></a> was created to overcome
+some of the limitations of base graphics and <strong>ggmap</strong>. A concise
+introduction to <strong>tmap</strong> can be accessed (after the package is
+installed) by using the vignette function:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># install.packages("tmap") # install the CRAN version</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">
+</span><span class="n">vignette</span><span class="p">(</span><span class="s2">"tmap-nutshell"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>A couple of basic plots show the package’s intuitive syntax and
+attractive default parameters.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qtm</span><span class="p">(</span><span class="n">shp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Partic_Per"</span><span class="p">,</span><span class="w"> </span><span class="n">fill.palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"-Blues"</span><span class="p">)</span><span class="w"> </span><span class="c1"># not shown</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qtm</span><span class="p">(</span><span class="n">shp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Partic_Per"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Pop_2001"</span><span class="p">),</span><span class="w"> </span><span class="n">fill.palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Blues"</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-47-1.png" alt="Side-by-side maps of sports participation and
+population" /></p>
+
+<p>The plot above shows the ease with which tmap can create maps next to
+each other for different variables. The plot produced by the following
+code chunk (not shown) demonstrates the power of the <code class="highlighter-rouge">tm_facets</code>
+command. Note that all the maps created with the <code class="highlighter-rouge">qtm</code> function can also
+be created with <code class="highlighter-rouge">tm_shape</code>, followed by <code class="highlighter-rouge">tm_fill</code> (or another <code class="highlighter-rouge">tm_</code>
+function).</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tm_shape</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">tm_fill</span><span class="p">(</span><span class="s2">"Pop_2001"</span><span class="p">,</span><span class="w"> </span><span class="n">thres.poly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">tm_facets</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span><span class="w"> </span><span class="n">free.coords</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">drop.units</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To create a basemap with tmap, you can use the <code class="highlighter-rouge">read_osm</code> function, from
+the <a href="https://github.com/mtennekes/tmaptools"><strong>tmaptools</strong> package</a> as
+follows. Note that you must first transform the data into a
+<em>geographical</em> CRS:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Transform the coordinate reference system</span><span class="w">
+</span><span class="n">lnd_wgs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spTransform</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">CRS</span><span class="p">(</span><span class="s2">"+init=epsg:4326"</span><span class="p">))</span><span class="w">
+</span><span class="k">if</span><span class="p">(</span><span class="n">curl</span><span class="o">::</span><span class="n">has_internet</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">osm_tiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmaptools</span><span class="o">::</span><span class="n">read_osm</span><span class="p">(</span><span class="n">bbox</span><span class="p">(</span><span class="n">lnd_wgs</span><span class="p">))</span><span class="w"> </span><span class="c1"># download images from OSM</span><span class="w">
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">osm_tiles</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_raster</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">lnd_wgs</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">tm_fill</span><span class="p">(</span><span class="s2">"Pop_2001"</span><span class="p">,</span><span class="w"> </span><span class="n">fill.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Population, 2001"</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">tm_layout</span><span class="p">(</span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.89</span><span class="p">,</span><span class="w"> </span><span class="m">0.02</span><span class="p">))</span><span class="w"> 
+</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">lnd_wgs</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">tm_fill</span><span class="p">(</span><span class="s2">"Pop_2001"</span><span class="p">,</span><span class="w"> </span><span class="n">fill.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Population, 2001"</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">tm_layout</span><span class="p">(</span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.89</span><span class="p">,</span><span class="w"> </span><span class="m">0.02</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: Current projection unknown. Long lat coordinates (wgs84) assumed.
+</code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-49-1.png" alt="London’s population in
+2001." /></p>
+
+<p>Another way to make <strong>tmap</strong> maps have a basemap is by entering
+<code class="highlighter-rouge">tmap_mode("view")</code>. This will make the maps appear on a zoomable webmap
+powered by <strong>leaflet</strong>. There are many other intuitive and powerful
+functions in <strong>tmap</strong>. Check the documentation to find out more:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">tmap</span><span class="w"> </span><span class="c1"># get more info on tmap</span><span class="w">
+</span></code></pre></div></div>
+
+<!-- A more established plotting paradigm is **ggplot2** -->
+
+<!-- package. This has been subsequently -->
+
+<!-- adapted to maps thank to **ggmap**, as described below. -->
+
+<h2 id="ggmap"><strong>ggmap</strong></h2>
+
+<p><strong>ggmap</strong> is based on the <strong>ggplot2</strong> package, an implementation of the
+Grammar of Graphics (Wilkinson 2005). <strong>ggplot2</strong> can replace the base
+graphics in R (the functions you have been plotting with so far). It
+contains default options that match good visualisation practice and is
+well-documented: <a href="http://docs.ggplot2.org/current/">http://docs.ggplot2.org/current/</a> .</p>
+
+<p>As a first attempt with <strong>ggplot2</strong> we can create a scatter plot with
+the attribute data in the <code class="highlighter-rouge">lnd</code> object created previously:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: package 'ggplot2' was built under R version 3.5.3
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">Partic_Per</span><span class="p">,</span><span class="w"> </span><span class="n">Pop_2001</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<!-- What you have just done is set up a ggplot object where -->
+
+<!-- you say where you want the input data to come from. -->
+
+<!-- `lnd@data` is actually a data frame contained within the -->
+
+<!-- wider spatial object `lnd` (the `@` enables you to -->
+
+<!-- access the attribute table of the shapefile). The characters inside the `aes` argument -->
+
+<!-- refer to the parts of that data frame you wish to use (the variables `Partic_Per` and `Pop_2001`). -->
+
+<!-- This has to happen within the brackets of `aes()`, which means, -->
+
+<!-- roughly speaking 'aesthetics that vary'. -->
+
+<!-- If you just type p and hit enter you get the error `No layers in plot`. -->
+
+<!-- This is because you have not told `ggplot` what you want -->
+
+<!-- to do with the data. We do this by adding so-called "geoms", -->
+
+<!-- in this case `geom_point()`. -->
+
+<!-- ```{r fig.cap="A simple graphic produced with **ggplot2**", fig.height=1.7, fig.width=3} -->
+
+<!-- p + geom_point() -->
+
+<!-- ``` -->
+
+<!-- Within the brackets you can alter the nature of the points. Try something like `p + geom_point(colour = "red", size=2)` and experiment. -->
+
+<!-- If you want to scale the points by borough population and colour them by sports participation this is also fairly easy by adding another `aes()` argument. -->
+
+<!-- ```{r fig.cap="ggplot with aesthetics", eval=FALSE} -->
+
+<!-- p + geom_point(aes(colour=Partic_Per, size=Pop_2001)) # not shown -->
+
+<!-- ``` -->
+
+<p>The real power of <strong>ggplot2</strong> lies in its ability to add layers to a
+plot. In this case we can add text to the plot.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Partic_Per</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pop_2001</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/Forked-extra-current/README_files/figure-gfm/unnamed-chunk-52-1.png" alt="ggplot for text" /></p>
+
+<p>This idea of layers (or geoms) is quite different from the standard plot
+functions in R, but you will find that each of the functions does a lot
+of clever stuff to make plotting much easier (see the documentation for
+a full list).</p>
+
+<p>In the following steps we will create a map to show the percentage of
+the population in each London Borough who regularly participate in
+sports activities.</p>
+
+<p><strong>ggmap</strong> requires spatial data to be supplied as <code class="highlighter-rouge">data.frame</code>, using
+<code class="highlighter-rouge">tidy()</code>. The generic plot() function can use <code class="highlighter-rouge">Spatial*</code> objects
+directly; <strong>ggplot2</strong> cannot. Therefore we need to extract them as a
+data frame. The <code class="highlighter-rouge">tidy</code> function was written specifically for this
+purpose. For this to work, <strong>broom</strong> package must be installed.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd_f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">broom</span><span class="o">::</span><span class="n">tidy</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Regions defined for each Polygons
+</code></pre></div></div>
+
+<p>This step has lost the attribute information associated with the lnd
+object. We can add it back using the <code class="highlighter-rouge">left_join</code> function from the
+<strong>dplyr</strong> package (see <code class="highlighter-rouge">?left_join</code>).</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># peak at the fortified data</span><span class="w">
+</span><span class="n">lnd</span><span class="o">$</span><span class="n">id</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">row.names</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="c1"># allocate an id variable to the sp data</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># final check before join (requires shared variable name)</span><span class="w">
+</span><span class="n">lnd_f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="c1"># join the data</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Joining, by = "id"
+</code></pre></div></div>
+
+<p>The new<code class="highlighter-rouge">lnd_f</code> object contains coordinates alongside the attribute
+information associated with each London Borough. It is now
+straightforward to produce a map with <strong>ggplot2</strong>. <code class="highlighter-rouge">coord_equal()</code> is
+the equivalent of <code class="highlighter-rouge">asp = T</code> in regular plots with R:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Partic_Per</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_polygon</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">coord_equal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Easting (m)"</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Northing (m)"</span><span class="p">,</span><span class="w">
+    </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"% Sports\nParticipation"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"London Sports Participation"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Entering <code class="highlighter-rouge">map</code> should result in your first ggplot-made map of London.
+The default colours are really nice but we may wish to produce the map
+in black and white, which should produce a map like the one shown below.
+Try changing the colours and saving plots with <code class="highlighter-rouge">ggsave()</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_fill_gradient</span><span class="p">(</span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/Forked-extra-current/README_files/figure-gfm/unnamed-chunk-56-1.png" alt="Greyscale map" /></p>
+
+<h2 id="creating-interactive-maps-with-leaflet">Creating interactive maps with <strong>leaflet</strong></h2>
+
+<p><a href="http://leafletjs.com/">Leaflet</a> is the world’s premier web mapping
+system, serving hundreds of thousands of maps worldwide each day. The
+JavaScript library actively developed at
+<a href="https://github.com/Leaflet/Leaflet">github.com/Leaflet/Leaflet</a>, has a
+strong user community. It is fast, powerful and easy to learn.</p>
+
+<p>The <strong>leaflet</strong> package creates interactive web maps in few lines of
+code. One of the exciting things about the package is its tight
+integration with the R package for interactive on-line visualisation,
+<strong>shiny</strong>. Used together, these allow R to act as a complete map-serving
+platform, to compete with the likes of GeoServer! For more information
+on <strong>rstudio/leaflet</strong>, see
+<a href="https://rstudio.github.io/leaflet/">rstudio.github.io/leaflet/</a> and the
+following on-line tutorial:
+<a href="http://robinlovelace.net/r/2015/02/01/leaflet-r-package.html">robinlovelace.net/r/2015/02/01/leaflet-r-package.html</a>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s2">"leaflet"</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
+
+</span><span class="n">lnd84</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s1">'data/lnd84.Rds'</span><span class="p">)</span><span class="w">
+
+</span><span class="n">leaflet</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">addTiles</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">addPolygons</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd84</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-58-1.png" alt="The lnd84 object loaded in rstudio via the leaflet
+package" /></p>
+
+<h2 id="advanced-task-faceting-for-maps">Advanced Task: Faceting for Maps</h2>
+
+<p>The below code demonstrates how to read in the necessary data for this
+task and ‘tidy’ it up. The data file contains historic population values
+between 1801 and 2001 for London, again from the London data store.</p>
+
+<p>We <code class="highlighter-rouge">tidy</code> the data so that the columns become rows. In other words, we
+convert the data from ‘flat’ to ‘long’ format, which is the form
+required by <strong>ggplot2</strong> for faceting graphics: the date of the
+population survey becomes a variable in its own right, rather than being
+strung-out over many columns.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">london_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/census-historic-population-borough.csv"</span><span class="p">)</span><span class="w">
+</span><span class="c1"># install.packages("tidyr")</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w"> </span><span class="c1"># if not install it, or skip the next two steps</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: package 'tidyr' was built under R version 3.5.3
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ltidy</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gather</span><span class="p">(</span><span class="n">london_data</span><span class="p">,</span><span class="w"> </span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">pop</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">Area.Code</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">Area.Name</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">ltidy</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># check the output (not shown)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In the above code we take the <code class="highlighter-rouge">london_data</code> object and create the column
+names ‘date’ (the date of the record, previously spread over many
+columns) and ‘pop’ (the population which varies). The minus (<code class="highlighter-rouge">-</code>) symbol
+in this context tells gather not to include the <code class="highlighter-rouge">Area.Name</code> and
+<code class="highlighter-rouge">Area.Code</code> as columns to be removed. In other words, “leave these
+columns be”. Data tidying is an important subject: more can be read on
+the subject in Wickham (2014) or in a <code class="highlighter-rouge">vignette</code> about the package,
+accessed from within R by entering <code class="highlighter-rouge">vignette("tidy-data")</code>.</p>
+
+<p>Merge the population data with the London borough geometry contained
+within our <code class="highlighter-rouge">lnd_f</code> object, using the <code class="highlighter-rouge">left_join</code> function from the
+<strong>dplyr</strong> package:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># identify shared variables with ltidy </span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## # A tibble: 2 x 13
+##     long    lat order hole  piece group id    ons_label name  Partic_Per
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;lgl&gt; &lt;fct&gt; &lt;chr&gt; &lt;chr&gt; &lt;fct&gt;     &lt;chr&gt;      &lt;dbl&gt;
+## 1 5.41e5 1.74e5     1 FALSE 1     0.1   0     00AF      Brom~       21.7
+## 2 5.42e5 1.73e5     2 FALSE 1     0.1   0     00AF      Brom~       21.7
+## # ... with 3 more variables: Pop_2001 &lt;dbl&gt;, quadrant &lt;chr&gt;,
+## #   CrimeCount &lt;int&gt;
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ltidy</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rename</span><span class="p">(</span><span class="n">ltidy</span><span class="p">,</span><span class="w"> </span><span class="n">ons_label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Area.Code</span><span class="p">)</span><span class="w"> </span><span class="c1"># rename Area.code variable</span><span class="w">
+</span><span class="n">lnd_f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="n">ltidy</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Joining, by = "ons_label"
+
+## Warning: Column `ons_label` joining factors with different levels, coercing
+## to character vector
+</code></pre></div></div>
+
+<p>Rename the date variable (use <code class="highlighter-rouge">?gsub</code> and Google ‘regex’ to find out
+more).</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd_f</span><span class="o">$</span><span class="n">date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Pop_"</span><span class="p">,</span><span class="w"> </span><span class="n">replacement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="n">lnd_f</span><span class="o">$</span><span class="n">date</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We can now use faceting to produce one map per year:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd_f</span><span class="p">,</span><span class="w"> </span><span class="c1"># the input data</span><span class="w">
+  </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pop</span><span class="o">/</span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># define variables</span><span class="w">
+  </span><span class="n">geom_polygon</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># plot the boroughs</span><span class="w">
+  </span><span class="n">geom_path</span><span class="p">(</span><span class="n">colour</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">0.05</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># borough borders</span><span class="w">
+  </span><span class="n">coord_equal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># fixed x and y scales</span><span class="w">
+  </span><span class="n">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">date</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># one plot per time slice</span><span class="w">
+  </span><span class="n">scale_fill_gradient2</span><span class="p">(</span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"grey"</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="c1"># colors</span><span class="w">
+    </span><span class="n">midpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">150</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Population\n(thousands)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="c1"># legend options</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="c1"># change the theme options</span><span class="w">
+    </span><span class="n">axis.title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="c1"># remove axis titles</span><span class="w">
+    </span><span class="n">axis.ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_blank</span><span class="p">())</span><span class="w"> </span><span class="c1"># remove axis ticks</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="README_files/figure-gfm/unnamed-chunk-65-1.png" alt="Faceted plot of the distribution of London’s population over
+time" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ggsave("figure/facet_london.png", width = 9, height = 9) # save figure</span><span class="w">
+</span></code></pre></div></div>
+
+<p>There is a lot going on here so explore the documentation to make sure
+you understand it. Try out different colour values as well.</p>
+
+<p>Try experimenting with the above code block to see what effects you can
+produce.</p>
+
+<blockquote>
+  <p><strong>Challenge 1:</strong> Try creating this plot for the % of population
+instead of the absolute population.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Challenge 2:</strong> For bonus points, try creating an animation of
+London’s evolving population over time (hint: a file called
+ggnaminate.R may help).</p>
+</blockquote>
+
+<h1 id="part-v-taking-spatial-data-analysis-in-r-further">Part V: Taking spatial data analysis in R further</h1>
+
+<p>The skills taught in this tutorial are applicable to a very wide range
+of situations, spatial or not. Often experimentation is the most
+rewarding learning method, rather than just searching for the ‘best’ way
+of doing something (Kabakoff, 2011). We recommend you play around with
+your data.</p>
+
+<p>If you enjoyed this tutorial, you may find the book chapter “Spatial
+Data Visualisation with R” of interest (Cheshire and Lovelace, 2014).
+The project’s repository can be found on its GitHub page:
+<a href="https://github.com/geocomPP/sdvwR">github.com/geocomPP/sdvwR</a>. There
+are also a number of bonus ‘vignettes’ associated with the present
+tutorial. These can be found on the <a href="https://github.com/Robinlovelace/Creating-maps-in-R/tree/master/vignettes">vignettes
+page</a>
+of the project’s repository.</p>
+
+<p>Other advanced tutorials include</p>
+
+<ul>
+  <li>The Simple Features vignettes.</li>
+  <li>“solaR: Solar Radiation and Photovoltaic Systems with R”, a
+<a href="http://www.jstatsoft.org/v50/i09/paper">technical academic paper</a>
+on the solaR package which contains a number of spatial functions.</li>
+</ul>
+
+<p>Such tutorials are worth doing as they will help you understand R’s
+spatial ‘ecosystem’ as a cohesive whole rather than as a collection of
+isolated functions. In R the whole is greater than the sum of its parts.</p>
+
+<p>The supportive on-line communities surrounding large open source
+programs such as R are one of their greatest assets, so we recommend you
+become an active “<a href="http://blog.cleverelephant.ca/2013/10/being-open-source-citizen.html">open source
+citizen</a>”
+rather than a passive consumer.</p>
+
+<p>Good resources that will help you further sharpen you R skills include:</p>
+
+<ul>
+  <li>
+    <p>R’s homepage hosts a wealth of
+<a href="http://cran.r-project.org/manuals.html">official</a> and
+<a href="http://cran.r-project.org/other-docs.html">contributed</a> guides.
+<a href="http://cran.r-project.org">http://cran.r-project.org</a></p>
+  </li>
+  <li>
+    <p><a href="http://stackoverflow.com/search?q=%5Br%5D">StackOverflow</a> and
+<a href="http://gis.stackexchange.com/">GIS.StackExchange</a> groups (the
+“[R]” search term limits the results). If your question has not
+been answered yet, just ask, preferably with a reproducible example.</p>
+  </li>
+  <li>
+    <p>R’s <a href="http://www.r-project.org/mail.html">mailing lists</a>, especially
+<a href="https://stat.ethz.ch/pipermail/r-sig-geo/">R-sig-geo</a>. See
+<a href="http://www.r-project.org/mail.html">r-project.org/mail.html</a>.</p>
+  </li>
+  <li>
+    <p>Dorman (2014): detailed exposition of spatial data in R, with a
+focus on raster data. A <a href="https://www.packtpub.com/packtlib/book/Big%20Data%20&amp;%20Business%20Intelligence/9781783984367/4">free
+sample</a>
+of this book is available online.</p>
+  </li>
+  <li>
+    <p>Bivand et al. (2013) : ‘Applied spatial data analysis with R’ -
+provides a dense and detailed overview of spatial data analysis.</p>
+  </li>
+</ul>
+
+<!--  \clearpage -->
+
+<!-- # R quick reference -->
+
+<!-- `#`: comments all text until line end -->
+
+<!-- `df <- data.frame(x = 1:9, y = (1:9)^2`: create new object of class `data.frame`, called df, and assign values -->
+
+<!-- `help(plot)`: ask R for basic help on function, the same as `?plot`. Replace `plot` with any function (e.g. `spTransform`). -->
+
+<!-- `library(ggplot2)`: load a package (replace **ggplot2** with your package name) -->
+
+<!-- `install.packages("ggplot2")`: install package --- note quotation marks -->
+
+<!-- `setwd("C:/Users/username/Desktop/")`: set R's *working directory* (set it to your project's folder) -->
+
+<!-- `nrow(df)`: count the number of rows in the object `df` -->
+
+<!-- `summary(df)`: summary statistics of the object `df` -->
+
+<!-- `head(df)`: display first 6 lines of object `df` -->
+
+<!-- `plot(df)`: plot object `df` -->
+
+<!-- `save(df, "C:/Users/username/Desktop/" )`: save df object to specified location -->
+
+<!-- `rm(df)`: remove the `df` object -->
+
+<!-- `proj4string(df)`: query coordinate reference system of `df` object -->
+
+<!-- `spTransform(df, CRS("+init=epsg:4326")`: reproject `df` object to WGS84 -->
+
+<!-- # Further information -->
+
+<!-- the input data can be downloaded as a -->
+
+<!-- [zip file](https://github.com/Robinlovelace/Creating-maps-in-R/archive/master.zip), -->
+
+<!-- as described below. The entire tutorial was written in -->
+
+<!-- [RMarkdown](http://rmarkdown.rstudio.com/), which -->
+
+<!-- allows R code to run as the document compiles, ensuring reproducibility. -->
+
+<!-- Any suggested improvements or new -->
+
+<!-- [vignettes](https://github.com/Robinlovelace/Creating-maps-in-R/tree/master/vignettes) are welcome, via email -->
+
+<!-- to Robin or by [forking](https://help.github.com/articles/fork-a-repo) -->
+
+<!-- the [master version](https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/README.Rmd) of this document. -->
+
+<!-- The colourful syntax highlighting in this document is thanks to -->
+
+<!-- [RMarkdown](http://rmarkdown.rstudio.com/). -->
+
+<!-- We try to follow best practice in terms of style, roughly following -->
+
+<!-- Google's style guide, an in-depth guide written by -->
+
+<!-- [Johnson (2013)](http://cran.r-project.org/web/packages/rockchalk/vignettes/Rstyle.pdf) -->
+
+<!-- and a [chapter](http://adv-r.had.co.nz/Style.html) from -->
+
+<!-- [*Advanced R*](http://adv-r.had.co.nz/) (Wickham, in press). -->
+
+<h1 id="acknowledgements">Acknowledgements</h1>
+
+<p>The tutorial was developed for a series of Short Courses funded by the
+National Centre for Research Methods (NCRM), via the TALISMAN node (see
+<a href="http://www.geotalisman.org/">geotalisman.org</a>). Thanks to the
+<a href="http://www.esrc.ac.uk/">ESRC</a> for funding applied methods research.
+Many thanks to Matt Whittle, Alistair Leak, Hannah Roberts and Phil
+Jones who helped develop and demonstrate these materials. Amy O’Neill
+organised the course and encouraged feedback from participants. The
+final thanks is to all users and developers of open source software for
+making powerful tools such as R accessible and enjoyable to use.</p>
+
+<p>If you have found this tutorial useful in your work, please
+<a href="https://raw.githubusercontent.com/Robinlovelace/Creating-maps-in-R/master/citation.bib">cite</a>
+it:</p>
+
+<p>Lovelace, R., &amp; Cheshire, J. (2014). Introduction to visualising spatial
+data in R. National Centre for Research Methods Working Papers, 14(03).
+Retrieved from <a href="https://github.com/Robinlovelace/Creating-maps-in-R">https://github.com/Robinlovelace/Creating-maps-in-R</a></p>
+
+<h1 id="references">References</h1>
+
+<p>Bivand, R. S., Pebesma, E. J., &amp; Rubio, V. G. (2013). Applied spatial
+data analysis with R. Springer. 2nd ed.</p>
+
+<p>Cheshire, J., &amp; Lovelace, R. (2015). Spatial data visualisation with R.
+In C. Brunsdon &amp; A. Singleton (Eds.), Geocomputation (pp. 1–14). SAGE
+Publications. Retrieved from <a href="https://github.com/geocomPP/sdv">https://github.com/geocomPP/sdv</a> . Full
+chapter available from
+<a href="https://www.researchgate.net/publication/274697165_Spatial_data_visualisation_with_R">https://www.researchgate.net/publication/274697165_Spatial_data_visualisation_with_R</a></p>
+
+<p>Dorman, M. (2014). Learning R for Geospatial Analysis. Packt Publishing
+Ltd.</p>
+
+<p>Gillespie, Colin, and Robin Lovelace. 2016. Efficient R Programming: A
+Practical Guide to Smarter Programming. O’Reilly Media.
+<a href="https://csgillespie.github.io/efficientR/">https://csgillespie.github.io/efficientR/</a>.</p>
+
+<p>Kabacoff, R. (2011). R in Action. Manning Publications Co.</p>
+
+<p>Lamigueiro, O. P. (2012). solaR: Solar Radiation and Photovoltaic
+Systems with R. Journal of Statistical Software, 50(9), 1–32. Retrieved
+from <a href="http://www.jstatsoft.org/v50/i09">http://www.jstatsoft.org/v50/i09</a></p>
+
+<p>Wickham, H. (2014). Tidy data. The Journal of Statistical Software,
+14(5), Retrieved from <a href="http://www.jstatsoft.org/v59/i10">http://www.jstatsoft.org/v59/i10</a></p>
+
+<p>Wilkinson, L. (2005). The grammar of graphics. Springer.</p>
+
+<ol>
+  <li>
+    <p>Tip: typing <code class="highlighter-rouge">Alt -</code> on the keyboard will create the arrow in
+RStudio. The equals sign <code class="highlighter-rouge">=</code> also works.</p>
+  </li>
+  <li>
+    <p>The third line of code is included for historical interest and to
+provide an opportunity to discuss R functions and their arguments
+(the values inside a function’s brackets) in detail. Note the
+arguments are separated by a comma. The order in which they are
+specified is important. You do not have to explicitly type <code class="highlighter-rouge">dsn =</code>
+or <code class="highlighter-rouge">layer =</code> as R knows which order they appear. <code class="highlighter-rouge">readOGR("data",
+"london_sport")</code> would work just as well. For clarity, it is good
+practice to include argument names when learning new functions so we
+will continue to do so.</p>
+  </li>
+  <li>
+    <p>To see how this map was created, see the code in
+<a href="https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/README.Rmd">README.Rmd</a>
+. This may be loaded by typing <code class="highlighter-rouge">file.edit("README.Rmd")</code> or online
+at
+<a href="https://github.com/Robinlovelace/Creating-maps-in-R/blob/master/README.Rmd">github.com/Robinlovelace/Creating-maps-in-R/blob/master/README.Rmd</a>.</p>
+  </li>
+  <li>
+    <p>Note: entering <code class="highlighter-rouge">projInfo()</code> provides additional CRS options.
+<a href="http://spatialreference.org/">spatialreference.org</a> provides more
+information about EPSG codes.</p>
+  </li>
+  <li>
+    <p>See
+<a href="https://www.cityoflondon.police.uk/">www.cityoflondon.police.uk/</a>.</p>
+  </li>
+</ol>
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

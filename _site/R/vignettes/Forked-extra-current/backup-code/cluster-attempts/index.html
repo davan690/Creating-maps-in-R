@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Failed cluster attempts</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Failed cluster attempts" />
+  
+
+   
+  <meta property="og:description" content="Failed cluster attempts ======================================================== Trying to get smooth polygons: {% highlight r %} lns 1.675e-07)] {% endhighlight %} {% highlight text %} ## Error in eval(expr, envir, enclos): object 'Dens' not found {% endhighlight %} {% highlight r %} summary(Dsub) {% endhighlight %} {% highlight text %} ## Error in...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/Forked-extra-current/backup-code/cluster-attempts/" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/Forked-extra-current/backup-code/cluster-attempts/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Failed cluster attempts" />
+  
+
+  
+  <meta name="twitter:description" content="Failed cluster attempts ======================================================== Trying to get smooth polygons: {% highlight r %} lns 1.675e-07)] {% endhighlight %} {% highlight text %} ## Error in eval(expr, envir, enclos): object 'Dens' not found {% endhighlight %} {% highlight r %} summary(Dsub) {% endhighlight %} {% highlight text %} ## Error in...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Failed cluster attempts</h1>
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h1 id="failed-cluster-attempts">Failed cluster attempts</h1>
+
+<p>Trying to get smooth polygons:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lns</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">slot</span><span class="p">(</span><span class="n">SLDF</span><span class="p">[</span><span class="m">6</span><span class="p">,],</span><span class="w"> </span><span class="s2">"lines"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in slot(SLDF[6, ], "lines"): object 'SLDF' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">SLDF</span><span class="p">[</span><span class="m">6</span><span class="p">,])</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(SLDF[6, ]): object 'SLDF' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">SLDm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">lapply</span><span class="p">(</span><span class="w"> </span><span class="n">SLDF</span><span class="o">@</span><span class="n">lines</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">slot</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s2">"Lines"</span><span class="w"> </span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in lapply(SLDF@lines, slot, "Lines"): object 'SLDF' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">SLDm</span><span class="p">)</span><span class="w"> </span><span class="c1">## fail</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(SLDm): object 'SLDm' not found</code></pre></figure>
+
+<p>Try to convert lines to polys, Bivand style:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">SLDH</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SLDF</span><span class="p">[</span><span class="m">6</span><span class="p">,]</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'SLDF' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lns</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">slot</span><span class="p">(</span><span class="n">SLDH</span><span class="p">,</span><span class="w"> </span><span class="s2">"lines"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in slot(SLDH, "lines"): object 'SLDH' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">table</span><span class="p">(</span><span class="n">sapply</span><span class="p">(</span><span class="n">lns</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">slot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s2">"Lines"</span><span class="p">))))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in lapply(X = X, FUN = FUN, ...): object 'lns' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">islands</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">lns</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1"># fail</span><span class="w">
+</span><span class="n">crds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">slot</span><span class="p">(</span><span class="n">slot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s2">"Lines"</span><span class="p">)[[</span><span class="m">1</span><span class="p">]],</span><span class="w"> </span><span class="s2">"coords"</span><span class="p">)</span><span class="w">
+</span><span class="n">identical</span><span class="p">(</span><span class="n">crds</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">crds</span><span class="p">[</span><span class="n">nrow</span><span class="p">(</span><span class="n">crds</span><span class="p">),</span><span class="w"> </span><span class="p">])</span><span class="w">
+</span><span class="p">})</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in lapply(X = X, FUN = FUN, ...): object 'lns' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">list_of_Lines</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">slot</span><span class="p">(</span><span class="n">islands</span><span class="p">,</span><span class="w"> </span><span class="s2">"lines"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in slot(islands, "lines"): cannot get a slot ("lines") from an object of type "double"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">islands_sp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SpatialPolygons</span><span class="p">(</span><span class="n">lapply</span><span class="p">(</span><span class="n">list_of_Lines</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="n">Polygons</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">Polygon</span><span class="p">(</span><span class="n">slot</span><span class="p">(</span><span class="n">slot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s2">"Lines"</span><span class="p">)[[</span><span class="m">1</span><span class="p">]],</span><span class="w">
+</span><span class="s2">"coords"</span><span class="p">))),</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s2">"ID"</span><span class="p">))</span><span class="w">
+</span><span class="p">}),</span><span class="w"> </span><span class="n">proj4string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">proj4string</span><span class="p">(</span><span class="n">lnd</span><span class="p">))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in SpatialPolygons(lapply(list_of_Lines, function(x) {: could not find function "SpatialPolygons"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">summary</span><span class="p">(</span><span class="n">islands_sp</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in summary(islands_sp): object 'islands_sp' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">islands</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="n">lns</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="n">crds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">slot</span><span class="p">(</span><span class="n">slot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s2">"Lines"</span><span class="p">)[[</span><span class="m">1</span><span class="p">]],</span><span class="w"> </span><span class="s2">"coords"</span><span class="p">)</span><span class="w">
+</span><span class="n">identical</span><span class="p">(</span><span class="n">crds</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">crds</span><span class="p">[</span><span class="n">nrow</span><span class="p">(</span><span class="n">crds</span><span class="p">),</span><span class="w"> </span><span class="p">])</span><span class="w">
+</span><span class="p">})</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in lapply(X = X, FUN = FUN, ...): object 'lns' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">table</span><span class="p">(</span><span class="n">islands</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## islands
+##    12    13    14    15    16    19    21    23    25    26    29 
+##     1     3     2     2     3     1     1     1     1     1     2 
+##    30    32    33    36    40    42    43    44    49    58    73 
+##     2     1     1     1     1     1     2     1     1     1     1 
+##    82    84    89   183   184   227   280   306   840  2968  3745 
+##     2     1     1     1     1     1     1     1     1     1     1 
+##  5500  6795  9390 11506 16988 
+##     1     1     1     1     1</code></pre></figure>
+
+<p>table(sapply(lns, function(x) length(slot(x, “Lines”))))</p>
+
+<p>lclusts &lt;- sapply(lns, function(x) {
+crds &lt;- slot(slot(x, “Lines”)[[1]], “coords”)
+identical(crds[1, ], crds[nrow(crds), ])
+})
+table(lclusts)
+lls &lt;- SLDF[6,lclusts]
+plot(lls)
+plot(lclusts, col=”red”)</p>
+
+<p>plot(SLDF[6,], add=T)
+lbc &lt;- gIntersection(lb, SLDF[6,])
+plot(lbc)
+```</p>
+
+<p>Let’s try it with <code class="highlighter-rouge">clusterset</code>:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">example</span><span class="p">(</span><span class="n">clusterset</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Warning in example(clusterset): no help found for 'clusterset'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">clusterset</span><span class="p">(</span><span class="n">sSp</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="o">=</span><span class="s2">"domain"</span><span class="p">,</span><span class="w"> </span><span class="p">))</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in clusterset(sSp, result = "domain", ): could not find function "clusterset"</code></pre></figure>
+
+<p>Extracting it directly from the density:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">summary</span><span class="p">(</span><span class="n">Dens</span><span class="o">$</span><span class="n">v</span><span class="p">)[,</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">]</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in summary(Dens$v): object 'Dens' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">Dsub</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Dens</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">Dens</span><span class="o">$</span><span class="n">v</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1.675e-07</span><span class="p">)]</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'Dens' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">summary</span><span class="p">(</span><span class="n">Dsub</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in summary(Dsub): object 'Dsub' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">Dsub</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(Dsub): object 'Dsub' not found</code></pre></figure>
+
+<p>Using the lines to clip a polygon of London.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># lb &lt;- unionSpatialPolygons(lnd, IDs=1:nrow(lnd) ) # don't seem to work</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in library(rgeos): there is no package called 'rgeos'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gUnaryUnion</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in gUnaryUnion(lnd): could not find function "gUnaryUnion"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in library(raster): there is no package called 'raster'</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">Dr</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">raster</span><span class="p">(</span><span class="n">Dsg</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in raster(Dsg): could not find function "raster"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">proj4string</span><span class="p">(</span><span class="n">Dr</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">proj4string</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in proj4string(stations): could not find function "proj4string"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">Drc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cut</span><span class="p">(</span><span class="n">Dr</span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">8</span><span class="p">)</span><span class="w"> </span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in cut(Dr, breaks = 8): object 'Dr' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">Drp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rasterToPolygons</span><span class="p">(</span><span class="n">Drc</span><span class="p">,</span><span class="w"> </span><span class="n">dissolve</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w"> </span><span class="c1"># create density polygons</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in rasterToPolygons(Drc, dissolve = T): could not find function "rasterToPolygons"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">spplot</span><span class="p">(</span><span class="n">Drp</span><span class="p">)</span><span class="w"> </span><span class="c1"># check that the clustering worked OK</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in spplot(Drp): could not find function "spplot"</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">lclust</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Drp</span><span class="p">[</span><span class="m">3</span><span class="p">,]</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in eval(expr, envir, enclos): object 'Drp' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">lb</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(lb): object 'lb' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">lclust</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(lclust, add = T): object 'lclust' not found</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">lclust</span><span class="p">,],</span><span class="w"> </span><span class="n">add</span><span class="o">=</span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">## Error in plot(stations[lclust, ], add = T, col = "red"): object 'stations' not found</code></pre></figure>
+
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

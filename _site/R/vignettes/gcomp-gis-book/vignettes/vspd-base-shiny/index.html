@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Visualising spatial data: from R to shiny - workshop</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Visualising spatial data: from R to shiny - workshop" />
+  
+
+   
+  <meta property="og:description" content="Visualising spatial data: from R to shiny - workshop ================ Robin Lovelace Introduction ============ These exercises aim to get you up-to-speed with the various ways of visualising spatial data with R. It's practical: you'll learn by doing. Rather than explain the pros, cons and use cases of each, this tutorial...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny/" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Visualising spatial data: from R to shiny - workshop" />
+  
+
+  
+  <meta name="twitter:description" content="Visualising spatial data: from R to shiny - workshop ================ Robin Lovelace Introduction ============ These exercises aim to get you up-to-speed with the various ways of visualising spatial data with R. It's practical: you'll learn by doing. Rather than explain the pros, cons and use cases of each, this tutorial...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Visualising spatial data: from R to shiny - workshop</h1>
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h1 id="visualising-spatial-data-from-r-to-shiny---workshop">Visualising spatial data: from R to shiny - workshop</h1>
+<p>Robin Lovelace</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>These exercises aim to get you up-to-speed with the various ways of visualising spatial data with R. It’s practical: you’ll learn by doing. Rather than explain the pros, cons and use cases of each, this tutorial gets stuck straight in with the action, after a few introductory notes.</p>
+
+<p>Programming is best learned by typing code, running it and experimenting, not by reading long texts or copying and pasting (although these activities can certainly help). I therefore recommend you work through the materials by typing the code chunks into new .R or .Rmd files. That way you can take ownership of the methods and write them in your style, in a way that is optimised for your learning. It should also encourage you to experiment and not follow the examples precisely: feel free to expand on certain code chunks or skip some examples. Applying the methods to your own datasets is strongly encouraged.</p>
+
+<h2 id="pre-requisites">Pre-requisites</h2>
+
+<p>To run the code presented in this tutorial you will need to have installed the following packages:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pkgs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="w">
+  </span><span class="s2">"sp"</span><span class="p">,</span><span class="w">       </span><span class="c1"># spatial data classes and functions</span><span class="w">
+  </span><span class="s2">"ggmap"</span><span class="p">,</span><span class="w">    </span><span class="c1"># maps the ggplot2 way</span><span class="w">
+  </span><span class="s2">"tmap"</span><span class="p">,</span><span class="w">     </span><span class="c1"># powerful and flexible mapping package</span><span class="w">
+  </span><span class="s2">"leaflet"</span><span class="p">,</span><span class="w">  </span><span class="c1"># interactive maps via the JavaScript library of the same name</span><span class="w">
+  </span><span class="s2">"mapview"</span><span class="p">,</span><span class="w">  </span><span class="c1"># a quick way to create interactive maps (depends on leaflet)</span><span class="w">
+  </span><span class="s2">"shiny"</span><span class="p">,</span><span class="w">    </span><span class="c1"># for converting your maps into online applications</span><span class="w">
+  </span><span class="s2">"OpenStreetMap"</span><span class="p">,</span><span class="w"> </span><span class="c1"># for downloading OpenStreetMap tiles </span><span class="w">
+  </span><span class="s2">"rasterVis"</span><span class="p">,</span><span class="c1"># raster visualisation (depends on the raster package)</span><span class="w">
+  </span><span class="s2">"dplyr"</span><span class="p">,</span><span class="w">    </span><span class="c1"># data manipulation package</span><span class="w">
+  </span><span class="s2">"tidyr"</span><span class="w">     </span><span class="c1"># data reshaping package</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>They can all be installed with <code class="highlighter-rouge">install.packages(pkgs)</code>. Less time consuming in many cases will be to install only those packages that have not yet been installed, e.g. via:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">to_install</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pkgs</span><span class="p">[</span><span class="o">!</span><span class="n">pkgs</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">installed.packages</span><span class="p">()])</span><span class="w">
+</span><span class="k">if</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">to_install</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">){</span><span class="w">
+  </span><span class="n">install.packages</span><span class="p">(</span><span class="n">to_install</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>It is worth keeping your packages and R version up-to-date. To ensure the former, run:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">update.packages</span><span class="p">(</span><span class="n">oldPkgs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pkgs</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="data">Data</h2>
+
+<p>Geographic data visualisation in R is part of a wider process: command line GIS. It will normally be done in tandem with other GIS operations. We deliberately focus on visualisation here to give a rapid overview of what is possible using a few datasets, for consistency between the methods. Context helps understanding, however, so we begin with a brief description of the datasets used.</p>
+
+<p>There are 2 branches of spatial data: raster and vector. Rasters are 2D images composed of pixels that treat space as a series of uniform blocks or raster ‘cells’. They be represented as a matrix or array. Vectors are 2D assemblages of points and edges in which the points (and the lines that join them) can exist anywhere in continuous space. Although some exotic data structures are possible (e.g. <a href="https://en.wikipedia.org/wiki/Voxel">voxels</a>), the majority of spatial datasets can be represented by just 2 types of raster and 3 types of vector object:</p>
+
+<ul>
+  <li>Raster data
+    <ul>
+      <li>Single band raster data: this the same as black and white image. We’ll represented as a <code class="highlighter-rouge">RasterLayer</code> in the <strong>raster</strong> package.</li>
+      <li>Multi-layered raster data: these are assemblages of multiple raster layers such as color bands (red, green, blue) used for color vision</li>
+    </ul>
+  </li>
+  <li>Vector data
+    <ul>
+      <li>Points: points on a map, often saved as a <code class="highlighter-rouge">SpatialPointsDataFrame</code> from the <strong>sp</strong> package.</li>
+      <li>Lines: points with an order to trace lines, often represented with the <code class="highlighter-rouge">SpatialLinesDataFrame</code> class in R.</li>
+      <li>Polygons: representing areas on the map, often saved as a <code class="highlighter-rouge">SpatialPolygonsDataFrame</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>We will be using real world example data from each type. A good way to learn how these data structures work is to construct them from scratch, such as this <code class="highlighter-rouge">SpatialLinesDataFrame</code> that represents my house:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">home_geometry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">-1.5343</span><span class="p">,</span><span class="w"> </span><span class="m">53.8194</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">home_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Robin's home"</span><span class="p">)</span><span class="w">
+</span><span class="n">home</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sp</span><span class="o">::</span><span class="n">SpatialPointsDataFrame</span><span class="p">(</span><span class="n">coords</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">home_geometry</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">home_data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This can then be plotted in context, e.g. using the <strong>tmap</strong> package:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">osm_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmap</span><span class="o">::</span><span class="n">read_osm</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmap</span><span class="o">::</span><span class="n">bb</span><span class="p">(</span><span class="s2">"Leeds"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tmap</span><span class="o">::</span><span class="n">qtm</span><span class="p">(</span><span class="n">osm_image</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tmap</span><span class="o">::</span><span class="n">qtm</span><span class="p">(</span><span class="n">home</span><span class="p">,</span><span class="w"> </span><span class="n">bubble.size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: Currect projection of shape home unknown. Long-lat (WGS84) is
+## assumed.
+</code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-8-1.png" alt="" /></p>
+
+<h2 id="a-comment-on-packages">A comment on packages</h2>
+
+<p>Note the use of the <code class="highlighter-rouge">::</code> operator in previous code chunks. These access the functions within the <strong>sp</strong> and <strong>tmap</strong> packages without having to load them, and highlight which packages the functions were taken from (it can get confusing with so many spatial packages floating around!). This can be useful if for one-off plots but generally it’s best to load the package you’ll use at the outset of each analysis and use the functions directly.</p>
+
+<h2 id="dataset-used-and-downloading-them">Dataset used and downloading them</h2>
+
+<p>For consistency, we use a limited number of datasets, which share the same geographic extent (London), throughout this tutorial. We will be using real data related to transport planning. To make the tutorial more exciting, imagine that you are trying to present evidence to support policies that will enable Londoner to ‘Go Dutch’ and cycle as the main mode of transport. The datasets are as follows:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">lnd_crashes</code>: A <code class="highlighter-rouge">SpatialPointsDataFrame</code> from the ‘Stats19’ dataset on road traffic collisions reported to the police.</li>
+  <li><code class="highlighter-rouge">lnd_commutes</code>: A <code class="highlighter-rouge">SpatialLinesDataFrame</code> representing commuter desire lines in London.</li>
+  <li><code class="highlighter-rouge">lnd_rnet</code>: A network of lines representing the cycling potential in different parts of London.</li>
+  <li><code class="highlighter-rouge">lnd_msoas</code>: Areas of London, stored as a <code class="highlighter-rouge">SpatialPolygonsDataFrame</code>.</li>
+  <li><code class="highlighter-rouge">lnd_topo</code>: The topography of London, saved as a <code class="highlighter-rouge">RasterLayer</code>.</li>
+</ul>
+
+<p>These were created/stored locally in the <code class="highlighter-rouge">vspd-base-shiny-data/</code> subdirectory of <code class="highlighter-rouge">vignettes/</code> the working directory of this tutorial. Set your working directly to this folder:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># switch to the vignettes directory if not in it already</span><span class="w">
+</span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">grepl</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"vignettes"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getwd</span><span class="p">())){</span><span class="w">
+  </span><span class="n">old</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">setwd</span><span class="p">(</span><span class="s2">"vignettes"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong>The datasets can all be downloaded from the following link: <a href="https://github.com/Robinlovelace/vspd-base-shiny-data">github.com/Robinlovelace/vspd-base-shiny-data</a>.</strong></p>
+
+<p>They can be automatically downloaded and placed into the correct folder as follows:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://github.com/Robinlovelace/vspd-base-shiny-data/archive/master.zip"</span><span class="w">
+</span><span class="n">download.file</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">destfile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"master.zip"</span><span class="p">)</span><span class="w">
+</span><span class="n">unzip</span><span class="p">(</span><span class="s2">"master.zip"</span><span class="p">)</span><span class="w">
+</span><span class="n">dir.create</span><span class="p">(</span><span class="s2">"vspd-base-shiny-data"</span><span class="p">)</span><span class="w">
+</span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"vspd-base-shiny-data-master/"</span><span class="p">,</span><span class="w"> </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">file.copy</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="s2">"vspd-base-shiny-data"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Once you have downloaded the datasets, they can be loaded with the following commands (see the Appendix for information on data provenance):</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"vspd-base-shiny-data/lnd84.Rds"</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd_crashes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"vspd-base-shiny-data/ac_cycle_lnd.Rds"</span><span class="p">)</span><span class="w">
+</span><span class="n">killed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd_crashes</span><span class="p">[</span><span class="n">lnd_crashes</span><span class="o">$</span><span class="n">Casualty_Severity</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Fatal"</span><span class="p">,]</span><span class="w">
+</span><span class="n">lnd_commutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"vspd-base-shiny-data/l-lnd.Rds"</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd_msoas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"vspd-base-shiny-data/z.Rds"</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd_rnet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"vspd-base-shiny-data/rnet-lnd.Rds"</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd_topo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"vspd-base-shiny-data/lnd-topo.Rds"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="base-graphics">Base graphics</h1>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Spatial datasets defined by <strong>sp</strong> classes can be plotted quickly using the base function <code class="highlighter-rouge">plot()</code>, after <strong>sp</strong> has been loaded:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">home</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-13-1.png" alt="" /></p>
+
+<p>To verify that <strong>sp</strong> provides this functionality, try ‘unloading’ the package:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">detach</span><span class="p">(</span><span class="s2">"package:sp"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">home</span><span class="p">)</span><span class="w">
+</span><span class="c1">## Error in as.double(y) : </span><span class="w">
+</span><span class="c1">##   cannot coerce type 'S4' to vector of type 'double'</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">plot()</code> only works for <code class="highlighter-rouge">Spatial*</code> objects after <strong>sp</strong> has been loaded because of class-specific methods of <code class="highlighter-rouge">plot()</code> provided by <strong>sp</strong>. For details on these, it is instructive to take a look at the source code of <strong>sp</strong>. The below prints the source code of <code class="highlighter-rouge">plot.SpatialPoints().</code>.[1]</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sp</span><span class="o">:::</span><span class="n">plot.SpatialPoints</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## function (x, pch = 3, axes = FALSE, add = FALSE, xlim = NULL, 
+##     ylim = NULL, ..., setParUsrBB = FALSE, cex = 1, col = 1, 
+##     lwd = 1, bg = 1) 
+## {
+##     if (!add) 
+##         plot(as(x, "Spatial"), axes = axes, xlim = xlim, ylim = ylim, 
+##             ..., setParUsrBB = setParUsrBB)
+##     cc = coordinates(x)
+##     points(cc[, 1], cc[, 2], pch = pch, cex = cex, col = col, 
+##         lwd = lwd, bg = bg)
+## }
+## &lt;environment: namespace:sp&gt;
+</code></pre></div></div>
+
+<p>This is the source code of <strong>sp</strong> that will run every time that an object of class <code class="highlighter-rouge">SpatialPoints</code> (or <code class="highlighter-rouge">SpatialPointsDataFrame</code>, which inherits <code class="highlighter-rouge">SpatialPoints</code>) is passed to <code class="highlighter-rouge">plot()</code>. Two main differences from this source code should be noted: <code class="highlighter-rouge">pch = 3</code> and <code class="highlighter-rouge">axes = FALSE</code>. This switches the symbol of the points to a cross and stops the graphic from containing intrusive axes. Another major difference is the addition of the <code class="highlighter-rouge">add</code> argument (set to <code class="highlighter-rouge">FALSE</code> by default).</p>
+
+<p>To see the difference between the generic and <strong>sp</strong> versions of <code class="highlighter-rouge">plot()</code>, let’s plot some points using both methods:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">))</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd_crashes</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">coordinates</span><span class="p">(</span><span class="n">lnd_crashes</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-16-1.png" alt="" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>It is instructive to realise that because any arguments available to <code class="highlighter-rouge">plot()</code> will work for plotting spatial data. Plots of spatial data using <code class="highlighter-rouge">plot()</code> are therefore as flexible as any <code class="highlighter-rouge">plot()</code>: very. The following, for example, makes the plot look more like the base version of <code class="highlighter-rouge">plot()</code>, with the major difference being that the axis breaks use degrees as their units and that the plot has the right height-width proportions:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">lnd_crashes</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-17-1.png" alt="" /></p>
+
+<p>The above shows that although they <em>look</em> like base graphics, basic maps produced with <code class="highlighter-rouge">plot()</code> should technically be called ‘<strong>sp</strong> graphics’. Let’s see what else these methods can do, by add polygon and line datasets to the mix:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">lnd_crashes</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"yellow"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd_rnet</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">lnd_crashes</span><span class="p">[</span><span class="n">lnd_crashes</span><span class="o">$</span><span class="n">Casualty_Severity</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Fatal"</span><span class="p">,],</span><span class="w">
+     </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-18-1.png" alt="" /></p>
+
+<p>The above code shows how the use of <code class="highlighter-rouge">add = TRUE</code> can be used to create a layered map, with each call to <code class="highlighter-rouge">plot()</code> overlaying the previous one. This is great for quickly visualising whether datasets spatially overlap. Be warned, however: any plot containing <code class="highlighter-rouge">add = T</code> will fail if a plot has yet to be called (a problem solved by <strong>tmap</strong> and <strong>ggmap</strong>).</p>
+
+<p>The plots may look a little rudimentary and dated. However, the advantage is that if you are already good with base graphics, you will naturally be good at map making. If you are not proficient with R’s base graphics, it is recommended that you skip this phase directly to something more sophisticated like <strong>tmap</strong>.</p>
+
+<h1 id="spplot">spplot</h1>
+
+<p><code class="highlighter-rouge">spplot()</code> is an extension of base <code class="highlighter-rouge">plot()</code> provided by the <strong>sp</strong> package for plotting objects side-by-side. The plot below, for example, plots the spatial distribution of the age of casualty alongside the age of the vehicle driver.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spplot</span><span class="p">(</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">killed</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Age_of_Casualty"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Age_of_Driver"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-19-1.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">spplot()</code> is a quick way to compare the spatial distribution of two variables within a spatial dataset. It is limited by the fact that the variables being compared must have range of values (or levels if they are factors). The following fails, for example:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spplot</span><span class="p">(</span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">killed</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sex_of_Casualty"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Road_Type"</span><span class="p">))</span><span class="w">
+</span><span class="c1"># Error in stack.SpatialPointsDataFrame(as(data, "SpatialPointsDataFrame"),  : </span><span class="w">
+</span><span class="c1">#   all factors should have identical levels</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Due to these limitations we don’t consider <code class="highlighter-rouge">spplot()</code> further in this tutorial. More recent packages offer a more intuitive interface for creating plots with aesthetically pleasing defaults. Furthermore <strong>ggmap</strong> and <strong>tmap</strong> packages also allow for faceted maps.</p>
+
+<h1 id="ggmap">ggmap</h1>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggmap</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Loading required package: ggplot2
+</code></pre></div></div>
+
+<p><strong>ggmap</strong> provides a few extensions to the popular graphics library <strong>ggplot2</strong> to make it easier to make maps. It’s main role from a visualisation perspective is to provide an easy way to create base-maps by automatically downloading tiles from services such as Google Maps. It is therefore sensible to simply experiment with <strong>ggplot2</strong> before testing out <strong>ggmap</strong>.</p>
+
+<p><strong>ggmap</strong> therefore has an emphasis on online data (e.g. providing <code class="highlighter-rouge">geocode()</code> and <code class="highlighter-rouge">route()</code> functionality) and basemaps rather than GIS. Unlike the other packages presented here, <strong>ggmap</strong> does not work with data of <code class="highlighter-rouge">Spatial*</code> classes directly: instead <strong>ggmap</strong>, like <strong>ggplot2</strong>, demands data frames.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># not shown</span><span class="w">
+</span><span class="n">killed</span><span class="o">$</span><span class="n">lon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">killed</span><span class="p">)[,</span><span class="m">1</span><span class="p">]</span><span class="w">
+</span><span class="n">killed</span><span class="o">$</span><span class="n">lat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coordinates</span><span class="p">(</span><span class="n">killed</span><span class="p">)[,</span><span class="m">2</span><span class="p">]</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">killed</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">coord_map</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-22-1.png" alt="" /></p>
+
+<p>Note that the above code added the geometry data of the points to the data frame in the data slot of the <code class="highlighter-rouge">killed</code> geographic object, represented by <code class="highlighter-rouge">@data</code>. Because there is only one x/y (lon/lat in this case) pair for each row of data, this could be done by creating new columns. To convert more complex spatial data structures (<code class="highlighter-rouge">SpatialLinesDataFrames</code> and <code class="highlighter-rouge">SpatialPolygonsDataFrames</code>) into data frames, <strong>ggmap</strong> relies on <code class="highlighter-rouge">ggplot2::fortify()</code>, which is similar to <code class="highlighter-rouge">raster::geom()</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">maptools</span><span class="p">)</span><span class="w"> </span><span class="c1"># a dependency for fortify to work</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Checking rgeos availability: TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd_fortified</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fortify</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ons_label"</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">lnd_fortified</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##          long      lat order  hole piece   id  group
+## 1 -0.11296835 51.51823     1 FALSE     1 00AA 00AA.1
+## 2 -0.10534590 51.51854     2 FALSE     1 00AA 00AA.1
+## 3 -0.09677876 51.52325     3 FALSE     1 00AA 00AA.1
+## 4 -0.08521847 51.52033     4 FALSE     1 00AA 00AA.1
+## 5 -0.07847170 51.52151     5 FALSE     1 00AA 00AA.1
+## 6 -0.07271997 51.51023     6 FALSE     1 00AA 00AA.1
+</code></pre></div></div>
+
+<p>The output of <code class="highlighter-rouge">fortify()</code> is a data frame, as illustrated by its first 6 rows, shown above. Now rather than each row of data representing a London borough, each row in <code class="highlighter-rouge">lnd_fortified</code> now represents a single vertex on the <code class="highlighter-rouge">lnd</code> object. For this reason the data frame <code class="highlighter-rouge">lnd@data</code> has 33 whereas the <code class="highlighter-rouge">lnd_fortified</code> object has 1102 rows.</p>
+
+<!-- Todo: create a dataframe of lat/lon pairs other ways -->
+<p>Notice that <code class="highlighter-rouge">lnd_fortified</code> still lacks attribute data, which needs to be joined. We can use <code class="highlighter-rouge">dplyr::left_join()</code> to do this:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lnd_fortified</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dplyr</span><span class="o">::</span><span class="n">left_join</span><span class="p">(</span><span class="n">lnd_fortified</span><span class="p">,</span><span class="w"> </span><span class="n">lnd</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"id"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ons_label"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning in left_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
+## factor and character vector, coercing into character vector
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd_fortified</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_polygon</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pop_2001</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">coord_map</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-24-1.png" alt="" /></p>
+
+<p>We can make this map look a little more finished by removing the distracting axis labels, adding borders to the boroughs and changing the legend of the population variable, as illustrated by the code chunk below.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pbreaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1e5</span><span class="p">,</span><span class="w"> </span><span class="m">2e5</span><span class="p">,</span><span class="w"> </span><span class="m">4e5</span><span class="p">)</span><span class="w">
+</span><span class="n">plabs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"0 - 100"</span><span class="p">,</span><span class="w"> </span><span class="s2">"200 - 300"</span><span class="p">,</span><span class="w"> </span><span class="s2">"300+"</span><span class="p">)</span><span class="w">
+</span><span class="n">lnd_fortified</span><span class="o">$</span><span class="n">`Population (1000s)`</span><span class="w"> </span><span class="o">=</span><span class="w">
+  </span><span class="n">cut</span><span class="p">(</span><span class="n">lnd_fortified</span><span class="o">$</span><span class="n">Pop_2001</span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pbreaks</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plabs</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd_fortified</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_polygon</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">`Population (1000s)`</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_path</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">coord_map</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_nothing</span><span class="p">(</span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-25-1.png" alt="" /></p>
+
+<p>The above examples show that even though <strong>ggplot2</strong> was designed to make graphing as intuitive as possible, it still requires a decent amount of data preparation and domain-specific knowledge to create nice maps. Before moving on to <strong>tmap</strong>, which resolves some of these issues, we will reproduce the faceted map of the age/space distribution of victims/perpetrators in cycle/vehicle collisions. As you may have guessed, this also requires some data manipulation.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span><span class="w">
+</span><span class="n">killed_df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dplyr</span><span class="o">::</span><span class="n">select</span><span class="p">(</span><span class="n">killed</span><span class="o">@</span><span class="n">data</span><span class="p">,</span><span class="w">
+                   </span><span class="n">Age_Band_of_Casualty</span><span class="p">,</span><span class="w"> </span><span class="n">Age_Band_of_Driver</span><span class="p">,</span><span class="w"> </span><span class="n">lon</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">)</span><span class="w">
+</span><span class="n">killed_df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gather</span><span class="p">(</span><span class="n">killed_df</span><span class="p">,</span><span class="w"> </span><span class="n">Role</span><span class="p">,</span><span class="w"> </span><span class="n">Age</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lon</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">lat</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">killed_df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_path</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd_fortified</span><span class="p">,</span><span class="w">
+               </span><span class="n">aes</span><span class="p">(</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Age</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">facet_grid</span><span class="p">(</span><span class="n">.</span><span class="w"> </span><span class="o">~</span><span class="n">Role</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">coord_map</span><span class="p">()</span><span class="w"> 
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-26-1.png" alt="" /></p>
+
+<p>What just happened? The relevant data (selected with <code class="highlighter-rouge">dplyr::select()</code>) was reshaped into ‘long’ format using <code class="highlighter-rouge">tidyr::gather()</code>. The age bands were put in an ordered factor using the <code class="highlighter-rouge">factor()</code> function, and then the data was plotted using the <code class="highlighter-rouge">facet_grid()</code> function to split the map in two. The results show that young adults, particularly in the 21 to 35 year-old band, are disproportionately killed by older drivers. This result can also be visualised non-spatially with <strong>ggplot2</strong>, so your skills can be cross-transferable:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">killed_df</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_bar</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Age</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Role</span><span class="p">),</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dodge"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Warning: Removed 23 rows containing non-finite values (stat_count).
+</code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-27-1.png" alt="" /></p>
+
+<h1 id="tmap">tmap</h1>
+
+<p><strong>tmap</strong> is a recent package for spatial data visualisation that takes the best of both <strong>ggplot2</strong> and <strong>sp</strong> graphic worlds. Like <strong>ggplot2</strong> has an intuitive interface that uses the <code class="highlighter-rouge">+</code> symbol to build up layers. But, like <strong>sp</strong>’s <code class="highlighter-rouge">plot()</code> functions and unlike <strong>ggplot2</strong>, it works directly with spatial data classes. It is perhaps the quickest way to create a useful map in R, e.g. using the <code class="highlighter-rouge">qtm()</code> function:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tmap</span><span class="p">)</span><span class="w">
+</span><span class="n">qtm</span><span class="p">(</span><span class="n">lnd</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Partic_Per"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-28-1.png" alt="" /></p>
+
+<p><code class="highlighter-rouge">qtm()</code> is a wrapper function for <code class="highlighter-rouge">tm_shape()</code>, which is analogous to the plot initialisation function <code class="highlighter-rouge">ggplot()</code> in <strong>ggplot2</strong>, and functions which draw the features, such as <code class="highlighter-rouge">tm_bubbles()</code>, <code class="highlighter-rouge">tm_lines()</code> and <code class="highlighter-rouge">tm_fill()</code> for plotting points, lines and polygons respectively (see <code class="highlighter-rouge">?vignette('tmap-nutshell')</code> for further information).</p>
+
+<p>To see how <strong>tmap</strong> graphics are constructed, let’s create an identical graphic the verbose way, changing the colorscheme of the fill and border width to give an indication of the kinds of thing that can be customised:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Not shown</span><span class="w">
+</span><span class="n">tm_shape</span><span class="p">(</span><span class="n">shp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_fill</span><span class="p">(</span><span class="s2">"Partic_Per"</span><span class="p">,</span><span class="w"> </span><span class="n">palette</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"BrBG"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_borders</span><span class="p">(</span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Thus <code class="highlighter-rouge">tm_shape()</code> takes a spatial object and subsequent <code class="highlighter-rouge">tm_*()</code> functions take variable names contained in the <code class="highlighter-rouge">Spatial*DataFrame</code>. The <code class="highlighter-rouge">+</code> operator is very useful for building up plots one on top of another. Here is a <strong>tmap</strong> version of the multi-layered plot created towards the end of the base graphics section:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qtm</span><span class="p">(</span><span class="n">lnd_crashes</span><span class="p">,</span><span class="w"> </span><span class="n">dot.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"yellow"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">lnd_rnet</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_lines</span><span class="p">(</span><span class="s2">"blue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">killed</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_dots</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-30-1.png" alt="" /></p>
+
+<h3 id="exercise">Exercise</h3>
+
+<p>Compare the multi-layered output just created via <strong>tmap</strong> with the equivalent plot created using base graphics. Which do you prefer and why?</p>
+
+<p><strong>tmap</strong> has a concise interface to create faceted plots, as demonstrated above with <strong>spplot</strong> and <strong>ggplot2</strong>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Not shown</span><span class="w">
+</span><span class="n">tm_shape</span><span class="p">(</span><span class="n">killed</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_dots</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Age_of_Casualty"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Age_of_Driver"</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This shows that to create a facetted plot, you just pass the names of the variables to the visualisation layer. The above example demonstrates another useful feature of <strong>tmap</strong>: if passed a continuous variable, it automatically created categories (bins) for the output, the <code class="highlighter-rouge">palette</code> (or colourscheme) of which can be controlled with <code class="highlighter-rouge">palette = "Reds"</code> The number and nature of the breaks can be controlled by the <code class="highlighter-rouge">n</code> and <code class="highlighter-rouge">style</code> arguments in the <code class="highlighter-rouge">tm_*</code> plotting functions. Setting <code class="highlighter-rouge">n = 4</code> and <code class="highlighter-rouge">style = "quantile"</code>, for example, would create bins with equal numbers of elements. Use <code class="highlighter-rouge">breaks</code> to manually set the location of the breaks. Use the additional function <code class="highlighter-rouge">tm_layout()</code> to control the layout of the plot. <code class="highlighter-rouge">tm_layout(legend.outside = T)</code>, for example, will create a self-standing legend outside the panel used by the map.</p>
+
+<h3 id="exercise-1">Exercise</h3>
+
+<p>Experiment with the various plotting options within <strong>tmap</strong>, with reference to the <a href="https://mran.microsoft.com/web/packages/tmap/vignettes/tmap-nutshell.html">tmap vignette</a> and examples (e.g. <code class="highlighter-rouge">example(tm_dots)</code>).</p>
+
+<p>Without looking at the source code, try to replicate the map below (hint: the <code class="highlighter-rouge">auto.palette.mapping</code> argument may be useful).</p>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/unnamed-chunk-32-1.png" alt="" /></p>
+
+<h2 id="interactive-maps-with-tmap">Interactive maps with tmap</h2>
+
+<p>To make an interactive map with <strong>tmap</strong>, enter <code class="highlighter-rouge">tmap_mode("view")</code> and run the same code you have been using for static maps. Below is an example of the multi-layered plot of London used previously:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tmap_mode</span><span class="p">(</span><span class="s2">"view"</span><span class="p">)</span><span class="w">
+</span><span class="n">qtm</span><span class="p">(</span><span class="n">lnd_crashes</span><span class="p">,</span><span class="w"> </span><span class="n">dot.col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"yellow"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">lnd</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_borders</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">lnd_rnet</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_lines</span><span class="p">(</span><span class="s2">"blue"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">tm_shape</span><span class="p">(</span><span class="n">killed</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tm_dots</span><span class="p">(</span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
+</span><span class="n">tmap_mode</span><span class="p">(</span><span class="s2">"plot"</span><span class="p">)</span><span class="w"> </span><span class="c1"># return to plotting mode</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/tmap-view-mode.png" alt="" /></p>
+
+<h3 id="exercise-2">Exercise</h3>
+
+<p>Try to publish one of the interactive maps you created during this tutorial online. This can either be done automatically if you have an RPubs account and are running RStudio, or can be done via the <code class="highlighter-rouge">save_tmap()</code>, as demonstrated below.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tmap_mode</span><span class="p">(</span><span class="s2">"view"</span><span class="p">)</span><span class="w">
+</span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qtm</span><span class="p">(</span><span class="n">killed</span><span class="p">)</span><span class="w">
+</span><span class="n">save_tmap</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="s2">"/path-to/www/map.html"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="leaflet">leaflet</h1>
+
+<p><strong>leaflet</strong> is an R package for interacting with the Leaflet JavaScript library. It creates an object of class <code class="highlighter-rouge">htmlwidget</code> that is automatically displayed in RStudio, as illustrated below.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
+</span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leaflet</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">addTiles</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">addCircles</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">killed</span><span class="p">)</span><span class="w">
+</span><span class="nf">class</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "leaflet"    "htmlwidget"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># m # uncomment to print the map</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/leaflet-output.png" alt="" /></p>
+
+<p>There is much to say about <strong>leaflet</strong>. It is an excellent package on which all other interactive mapping approaches covered in this tutorial (<strong>tmap</strong>, <strong>mapview</strong>, <strong>shiny</strong>) use. Rather than cover the material here, I suggest checking out and working-through the excellent online tutorial on <strong>leaflet</strong> at <a href="https://rstudio.github.io/leaflet/">rstudio.github.io/leaflet/</a>.</p>
+
+<h1 id="mapview">mapview</h1>
+
+<p><strong>mapview</strong> provides convenient wrappers around <strong>leaflet</strong> to ease the creation of interactive maps. While the <strong>leaflet</strong> map example took 3 functions to create, with mapview (like tmap) you can do it with just one:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">mapview</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapview</span><span class="p">(</span><span class="n">killed</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">mapview</span><span class="p">(</span><span class="n">lnd_commutes</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w">
+</span><span class="n">m</span><span class="w"> </span><span class="c1"># display the map</span><span class="w">
+</span></code></pre></div></div>
+
+<p>As well as providing the option to save in html (via <code class="highlighter-rouge">htmlwidgets::saveWidget(m@map, "m.html")</code>), the <code class="highlighter-rouge">mapshot()</code> function allows you to save a snapshot of you map at it’s initial zoom level:</p>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/mapview.png" alt="" /></p>
+
+<h1 id="shiny">shiny</h1>
+
+<p><strong>shiny</strong> is a package for creating interactive web applications in R. During the tutorial we will create a web application to explore cycling levels and cycling safety in London.</p>
+
+<p>The first stage is to create a ‘minimum viable product’, to allow us to view where cycle crashes happen over time. There are two basic components every <strong>shiny</strong> app:</p>
+
+<ol>
+  <li>The code that defines the user interface on the ‘client side’ (commonly stored in a file called <code class="highlighter-rouge">ui.R</code>)</li>
+  <li>The code that actually does the ‘heavy lifting’ on the server side, running R instances through software called <a href="https://github.com/rstudio/shiny-server">shiny-server</a>.</li>
+</ol>
+
+<p>We will develop the full application in a folder called <code class="highlighter-rouge">cycleViz</code> but for the the purposes of prototyping we will develop each component together. Still, it’s good practice to make an early start to show where we intend to get to. The following code will create the app folder and populate it with the most basic of shiny apps:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dir.create</span><span class="p">(</span><span class="s2">"cycleViz"</span><span class="p">)</span><span class="w">
+</span><span class="n">shiny_d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">system.file</span><span class="p">(</span><span class="n">package</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"shiny"</span><span class="p">,</span><span class="w"> </span><span class="s2">"examples/01_hello/"</span><span class="p">)</span><span class="w">
+</span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">shiny_d</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*.R$"</span><span class="p">,</span><span class="w"> </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">file.copy</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="s2">"cycleViz"</span><span class="p">)</span><span class="w">
+</span><span class="c1">## [1] TRUE TRUE</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If the above code worked, congratulations: you have a working shiny app in your working directory, that you can use for the development of a full app. Now test it, and you should see something like the image below:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span><span class="w">
+</span><span class="n">runApp</span><span class="p">(</span><span class="s2">"cycleViz/"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="/Creating-maps-in-R/R/vignettes/gcomp-gis-book/vignettes/vspd-base-shiny_files/figure-markdown_github/hello-shiny.png" alt="" /></p>
+
+<p>For the purposes of prototyping, we can create the app in-line with</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">shiny</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">leaflet</span><span class="p">)</span><span class="w">
+</span><span class="c1"># Define UI</span><span class="w">
+</span><span class="n">ui</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fluidPage</span><span class="p">(</span><span class="w">
+  </span><span class="n">sidebarPanel</span><span class="p">(</span><span class="w">
+    </span><span class="n">sliderInput</span><span class="p">(</span><span class="n">inputId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"year"</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Year of casualty:"</span><span class="p">,</span><span class="w">
+                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2010</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2005</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2014</span><span class="p">)</span><span class="w">
+  </span><span class="p">),</span><span class="w">
+  </span><span class="c1"># Show a plot of the generated distribution</span><span class="w">
+  </span><span class="n">mainPanel</span><span class="p">(</span><span class="w">
+    </span><span class="n">leafletOutput</span><span class="p">(</span><span class="s2">"map"</span><span class="p">)</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Define server logic</span><span class="w">
+</span><span class="n">server</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">shinyServer</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"vspd-data/ac_cycle_lnd.Rds"</span><span class="p">)</span><span class="w">
+  </span><span class="n">output</span><span class="o">$</span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">renderLeaflet</span><span class="p">({</span><span class="w">
+    </span><span class="n">leaflet</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+      </span><span class="n">addProviderTiles</span><span class="p">(</span><span class="s2">"Thunderforest.OpenCycleMap"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+      </span><span class="n">setView</span><span class="p">(</span><span class="n">lng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-0.1</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">51.5</span><span class="p">,</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">
+    </span><span class="p">})</span><span class="w">
+  </span><span class="n">observe</span><span class="p">({</span><span class="w">
+    </span><span class="n">leafletProxy</span><span class="p">(</span><span class="s2">"map"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">clearShapes</span><span class="p">()</span><span class="o">%&gt;%</span><span class="w">
+      </span><span class="n">addCircles</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">[</span><span class="n">grepl</span><span class="p">(</span><span class="n">input</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">$</span><span class="n">Date</span><span class="p">),])</span><span class="w">
+  </span><span class="p">})</span><span class="w">
+</span><span class="p">})</span><span class="w">
+
+</span><span class="c1"># Run the application </span><span class="w">
+</span><span class="n">shinyApp</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span><span class="w"> </span><span class="n">server</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<!-- # Appendix -->
+<!-- The datasets used in this tutorial were downloaded using the code presented below: -->
+<!-- ```{r, eval=FALSE} -->
+<!-- u1 = "https://github.com/npct/pct-data/raw/master/london/l.Rds" -->
+<!-- download.file(u1, "vspd-base-shiny-data/l-lnd.Rds") -->
+<!-- u2 = "https://github.com/npct/pct-data/raw/master/london/z.Rds" -->
+<!-- download.file(u2, "vspd-base-shiny-data/z.Rds") -->
+<!-- u3 = "https://github.com/npct/pct-data/raw/master/london/rnet.Rds" -->
+<!-- download.file(u3, "vspd-base-shiny-data/rnet-lnd.Rds") -->
+<!-- u4 = "https://data.gov.uk/dataset/road-accidents-safety-data/datapackage.zip" -->
+<!-- download.file(u4, "vspd-base-shiny-data/datapackage-stats19.zip") # warning: downloads 0.5 GB -->
+<!-- # subsetting the data -->
+<!-- l = readRDS("vspd-base-shiny-data/l-lnd.Rds") -->
+<!-- lnd_commutes = l[l$all > 500,] -->
+<!-- saveRDS(lnd_commutes, "vspd-base-shiny-data/l-lnd.Rds") -->
+<!-- sp::plot(lnd_commutes) -->
+<!-- rnet = readRDS("vspd-base-shiny-data/rnet-lnd.Rds") -->
+<!-- summary(rnet$dutch_slc) -->
+<!-- rnet$length = stplanr::gprojected(rnet, fun = rgeos::gLength, byid = T) -->
+<!-- summary(rnet$length) -->
+<!-- lnd_rnet = rnet[rnet$dutch_slc > 1000 | rnet$length > 500,] -->
+<!-- saveRDS(lnd_rnet, "vspd-base-shiny-data/rnet-lnd.Rds") -->
+<!-- ``` -->
+<!-- The Stats19 data required processing before it could be used: -->
+<!-- ```{r, eval=FALSE} -->
+<!-- library(stplanr) -->
+<!-- library(dplyr) -->
+<!-- unzip("vspd-base-shiny-data/datapackage-stats19.zip") -->
+<!-- unzip("vspd-base-shiny-data/Stats19_Data_2005-2014.zip") -->
+<!-- ac = read_stats19_ac(data_dir = ".") -->
+<!-- ca = read_stats19_ca(data_dir = ".") -->
+<!-- ve = read_stats19_ve(data_dir = ".") -->
+<!-- levels(ve$Age_Band_of_Driver)[2:3] = c("01 - 05",  "06 - 10") -->
+<!-- levels(ca$Age_Band_of_Casualty)[2:3] = c("01 - 05",  "06 - 10") -->
+<!-- ve_not_cycle = filter(ve, Vehicle_Type != "Pedal cycle") -->
+<!-- ve_not_cycle = ve_not_cycle[!duplicated(ve_not_cycle$Accident_Index),] -->
+<!-- ac_joined = inner_join(ac, ca, "Accident_Index") -->
+<!-- ac_cycle = filter(ac_joined, Casualty_Type == "Cyclist") -->
+<!-- ac_cycle = filter(ac_cycle, !is.na(Latitude)) -->
+<!-- ac_cycle = left_join(ac_cycle, ve_not_cycle, "Accident_Index") -->
+<!-- summary(ac_cycle$Vehicle_Type) -->
+<!-- summary(ac_cycle$Casualty_Severity) -->
+<!-- # ac_cycle_sev = filter(ac_cycle, Casualty_Severity == "Fatal" | -->
+<!-- #                         Casualty_Severity == "Serious") -->
+<!-- lnd = readRDS("../data/lnd84.Rds") -->
+<!-- ac_cycle_sp = SpatialPointsDataFrame( -->
+<!--   coords = cbind(ac_cycle$Longitude, ac_cycle$Latitude), -->
+<!--   data = as.data.frame(ac_cycle), # fails if it's a tibble -->
+<!--   proj4string = CRS(proj4string(lnd)) -->
+<!-- ) -->
+<!-- lnd_crashes = ac_cycle_sp[lnd,] -->
+<!-- plot(lnd_crashes) # nearly 40k cyclist casualties -->
+<!-- object.size(lnd_crashes) / 1000000 -->
+<!-- names(lnd_crashes) -->
+<!-- # lnd_crashes$Age_of_Casualty[lnd_crashes$Age_of_Casualty == -1] -->
+<!-- lnd_crashes$Age_Band_of_Driver[is.na(lnd_crashes$Age_Band_of_Driver)] = factor(NA) -->
+<!-- levels(lnd_crashes$Age_Band_of_Casualty) -->
+<!-- lnd_crashes@data = select(lnd_crashes@data, -->
+<!--                            Accident_Index, -->
+<!--                            Date, -->
+<!--                            Day_of_Week, -->
+<!--                            Time, -->
+<!--                            Road_Type, -->
+<!--                            Age_of_Casualty, -->
+<!--                            Age_Band_of_Casualty, -->
+<!--                            Sex_of_Casualty, -->
+<!--                            Casualty_Severity, -->
+<!--                            Age_of_Driver, -->
+<!--                            Age_Band_of_Driver -->
+<!--                            ) -->
+<!-- saveRDS(lnd_crashes, "vspd-base-shiny-data/ac_cycle_lnd.Rds") -->
+<!-- ``` -->
+<!-- The topographical data was saved using the **raster** package: -->
+<!-- ```{r, eval=FALSE} -->
+<!-- eng_topo = raster::getData("alt", country = "GBR") -->
+<!-- lnd_topo = raster::crop(eng_topo, lnd) -->
+<!-- plot(lnd_topo) -->
+<!-- points(killed) -->
+<!-- saveRDS(lnd_topo, "vspd-base-shiny-data/lnd-topo.Rds") -->
+<!-- ``` -->
+
+<p>[1] Note that this function <code class="highlighter-rouge">sp:::plot.SpatialPoints()</code> must be accessed using the <code class="highlighter-rouge">:::</code> operator because it is not exported from <strong>sp</strong>. Why? The function is called automatically when <code class="highlighter-rouge">plot()</code> is called on a <code class="highlighter-rouge">SpatialPoints</code> object, taking advantage of R’s <em>polymorphic</em> design as it is not designed to be used.</p>
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>

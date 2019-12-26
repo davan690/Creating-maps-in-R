@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+  <title>Spatio-temporal data with R</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/img/Centre-logo.jpg">
+
+  <meta name="author" content="Anthony Davidson" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Creating maps in R - GIS and statistical support for researchers" href="/Creating-maps-in-R/feed.xml" />
+
+  
+
+  
+
+  
+
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/Creating-maps-in-R/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Spatio-temporal data with R" />
+  
+
+   
+  <meta property="og:description" content="```{r, echo=FALSE} knitr::opts_knit$set(root.dir = &quot;../&quot;) ``` The most mature package for working with spatio-temporal data in R is probably **spacetime**, which was developed by Edzer Pebesmer, who also developed **sp*: ```{r} library(spacetime) ``` There are fantastic tutorials on spatio-temporal data in this package, as can be revealed by the `vignettes()`...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/R/vignettes/gcomp-gis-book/vignettes/spatio-temporal-data.Rmd" />
+  <link rel="canonical" href="http://localhost:4000/R/vignettes/gcomp-gis-book/vignettes/spatio-temporal-data.Rmd" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Spatio-temporal data with R" />
+  
+
+  
+  <meta name="twitter:description" content="```{r, echo=FALSE} knitr::opts_knit$set(root.dir = &quot;../&quot;) ``` The most mature package for working with spatio-temporal data in R is probably **spacetime**, which was developed by Edzer Pebesmer, who also developed **sp*: ```{r} library(spacetime) ``` There are fantastic tutorials on spatio-temporal data in this package, as can be revealed by the `vignettes()`...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/centre-logo-white.jpg" />
+  
+
+  
+
+  
+
+</head>
+
+  
+  <body>
+
+    
+
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">Creating maps in R</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/Creating-maps-in-R/Creating-maps-in-R">Home</a>
+
+          </li>
+        
+        
+        
+          <li class="navlinks-container">
+            <a class="navlinks-parent" href="javascript:void(0)">Info</a>
+            <div class="navlinks-children">
+              
+                
+                  
+
+
+
+
+
+
+<a href="https://www.ssnhub.com/cv-ard">CV(draft only)</a>
+
+                
+              
+            </div>
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="http://localhost:4000">
+	      <img class="avatar-img" src="/Creating-maps-in-R/img/centre-logo-white.jpg" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Spatio-temporal data with R</h1>
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      ```{r, echo=FALSE}
+knitr::opts_knit$set(root.dir = "../")
+```
+
+
+The most mature package for working with spatio-temporal data in R is probably **spacetime**, which was developed by Edzer Pebesmer, who also developed **sp*:
+
+```{r}
+library(spacetime)
+```
+
+There are fantastic tutorials on spatio-temporal data in this package, as can be revealed by the `vignettes()` command. Take a browse of these and open
+
+```{r, eval=FALSE}
+vignette(package = "spacetime")
+vignette("jss816")
+```
+
+## The structure of spatial-temporal data
+
+Regardless of software, spatio-temporal data is usually represented in one of three ways [pebesma_spacetime:_2012]:
+
+- Time-wide, where each column is a date.
+- Space-wide, where each column is a place
+- Long, where each place is repeated for each time
+
+## Example with air quality data
+
+To understand spatio-temporal data in **spacetime**, let's look at an air quality dataset:
+
+```{r}
+data(package = "spacetime")
+```
+
+```{r}
+library(maptools)
+fname = system.file("shapes/sids.shp", package="maptools")[1]
+nc = readShapePoly(fname,
+                   proj4string = CRS("+proj=longlat +datum=NAD27 +ellps=clrk66"))
+time = as.POSIXct(c("1974-07-01", "1979-07-01"), tz = "GMT")
+endTime = as.POSIXct(c("1978-06-30", "1984-06-30"), tz = "GMT")
+data = data.frame(
+  BIR = c(nc$BIR74, nc$BIR79),
+  NWBIR = c(nc$NWBIR74, nc$NWBIR79),
+  SID = c(nc$SID74, nc$SID79))
+nct = STFDF(sp = as(nc, "SpatialPolygons"), time, data, endTime)
+class(nct)
+```
+
+We have created a spacio-temporal datset. Let's look at its componenets:
+
+```{r}
+plot(nct@sp) # the spatial component
+head(nct@data) # the data with the first 100 rows being for time period 1, etc
+nct@time # the time snapshots in there
+```
+
+**spacetime** has native methods for natively plotting spatio-temporal data:
+
+```{r}
+stplot(nct)
+```
+
+### Subsetting spacetime objects
+
+Remember that spatial data can be subsetted using the square brackets:
+
+```
+[object_element, column_name]
+```
+
+Spatio-temporal data has an extra dimension, so we add another comma:
+
+```
+[, time]
+```
+
+```{r}
+n74 = nct[, "1974-07-01"]
+class(n74)
+spplot(n74)
+```
+
+```{r}
+stplot(nct[1:2,]) # select by area
+```
+
+## Example with Irish Windspeed data
+
+Let's load the data:
+
+```{r}
+library(gstat)
+data("wind")
+wind.loc$y = as.numeric(char2dms(as.character(wind.loc[["Latitude"]])))
+wind.loc$x = as.numeric(char2dms(as.character(wind.loc[["Longitude"]])))
+coordinates(wind.loc) = ~x+y
+proj4string(wind.loc) = "+proj=longlat +datum=WGS84"
+library(tmap)
+qtm(wind.loc)
+```
+
+Before this is can be a **spacetime** class, we need to update the time variable and perform some more data manipulation:
+
+```{r}
+wind$time = ISOdate(wind$year+1900, wind$month, wind$day)
+wind$jday = as.numeric(format(wind$time, '%j'))
+wind.loc = wind.loc[match(names(wind[4:15]), wind.loc$Code),]
+stations = 4:15
+windsqrt = sqrt(0.5148 * as.matrix(wind[stations])) # knots -> m/s
+Jday = 1:366
+windsqrt = windsqrt - mean(windsqrt)
+daymeans = sapply(split(windsqrt, wind$jday), mean)
+meanwind = lowess(daymeans ~ Jday, f = 0.1)$y[wind$jday]
+velocities = apply(windsqrt, 2, function(x) { x - meanwind })
+pts = coordinates(wind.loc[match(names(wind[4:15]), wind.loc$Code),])
+rownames(pts) = wind.loc$Station
+pts = SpatialPoints(pts, CRS("+proj=longlat +datum=WGS84 +ellps=WGS84"))
+library(rgdal)
+utm29 = CRS("+proj=utm +zone=29 +datum=WGS84 +ellps=WGS84")
+pts = spTransform(pts, utm29)
+wind.data = stConstruct(velocities, space = list(values = 1:ncol(velocities)),
+                        time = wind$time, SpatialObj = pts, interval = TRUE)
+class(wind.data)
+```
+
+
+
+## Exercise
+
+Work through the contents of @pebesma_spacetime:_2012 and generate maps of shifts in wind speed in Ireland.
+
+## References
+
+
+
+	    
+    </div>
+  </div>
+</div>
+
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/Creating-maps-in-R/feed.xml" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="the.statistics.network@gmail.com" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="StatisticsNetwork" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="davan690" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="antsStats" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="statistical_adventures" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li><li><a href="+61401258042" title=""><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa  fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only"></span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      Anthony Davidson
+      &nbsp;&bull;&nbsp;
+      2019
+
+      
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">ssnhub.com</a>
+      
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="https://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/Creating-maps-in-R/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/Creating-maps-in-R/js/main.js"></script>
+    
+  
+
+
+<a href="https://paypal.me/ARDavidson?locale.x=en_AU"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate" /></a>
+    <script>
+    $( document ).ready(function() {
+        $('a').each( function() {
+            if ($(this).text().match("^\\[") && $(this).text().match("\\]$")) {
+                $(this).addClass('btn').addClass('btn-primary');
+                $(this).text($(this).text().substring(1, $(this).text().length-1));
+            }
+        });
+    });
+</script>
+
+  </body>
+<script>
+  (function() {
+    var cx = '010061006416176013100:a0xb_zzxe0q';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+</html>
