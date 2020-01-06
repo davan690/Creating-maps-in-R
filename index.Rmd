@@ -26,18 +26,17 @@ The overall objective is to create a landing page and collection of GIS work in 
 
   - Grid locations are in a `kmz` file called "invasive-species-location-research.kmz" [here](data/google-data/invasive-species-location-research.kmz)
     - `kml` file still called "invasive-species-location-research.kmz" [currently](data/google-data/invasive-species-location-research.kmz)
-  - Outline of NZ here "" [here]()
-  - Forest vegetation here "" [here]()
-  - Data from landCare 2019 publication here "" [here]()
+  - Outline of NZ
+  - Forest vegetation
+  - Data from landCare 2019 publication here
 
 ### Objective One
 
 *Produce static maps for the first publication of my PhD.*  Draft here - [Davidson2019a](https://www.ssnhub.com/beech-publication-wr/)
 
-| Datasets |                                        |
+| Datasets  |                            |
 |-----------|----------------------------|
 |Beech forest dataset | <iframe src="https://www.google.com.au/maps/d/u/0/embed?mid=1DAgemW-rkdMHTO8fxnbvbSVF4H0XNLd_" width="150" height="100"></iframe> |
->>>>>>> jekyll-testing
 
   - Grid locations are can be downloaded as a `kmz` or `kml` file. This is currently labedl "invasive-species-location-research.kml" [here](data/google-data/invasive-species-location-research.kml)
   - NZ basic map examples are here under resources chapter
@@ -50,6 +49,12 @@ The overall objective is to create a landing page and collection of GIS work in 
 ### Objective Three
 
 *Produce static maps for the following data-set* [Davidson2019c] [*same as above*]
+
+### Objective Four
+
+**Application for Australian Bushfires**
+
+<!-- ![]("C://Code/Creating-maps-in-R/img/GIS-database-book-data.PNG") -->
 
 ## Get started...
 
